@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "1. BACKGROUND COLOR (CRITICAL — measure carefully)  \n- No, the background is not pure black (#000000).  \n- The background is pure white.  \n- Exact hex: #FFFFFF (confidence: 100%).  \n- The background is uniform (no gradient, vignette, or noise).  \n- Corners and center are identical (#FFFFFF).  \n\n2. BIG COUNTER NUMBER  \n- No large numeric counter is visible.  \n\n3. GREEN NEON CURSOR ACCENT  \n- No green neon cursor/caret/underscore/bar is visible.  \n\n4. TOP BAR  \n- No top bar with text like \"NEWFORM\" and \"LOADING EXPERIENCE\" is visible.  \n- The very top of the screen shows no text or bar.  \n\n5. BOTTOM BAR  \n- No bottom bar with a status line or progress bar is visible.  \n\n6. VISUAL ISSUES  \n- The screen appears correct and clean (no rendering bugs, overlapping text, cut-off elements, missing assets, wrong colors, alignment problems, transparency issues, or other defects).",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1782365918,
+  "id": "20260625133826057baf95510a4d7e",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "20260625133826057baf95510a4d7e",
+  "usage": {
+    "completion_tokens": 220,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2117,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 2337
+  }
+}

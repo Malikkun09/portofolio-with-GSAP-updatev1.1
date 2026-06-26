@@ -1,0 +1,12 @@
+{
+  "image": "/home/z/my-project/download/loading-pure-black-mid.png",
+  "model_response": {
+    "background": "The background is pure black (#000000), with a subtle white wavy shape on the left side behind the central content.",
+    "counter_value": "48",
+    "top_bar": "Yes, the top bar has 'COMPILING' on the left and 'LOADING EXPERIENCE' on the right.",
+    "bottom_bar": "Yes, the bottom bar includes 'COMPILING NETWORK / V1.0' on the left, a green progress bar, and '0.48%' on the right.",
+    "green_accent": "Yes, there is a green vertical line next to the percentage counter (48%) and a green progress bar at the bottom of the screen.",
+    "overall_assessment": "Yes, it looks like a full black loading screen with a clean white counter in the middle and minimal neon-green accents (the green line and progress bar)."
+  },
+  "raw_text": "{\n  \"background\": \"The background is pure black (#000000), with a subtle white wavy shape on the left side behind the central content.\",\n  \"counter_value\": \"48\",\n  \"top_bar\": \"Yes, the top bar has 'COMPILING' on the left and 'LOADING EXPERIENCE' on the right.\",\n  \"bottom_bar\": \"Yes, the bottom bar includes 'COMPILING NETWORK / V1.0' on the left, a green progress bar, and '0.48%' on the right.\",\n  \"green_accent\": \"Yes, there is a green vertical line next to the percentage counter (48%) and a green progress bar at the bottom of the screen.\",\n  \"overall_assessment\": \"Yes, it looks like a full black loading screen with a clean white counter in the middle and minimal neon-green accents (the green line and progress bar).\"\n}"
+}
