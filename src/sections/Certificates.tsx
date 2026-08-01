@@ -54,16 +54,16 @@ const CertificateCard = memo(function CertificateCard({
           className="cert-thumbnail-image h-full w-full object-cover"
         />
         {pageCount > 1 && (
-          <div className="pointer-events-none absolute bottom-2 right-2 rounded-sm bg-cyber-black/80 px-2 py-1 font-mono text-[10px] text-cyber-yellow glow-box-yellow">
+          <div className="pointer-events-none absolute bottom-2 right-2 rounded-sm bg-cyber-bg/80 px-2 py-1 font-mono text-[10px] text-cyber-yellow glow-box-yellow">
             {pageCount} pages
           </div>
         )}
       </div>
       <div className="p-4">
-        <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-white transition-colors group-hover:text-cyber-blue">
+        <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-cyber-fg transition-colors group-hover:text-cyber-blue">
           {title}
         </h3>
-        <p className="line-clamp-2 text-xs leading-relaxed text-cyber-muted">
+        <p className="line-clamp-2 text-xs leading-relaxed text-cyber-fg-muted">
           {description}
         </p>
       </div>
@@ -168,7 +168,7 @@ function CertificateModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-cyber-black/95 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-cyber-bg/95 p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -177,7 +177,7 @@ function CertificateModal({
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center border border-white/10 text-white transition-colors hover:border-cyber-blue hover:text-cyber-blue"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center border border-cyber-fg/10 text-cyber-fg transition-colors hover:border-cyber-blue hover:text-cyber-blue"
         aria-label="Close certificate preview"
       >
         <X size={20} />
@@ -196,7 +196,7 @@ function CertificateModal({
               type="button"
               onClick={onPrev}
               disabled={currentPage === 0}
-              className={`absolute left-0 top-1/2 flex h-10 w-10 -translate-x-2 -translate-y-1/2 items-center justify-center border border-white/10 bg-cyber-surface transition-colors ${
+              className={`absolute left-0 top-1/2 flex h-10 w-10 -translate-x-2 -translate-y-1/2 items-center justify-center border border-cyber-fg/10 bg-cyber-bg-surface transition-colors ${
                 currentPage === 0
                   ? 'cursor-not-allowed opacity-30'
                   : 'hover:border-cyber-blue'
@@ -209,7 +209,7 @@ function CertificateModal({
               type="button"
               onClick={onNext}
               disabled={currentPage === pageCount - 1}
-              className={`absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 translate-x-2 items-center justify-center border border-white/10 bg-cyber-surface transition-colors ${
+              className={`absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 translate-x-2 items-center justify-center border border-cyber-fg/10 bg-cyber-bg-surface transition-colors ${
                 currentPage === pageCount - 1
                   ? 'cursor-not-allowed opacity-30'
                   : 'hover:border-cyber-blue'
@@ -228,7 +228,7 @@ function CertificateModal({
                   className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ${
                     i === currentPage
                       ? 'w-6 bg-cyber-blue'
-                      : 'w-1.5 bg-white/20 hover:bg-white/40'
+                      : 'w-1.5 bg-cyber-fg/20 hover:bg-cyber-fg/40'
                   }`}
                   aria-label={`Go to page ${i + 1}`}
                 />
@@ -287,7 +287,7 @@ export default function Certificates() {
       id="certificates"
       ref={sectionRef}
       className={cn(
-        'relative border-t border-white/5 py-24 lg:py-32',
+        'relative border-t border-cyber-fg/5 py-24 lg:py-32',
         inView && 'certificates-section--visible',
       )}
     >

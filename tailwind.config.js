@@ -20,6 +20,12 @@ export default {
           card: '#111111',
           border: 'rgba(255,255,255,0.08)',
           muted: '#8A8A96',
+          bg: 'rgb(var(--cyber-bg) / <alpha-value>)',
+          fg: 'rgb(var(--cyber-fg) / <alpha-value>)',
+          'fg-muted': 'rgb(var(--cyber-fg-muted) / <alpha-value>)',
+          'bg-surface': 'rgb(var(--cyber-bg-surface) / <alpha-value>)',
+          'bg-card': 'rgb(var(--cyber-bg-card) / <alpha-value>)',
+          'theme-border': 'var(--cyber-theme-border)',
         },
       },
       boxShadow: {

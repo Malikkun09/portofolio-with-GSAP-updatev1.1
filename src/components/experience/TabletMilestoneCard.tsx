@@ -44,11 +44,11 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
 
         <div
           data-milestone-card
-          className="relative z-[1] overflow-hidden rounded-xl border border-white/10 bg-cyber-card/90 backdrop-blur-md"
+          className="relative z-[1] overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
           style={{
             boxShadow: staticVisible
               ? '0 0 0 1px rgba(0,184,255,0.4), 0 0 28px rgba(0,184,255,0.25), 0 0 56px rgba(0,184,255,0.12)'
-              : '0 0 0 1px rgba(255,255,255,0.02), 0 8px 28px rgba(0,0,0,0.4)',
+              : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 8px 28px rgba(var(--cyber-card-shadow-rgb),0.2)',
           }}
         >
           <div className="relative p-3.5">
@@ -62,12 +62,12 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
               >
                 {milestone.year}
               </span>
-              <span className="font-mono text-[9px] text-white/30">0{index + 1}</span>
+              <span className="font-mono text-[9px] text-cyber-fg/30">0{index + 1}</span>
             </div>
             <h3
               data-milestone-title
               className={cn(
-                'text-xs font-bold leading-snug text-white',
+                'text-xs font-bold leading-snug text-cyber-fg',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >
@@ -76,7 +76,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
             <p
               data-milestone-company
               className={cn(
-                'mt-1 text-[10px] text-cyber-muted',
+                'mt-1 text-[10px] text-cyber-fg-muted',
                 staticVisible ? 'opacity-80' : 'opacity-50',
               )}
             >
@@ -85,7 +85,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
             <p
               data-milestone-desc
               className={cn(
-                'mt-2.5 text-[10px] leading-relaxed text-cyber-muted/90',
+                'mt-2.5 text-[10px] leading-relaxed text-cyber-fg-muted/90',
                 staticVisible ? 'opacity-90' : 'opacity-40',
               )}
             >

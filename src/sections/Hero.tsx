@@ -89,7 +89,7 @@ export default function Hero() {
         style={{ y: mobileScrollY }}
       >
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 z-20 h-12 bg-gradient-to-b from-cyber-black/80 to-transparent sm:h-14 md:h-16"
+          className="pointer-events-none absolute inset-x-0 top-0 z-20 h-12 bg-gradient-to-b from-cyber-bg/80 to-transparent sm:h-14 md:h-16"
           aria-hidden
         />
         <div className="relative h-full w-full max-w-[100vw]">
@@ -113,7 +113,7 @@ export default function Hero() {
           transition={{ duration: 0.2 }}
         >
           <motion.span
-            className="block text-white"
+            className="block text-cyber-fg"
             initial={{ opacity: 0, y: 22, filter: `blur(${motionConfig.titleBlur}px)` }}
             animate={
               appReady
@@ -142,7 +142,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.div
-          className="relative mx-auto mt-5 w-full max-w-[min(100%,22rem)] border border-white/20 px-4 py-3.5 text-center sm:max-w-sm sm:px-5 sm:py-4 md:max-w-md"
+          className="relative mx-auto mt-5 w-full max-w-[min(100%,22rem)] border border-cyber-fg/20 px-4 py-3.5 text-center sm:max-w-sm sm:px-5 sm:py-4 md:max-w-md"
           initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
           animate={
             appReady
@@ -155,7 +155,7 @@ export default function Hero() {
           <BioCorner position="tr" ready={appReady} />
           <BioCorner position="bl" ready={appReady} />
           <BioCorner position="br" ready={appReady} />
-          <p className="text-[0.9rem] leading-relaxed text-white/85 sm:text-[0.95rem] md:text-base">
+          <p className="text-[0.9rem] leading-relaxed text-cyber-fg/85 sm:text-[0.95rem] md:text-base">
             {BIO_TEXT}
           </p>
         </motion.div>
@@ -193,7 +193,7 @@ export default function Hero() {
             style={{ y: contentY }}
           >
             <motion.div
-              className="relative w-full max-w-xl border border-white/[0.06] bg-cyber-black/45 p-9 pl-11 backdrop-blur-[2px] glow-panel lg:border-l-cyber-blue/25 xl:max-w-2xl xl:p-10 xl:pl-12"
+              className="relative w-full max-w-xl border border-cyber-fg/[0.06] bg-cyber-bg/45 p-9 pl-11 backdrop-blur-[2px] glow-panel lg:border-l-cyber-blue/25 xl:max-w-2xl xl:p-10 xl:pl-12"
               initial={{ opacity: 0, x: 28, filter: 'blur(8px)' }}
               animate={
                 appReady
@@ -229,7 +229,7 @@ export default function Hero() {
                 animate={appReady ? { opacity: 1 } : { opacity: 0 }}
               >
                 <motion.span
-                  className="block text-white"
+                  className="block text-cyber-fg"
                   initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
                   animate={
                     appReady
@@ -261,7 +261,7 @@ export default function Hero() {
               </motion.h1>
 
               <motion.p
-                className="mb-9 max-w-2xl text-[1.125rem] leading-relaxed text-white/75 xl:text-xl"
+                className="mb-9 max-w-2xl text-[1.125rem] leading-relaxed text-cyber-fg/75 xl:text-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={appReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: appReady ? motionConfig.bioDelay : 0 }}
@@ -288,7 +288,7 @@ export default function Hero() {
               </motion.div>
 
               <motion.div
-                className="mt-8 hidden gap-5 border-t border-white/10 pt-8 lg:grid lg:grid-cols-3"
+                className="mt-8 hidden gap-5 border-t border-cyber-fg/10 pt-8 lg:grid lg:grid-cols-3"
                 initial="hidden"
                 animate={appReady ? 'visible' : 'hidden'}
                 variants={{
@@ -310,14 +310,14 @@ export default function Hero() {
                     <p className="font-mono text-[10px] uppercase tracking-widest text-cyber-blue">
                       {item.label}
                     </p>
-                    <p className="mt-1.5 text-xs leading-snug text-white/55">{item.value}</p>
+                    <p className="mt-1.5 text-xs leading-snug text-cyber-fg/55">{item.value}</p>
                   </motion.div>
                 ))}
               </motion.div>
             </motion.div>
 
             <motion.p
-              className="mt-4 text-left font-mono text-[10px] uppercase tracking-[0.2em] text-white/25"
+              className="mt-4 text-left font-mono text-[10px] uppercase tracking-[0.2em] text-cyber-fg/25"
               initial={{ opacity: 0 }}
               animate={appReady ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.7, delay: appReady ? 0.95 : 0 }}
@@ -329,7 +329,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-gradient-to-t from-cyber-black to-transparent lg:h-28"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-16 bg-gradient-to-t from-cyber-bg to-transparent lg:h-28"
         aria-hidden
       />
     </section>

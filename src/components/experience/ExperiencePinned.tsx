@@ -17,6 +17,7 @@ import {
 import { useExperienceJourney } from '@/hooks/use-experience-journey'
 import { useMobileExperienceJourney } from '@/hooks/use-mobile-experience-journey'
 import { useTabletExperienceJourney } from '@/hooks/use-tablet-experience-journey'
+import { useAppReady } from '@/contexts/AppReadyContext'
 
 type DeviceKind = 'mobile' | 'tablet' | 'desktop'
 
@@ -26,15 +27,13 @@ function resolveDevice(width: number): DeviceKind {
   return 'desktop'
 }
 
-const PIN_BASE_CLASS =
-  'experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-black'
-
 export default function ExperiencePinned() {
   const desktopPinRef = useRef<HTMLDivElement>(null)
   const tabletPinRef = useRef<HTMLDivElement>(null)
   const mobilePinRef = useRef<HTMLDivElement>(null)
   const [device, setDevice] = useState<DeviceKind | null>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const appReady = useAppReady()
 
   useEffect(() => {
     const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -51,31 +50,23 @@ export default function ExperiencePinned() {
     }
   }, [])
 
-  const scrollEnabled = !reducedMotion
+  const scrollEnabled = !reducedMotion && appReady
 
-  // Each hook is gated by `enabled` AND only mounts its layout for the current
-  // device. Because the layout is conditionally rendered below (only ONE of
-  // mobile/tablet/desktop is ever in the DOM at a time), there is exactly one
-  // ScrollTrigger per section — no conflicts, no measuring of hidden elements.
   useExperienceJourney(desktopPinRef, scrollEnabled && device === 'desktop')
   useTabletExperienceJourney(tabletPinRef, scrollEnabled && device === 'tablet')
   useMobileExperienceJourney(mobilePinRef, scrollEnabled && device === 'mobile')
 
   return (
-    <section id="experience" className="relative w-full overflow-x-clip border-t border-white/5 bg-cyber-black">
+    <section id="experience" className="relative w-full overflow-x-clip border-t border-cyber-fg/5 bg-cyber-bg">
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(0,184,255,0.06)_0%,transparent_60%)]"
         aria-hidden
       />
 
-      {/* Mount guard — render a placeholder until the device is resolved.
-          This prevents a flash of wrong layout and ensures GSAP measures a
-          correctly-sized element when the device-specific layout mounts. */}
       {device === null ? (
-        <div className="min-h-[100dvh] bg-cyber-black" aria-hidden />
+        <div className="min-h-[100dvh] bg-cyber-bg" aria-hidden />
       ) : device === 'mobile' ? (
-        /* ===================== MOBILE (<768px) ===================== */
-        <div ref={mobilePinRef} className={PIN_BASE_CLASS}>
+        <div ref={mobilePinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-5 pb-2 pt-20">
             <SectionHeading
               label="Experience"
@@ -87,7 +78,6 @@ export default function ExperiencePinned() {
           </div>
 
           <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center px-3 pb-8">
-            {/* Horizontal journey field — all 4 cards fit in viewport */}
             <div className="relative mx-auto aspect-[3/4] w-full max-w-[420px]">
               <MobileJourneyPath staticVisible={!scrollEnabled} />
 
@@ -106,8 +96,7 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : device === 'tablet' ? (
-        /* ===================== TABLET (768–1023px) ===================== */
-        <div ref={tabletPinRef} className={PIN_BASE_CLASS}>
+        <div ref={tabletPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-8 pb-4 pt-24">
             <SectionHeading
               label="Experience"
@@ -137,8 +126,7 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : (
-        /* ===================== DESKTOP (≥1024px) ===================== */
-        <div ref={desktopPinRef} className={PIN_BASE_CLASS}>
+        <div ref={desktopPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-4 pb-4 pt-24 lg:px-12">
             <SectionHeading
               label="Experience"

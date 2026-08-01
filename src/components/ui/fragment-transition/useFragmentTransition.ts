@@ -17,6 +17,16 @@ import {
 } from './galleryStateMachine'
 import { buildFragmentTimeline, killTimeline } from './transitionTimeline'
 
+function getCssVar(name: string): string {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+}
+
+function resolveCanvasBgColor(): string {
+  const raw = getCssVar('--cyber-bg')
+  if (!raw) return '#050505'
+  return `rgb(${raw})`
+}
+
 export type RevealMode = 'hover' | 'click' | 'hover-click' | 'gallery'
 
 interface UseFragmentTransitionOptions {
@@ -99,7 +109,7 @@ export function useFragmentTransition({
     if (!ctx) return
 
     const { width, height } = dimensionsRef.current
-    drawTiles(ctx, tilesRef.current, fromImage, width, height)
+    drawTiles(ctx, tilesRef.current, fromImage, width, height, resolveCanvasBgColor())
   }, [])
 
   const commitIndex = useCallback(

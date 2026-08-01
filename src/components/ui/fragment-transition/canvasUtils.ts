@@ -96,6 +96,7 @@ export function drawTiles(
   fromImage: HTMLImageElement,
   canvasWidth: number,
   canvasHeight: number,
+  bgColor: string = '#050505',
 ) {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
@@ -138,7 +139,7 @@ export function drawTiles(
 
     if (darken > 0 && alpha > 0) {
       ctx.globalAlpha = alpha * Math.min(darken * 1.12, 1)
-      ctx.fillStyle = '#050505'
+      ctx.fillStyle = bgColor
       ctx.fillRect(0, 0, tile.w, tile.h)
     }
 

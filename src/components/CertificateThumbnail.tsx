@@ -70,7 +70,7 @@ const CertificateThumbnail = memo(function CertificateThumbnail({
   const showSkeleton = !visible
 
   return (
-    <div className="relative h-full min-h-[120px] w-full bg-cyber-black">
+    <div className="relative h-full min-h-[120px] w-full bg-cyber-bg">
       {showSkeleton && (
         <Skeleton
           className="absolute inset-0 animate-none"
@@ -95,7 +95,7 @@ const CertificateThumbnail = memo(function CertificateThumbnail({
         />
       )}
       {phase === 'error' && (
-        <div className="absolute inset-0 flex items-center justify-center bg-cyber-black/80 px-3 text-center font-mono text-[10px] uppercase tracking-wider text-cyber-muted">
+        <div className="absolute inset-0 flex items-center justify-center bg-cyber-bg/80 px-3 text-center font-mono text-[10px] uppercase tracking-wider text-cyber-fg-muted">
           Preview unavailable
         </div>
       )}

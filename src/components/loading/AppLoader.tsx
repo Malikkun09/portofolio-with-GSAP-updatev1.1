@@ -2,7 +2,6 @@ import { useEffect, useState, type ReactNode } from 'react'
 import LoadingScreen from './LoadingScreen'
 import { AppReadyProvider } from '@/contexts/AppReadyContext'
 import { preloadCriticalAssets, waitForFonts } from '@/lib/preload-assets'
-import { cn } from '@/lib/utils'
 
 const MIN_LOADING_MS = 2200
 
@@ -90,7 +89,7 @@ export default function AppLoader({ children }: AppLoaderProps) {
   return (
     <AppReadyProvider ready={phase === 'done'}>
       <div
-        className={cn(showLoader && 'pointer-events-none select-none opacity-0')}
+        className={showLoader ? 'pointer-events-none select-none opacity-0' : undefined}
         aria-hidden={showLoader}
       >
         {children}

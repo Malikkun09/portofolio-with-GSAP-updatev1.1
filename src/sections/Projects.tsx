@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from 'lucide-react'
+import { Github, Wrench } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { projects } from '@/data/portfolio'
 import LazyImage from '@/components/LazyImage'
@@ -19,14 +19,14 @@ function ProjectCard({
   compact?: boolean
 }) {
   return (
-    <article className="project-card-static group overflow-hidden rounded-xl border border-white/10 bg-cyber-surface">
+    <article className="project-card-static group overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-surface">
       <div className="relative aspect-video overflow-hidden">
         <LazyImage
           src={project.image}
           alt={project.title}
           className="h-full w-full object-cover"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-cyber-black/70 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-cyber-bg/70 via-transparent to-transparent" />
       </div>
       <div className="p-5">
         <ProjectContent project={project} compact={compact} />
@@ -45,12 +45,12 @@ function ProjectContent({
   return (
     <>
       <span className="section-label mb-2 block">Project</span>
-      <h3 className={cn('font-bold text-white', compact ? 'mb-2 text-lg' : 'mb-3 text-2xl sm:text-3xl')}>
+      <h3 className={cn('font-bold text-cyber-fg', compact ? 'mb-2 text-lg' : 'mb-3 text-2xl sm:text-3xl')}>
         {project.title}
       </h3>
       <p
         className={cn(
-          'leading-relaxed text-cyber-muted',
+          'leading-relaxed text-cyber-fg-muted',
           compact ? 'mb-4 line-clamp-2 text-sm' : 'mb-6 max-w-lg text-sm sm:text-base',
         )}
       >
@@ -67,15 +67,13 @@ function ProjectContent({
         ))}
       </div>
       <div className="flex flex-wrap gap-3">
-        <a
-          href={project.live}
-          className="btn-primary py-2.5 text-xs"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          disabled
+          className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-cyber-yellow/40 bg-cyber-yellow/10 px-5 py-2.5 text-xs text-cyber-yellow opacity-80"
         >
-          <ExternalLink size={16} />
-          Live Demo
-        </a>
+          <Wrench size={16} />
+          Sedang Maintenance
+        </button>
         <a
           href={project.github}
           className="btn-outline py-2.5 text-xs"
@@ -98,7 +96,7 @@ export default function Projects() {
       id="projects"
       ref={ref}
       className={cn(
-        'relative overflow-hidden border-t border-white/5 bg-cyber-black py-24 lg:py-32',
+        'relative overflow-hidden border-t border-cyber-fg/5 bg-cyber-bg py-24 lg:py-32',
         inView && 'projects-section--visible',
       )}
     >

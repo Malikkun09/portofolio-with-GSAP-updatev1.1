@@ -47,7 +47,7 @@ const BrandedMarker = forwardRef<HTMLDivElement, BrandedMarkerProps>(
         {/* Token body */}
         <div
           data-marker-body
-          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-black/90 backdrop-blur-sm"
+          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-bg/90 backdrop-blur-sm"
           style={{
             boxShadow:
               '0 0 0 1px rgba(0,184,255,0.25), 0 0 24px rgba(0,184,255,0.4), 0 0 48px rgba(0,184,255,0.15)',

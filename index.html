@@ -11,6 +11,27 @@
     />
     <meta name="author" content="Malik Fajar" />
     <meta name="theme-color" content="#050505" />
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem('mf-theme')
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isLight = stored ? stored === 'light' : prefersLight
+          if (isLight) {
+            document.documentElement.classList.add('light')
+            document.documentElement.style.colorScheme = 'light'
+          }
+        } catch (e) {
+          // Ignore storage errors.
+        }
+
+        // Always start at top on reload
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual'
+        }
+        window.scrollTo(0, 0)
+      })()
+    </script>
     <meta property="og:title" content="Malik Fajar — Cybersecurity & Developer Portfolio" />
     <meta
       property="og:description"

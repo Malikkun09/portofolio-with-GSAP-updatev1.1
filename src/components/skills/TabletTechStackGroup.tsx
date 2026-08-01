@@ -67,7 +67,7 @@ const TabletTechStackGroup = forwardRef<HTMLDivElement, TabletTechStackGroupProp
         >
           <div className="relative flex h-full flex-col p-5">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <h3 className="text-lg font-bold text-white">{group.title}</h3>
+              <h3 className="text-lg font-bold text-cyber-fg">{group.title}</h3>
               <span
                 data-group-label
                 className={cn(
@@ -86,7 +86,7 @@ const TabletTechStackGroup = forwardRef<HTMLDivElement, TabletTechStackGroupProp
                   key={skill}
                   data-tech-chip
                   className={cn(
-                    'tech-stack-chip rounded-md border px-2.5 py-1.5 font-mono text-[11px] text-white/80',
+                    'tech-stack-chip rounded-md border px-2.5 py-1.5 font-mono text-[11px] text-cyber-fg/80',
                     staticVisible && 'opacity-100',
                   )}
                   style={{

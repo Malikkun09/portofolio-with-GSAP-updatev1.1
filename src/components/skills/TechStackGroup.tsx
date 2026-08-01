@@ -79,7 +79,7 @@ const TechStackGroup = forwardRef<HTMLDivElement, TechStackGroupProps>(
 
           <div className="relative p-4 sm:p-5">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <h3 className="text-base font-bold text-white sm:text-lg">{group.title}</h3>
+              <h3 className="text-base font-bold text-cyber-fg sm:text-lg">{group.title}</h3>
               <span
                 data-group-label
                 className="font-mono text-[10px] font-medium tracking-widest opacity-60"
@@ -95,7 +95,7 @@ const TechStackGroup = forwardRef<HTMLDivElement, TechStackGroupProps>(
                   key={skill}
                   data-tech-chip
                   className={cn(
-                    'tech-stack-chip rounded-md border px-2 py-1 font-mono text-[10px] text-white/75 sm:px-2.5 sm:py-1.5 sm:text-[11px]',
+                    'tech-stack-chip rounded-md border px-2 py-1 font-mono text-[10px] text-cyber-fg/75 sm:px-2.5 sm:py-1.5 sm:text-[11px]',
                     staticVisible && 'opacity-100',
                   )}
                   style={{

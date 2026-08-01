@@ -31,7 +31,7 @@ export default function HeroAboutMarquee() {
   return (
     <RevealOnScroll y={12} scale={1}>
     <div
-      className="relative z-30 border-t border-white/5 bg-cyber-black"
+      className="relative z-30 border-t border-cyber-fg/5 bg-cyber-bg"
       aria-label="Skills and focus areas"
     >
       <div

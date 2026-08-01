@@ -10,7 +10,7 @@ import Skills from '../sections/Skills'
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full max-w-full overflow-x-clip bg-cyber-black">
+    <div className="relative min-h-screen w-full max-w-full overflow-x-clip bg-cyber-bg">
       <div className="pointer-events-none fixed inset-0 cyber-grid-bg opacity-40" aria-hidden />
       <main className="overflow-x-clip">
         <Hero />

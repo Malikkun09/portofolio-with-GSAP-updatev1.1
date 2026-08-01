@@ -10,6 +10,7 @@ import { TECH_STACK_GROUPS } from '@/components/skills/tech-stack-config'
 import { useTechStackScroll } from '@/hooks/use-tech-stack-scroll'
 import { useMobileTechStackScroll } from '@/hooks/use-mobile-tech-stack-scroll'
 import { useTabletTechStackScroll } from '@/hooks/use-tablet-tech-stack-scroll'
+import { useAppReady } from '@/contexts/AppReadyContext'
 
 type DeviceKind = 'mobile' | 'tablet' | 'desktop'
 
@@ -25,52 +26,42 @@ export default function TechStackPinned() {
   const mobilePinRef = useRef<HTMLDivElement>(null)
   const [device, setDevice] = useState<DeviceKind | null>(null)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const appReady = useAppReady()
 
   useEffect(() => {
+    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
     const update = () => {
       setDevice(resolveDevice(window.innerWidth))
-      setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      setReducedMotion(motionMq.matches)
     }
     update()
     window.addEventListener('resize', update)
-    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', update)
+    motionMq.addEventListener('change', update)
     return () => {
       window.removeEventListener('resize', update)
-      window.matchMedia('(prefers-reduced-motion: reduce)').removeEventListener('change', update)
+      motionMq.removeEventListener('change', update)
     }
   }, [])
 
-  const scrollEnabled = !reducedMotion
+  const scrollEnabled = !reducedMotion && appReady
 
-  // Each hook is gated by `enabled` AND only mounts its layout for the current
-  // device. Because the layout is conditionally rendered below (only ONE of
-  // mobile/tablet/desktop is ever in the DOM at a time), there is exactly one
-  // ScrollTrigger per section — no conflicts, no measuring of hidden elements.
-  useTechStackScroll(
-    desktopPinRef,
-    scrollEnabled && device === 'desktop',
-    false,
-  )
+  useTechStackScroll(desktopPinRef, scrollEnabled && device === 'desktop', false)
   useTabletTechStackScroll(tabletPinRef, scrollEnabled && device === 'tablet')
   useMobileTechStackScroll(mobilePinRef, scrollEnabled && device === 'mobile')
 
   return (
-    <section id="skills" className="relative w-full overflow-x-clip border-t border-white/5 bg-cyber-black">
+    <section id="skills" className="relative w-full overflow-x-clip border-t border-cyber-fg/5 bg-cyber-bg">
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(0,184,255,0.07)_0%,transparent_58%)]"
         aria-hidden
       />
 
-      {/* Mount guard — render a placeholder until the device is resolved.
-          This prevents a flash of wrong layout and ensures GSAP measures a
-          correctly-sized element when the device-specific layout mounts. */}
       {device === null ? (
-        <div className="min-h-[100dvh] bg-cyber-black" aria-hidden />
+        <div className="min-h-[100dvh] bg-cyber-bg" aria-hidden />
       ) : device === 'mobile' ? (
-        /* ===================== MOBILE (<768px) ===================== */
         <div
           ref={mobilePinRef}
-          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-black"
+          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg"
         >
           <div className="relative z-30 shrink-0 px-5 pb-4 pt-20">
             <SectionHeading
@@ -98,10 +89,9 @@ export default function TechStackPinned() {
           </div>
         </div>
       ) : device === 'tablet' ? (
-        /* ===================== TABLET (768–1023px) ===================== */
         <div
           ref={tabletPinRef}
-          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-black"
+          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg"
         >
           <div className="relative z-30 shrink-0 px-8 pb-4 pt-24">
             <SectionHeading
@@ -130,10 +120,9 @@ export default function TechStackPinned() {
           </div>
         </div>
       ) : (
-        /* ===================== DESKTOP (≥1024px) ===================== */
         <div
           ref={desktopPinRef}
-          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-black"
+          className="tech-stack-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg"
         >
           <div className="relative z-30 shrink-0 px-4 pb-4 pt-24 lg:px-12">
             <SectionHeading

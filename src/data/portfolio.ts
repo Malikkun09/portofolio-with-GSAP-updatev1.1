@@ -45,9 +45,9 @@ export const about = {
   headline: "Hey! I'm Malik.",
   profileImage: '/images/profile.jpg',
   profileImageHover: '/images/MalikProfile.png',
-  profileImageLongPress: '/images/MyAnime.jpeg',
+  profileImageLongPress: '/images/eyeclosemalik.png',
   paragraphs: [
-    "I'm a Grade 11 student at SMK Informatika Fithrah Insani who is passionate about cybersecurity and web security. I focus on learning how to build secure, reliable web experiences and understanding the fundamentals behind them.",
+    "I'm a Grade 12 student at SMK Informatika Fithrah Insani who is passionate about cybersecurity and web security. I focus on learning how to build secure, reliable web experiences and understanding the fundamentals behind them.",
     "Right now I'm learning pentesting and application security. I also explore 3D web technology and modern UI to sharpen my skills and creativity.",
   ],
   interests: [
@@ -60,7 +60,7 @@ export const about = {
 export const aboutCards = [
   {
     label: 'Education',
-    value: 'Grade 11 PPLG',
+    value: 'Grade 12 PPLG',
     detail: 'SMK Informatika Fithrah Insani',
   },
   {
@@ -324,6 +324,12 @@ export const certificates = [
     description:
       'Attendance certificate as a participant of the IMPHNEN x Kolosal AI Hackathon at the IMPHNEN community, December 7, 2025.',
   },
+  {
+    title: 'IDCloudHost — The Power of Autonomous AI',
+    pages: ['/Sertifikat/Sertifikat11.png'],
+    description:
+      'Mengikuti acara komunitas teknologi yang diselenggarakan oleh IDCloudHost dengan tema "The Power of Autonomous AI" yang membahas perancangan Hermes Agent sebagai asisten AI mandiri. Materi meliputi konsep AI Agent, otomatisasi workflow, implementasi Autonomous AI, serta pemanfaatan infrastruktur cloud untuk pengembangan AI modern.',
+  },
 ] as const
 
 export const certificatesSection = {
@@ -359,35 +365,35 @@ export const contactLinks = [
     label: 'GitHub',
     value: 'MalikSMK09',
     href: 'https://github.com/MalikSMK09/',
-    accent: 'yellow' as const,
+    accent: 'blue' as const,
   },
   {
     id: 'website-primary',
-    label: 'Website',
+    label: 'Main Website',
     value: 'malikfajar.my.id',
     href: 'https://malikfajar.my.id',
     accent: 'yellow' as const,
   },
   {
     id: 'website-alt',
-    label: 'Website',
+    label: 'PKL Project',
     value: 'malikdev.dpdns.org',
     href: 'https://malikdev.dpdns.org',
     accent: 'yellow' as const,
   },
   {
     id: 'website-me',
-    label: 'Website',
+    label: 'Portfolio',
     value: 'malikfajar.me',
     href: 'https://malikfajar.me',
-    accent: 'purple' as const,
+    accent: 'yellow' as const,
   },
   {
     id: 'website-tech',
     label: 'Website',
     value: 'malikfajar.tech',
     href: 'https://malikfajar.tech',
-    accent: 'purple' as const,
+    accent: 'yellow' as const,
   },
   {
     id: 'whatsapp',

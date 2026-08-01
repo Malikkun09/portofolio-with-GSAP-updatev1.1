@@ -31,16 +31,19 @@ function isEmailLink(link: (typeof contactLinks)[number]): boolean {
 const accentStyles = {
   blue: {
     label: 'text-cyber-blue',
+    value: 'text-cyber-fg/90',
     hoverBorder: 'hover:border-cyber-blue/30',
     icon: 'group-hover:text-cyber-blue',
   },
   yellow: {
     label: 'text-cyber-yellow',
+    value: 'text-cyber-fg/90',
     hoverBorder: 'hover:border-cyber-yellow/30',
     icon: 'group-hover:text-cyber-yellow',
   },
   purple: {
     label: 'text-cyber-purple',
+    value: 'text-cyber-fg/90',
     hoverBorder: 'hover:border-cyber-purple/35',
     icon: 'group-hover:text-cyber-purple',
   },
@@ -53,7 +56,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="relative border-t border-white/5 py-24 lg:py-32"
+      className="relative border-t border-cyber-fg/5 py-24 lg:py-32"
     >
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-px w-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyber-blue/20 to-transparent"
@@ -84,8 +87,8 @@ export default function Contact() {
                   target={isEmailLink(link) ? undefined : '_blank'}
                   rel={isEmailLink(link) ? undefined : 'noopener noreferrer'}
                   className="block"
-                  innerClassName={cn(
-                    'flex items-center justify-between border border-white/10 bg-cyber-surface p-6 transition-colors duration-300',
+                    innerClassName={cn(
+                    'flex items-center justify-between border border-cyber-fg/10 bg-cyber-bg-surface p-6 transition-colors duration-300',
                     accent.hoverBorder,
                   )}
                 >
@@ -101,7 +104,7 @@ export default function Contact() {
                     <p
                       className={cn(
                         'text-sm font-medium',
-                        link.accent === 'purple' ? 'text-cyber-purple/90' : 'text-white',
+                        accent.value,
                       )}
                     >
                       {link.value}
@@ -110,12 +113,12 @@ export default function Contact() {
                   {isEmailLink(link) ? (
                     <Mail
                       size={20}
-                      className={cn('text-white/30 transition-colors', accent.icon)}
+                      className={cn('text-cyber-fg/30 transition-colors', accent.icon)}
                     />
                   ) : (
                     <ArrowUpRight
                       size={20}
-                      className={cn('text-white/30 transition-colors', accent.icon)}
+                      className={cn('text-cyber-fg/30 transition-colors', accent.icon)}
                     />
                   )}
                 </AnimatedGlowBorder>

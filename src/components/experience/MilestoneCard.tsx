@@ -63,11 +63,11 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
 
         <div
           data-milestone-card
-          className="relative z-[1] overflow-hidden rounded-xl border border-white/10 bg-cyber-card/90 backdrop-blur-md"
+          className="relative z-[1] overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
           style={{
             boxShadow: staticVisible
               ? '0 0 0 1px rgba(0,184,255,0.3), 0 0 28px rgba(0,184,255,0.18)'
-              : '0 0 0 1px rgba(255,255,255,0.02), 0 8px 28px rgba(0,0,0,0.4)',
+              : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 8px 28px rgba(var(--cyber-card-shadow-rgb),0.2)',
           }}
         >
           <div className="relative p-4 sm:p-5">
@@ -83,7 +83,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
               </span>
               <span
                 data-milestone-index-label
-                className="font-mono text-[10px] text-white/30"
+                className="font-mono text-[10px] text-cyber-fg/30"
               >
                 0{index + 1}
               </span>
@@ -92,7 +92,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <h3
               data-milestone-title
               className={cn(
-                'text-sm font-bold leading-snug text-white sm:text-base',
+                'text-sm font-bold leading-snug text-cyber-fg sm:text-base',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >
@@ -102,7 +102,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-company
               className={cn(
-                'mt-1 text-[11px] text-cyber-muted sm:text-xs',
+                'mt-1 text-[11px] text-cyber-fg-muted sm:text-xs',
                 staticVisible ? 'opacity-80' : 'opacity-50',
               )}
             >
@@ -112,7 +112,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-desc
               className={cn(
-                'mt-3 text-[11px] leading-relaxed text-cyber-muted/90 sm:text-xs',
+                'mt-3 text-[11px] leading-relaxed text-cyber-fg-muted/90 sm:text-xs',
                 staticVisible ? 'opacity-90' : 'opacity-40',
               )}
             >

@@ -97,7 +97,7 @@ export default function AboutProfileImage({ className }: AboutProfileImageProps)
             tileSize={14}
             animationDuration={0.85}
             revealMode="gallery"
-            badgeLabels={['Student', 'Profile', 'Anime Mode']}
+            badgeLabels={['Student', 'Profile', 'My Style']}
           />
         </AnimatedGlowBorder>
       </motion.div>

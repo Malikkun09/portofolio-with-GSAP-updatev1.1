@@ -24,8 +24,8 @@ export default function About() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal variant="slide-left" className="order-2 lg:order-1">
-            <SectionHeading label="About" title="Who I Am" className="mb-6" />
-            <h3 className="mb-6 text-2xl font-bold text-white sm:text-3xl lg:mb-8">{about.headline}</h3>
+            <SectionHeading label="About" title="Who I Am?" className="mb-6" />
+            <h3 className="mb-6 text-2xl font-bold text-cyber-fg sm:text-3xl lg:mb-8">{about.headline}</h3>
 
             <StaggerChildren className="mb-8 grid gap-4 sm:grid-cols-2">
               {aboutCards.map((card) => (
@@ -33,12 +33,12 @@ export default function About() {
                   <HoverLift>
                     <AnimatedGlowBorder
                     intensity="subtle"
-                    innerClassName="border border-white/5 bg-cyber-surface p-4 transition-colors duration-300 hover:bg-cyber-card"
+                    innerClassName="border border-cyber-fg/5 bg-cyber-bg-surface p-4 transition-colors duration-300 hover:bg-cyber-bg-card"
                   >
                     <p className="font-mono text-[10px] uppercase tracking-widest text-cyber-blue">
                       {card.label}
                     </p>
-                    <p className="mt-1 font-semibold text-white">{card.value}</p>
+                    <p className="mt-1 font-semibold text-cyber-fg">{card.value}</p>
                     <p className="mt-1 text-xs text-cyber-muted">{card.detail}</p>
                   </AnimatedGlowBorder>
                   </HoverLift>
@@ -52,7 +52,7 @@ export default function About() {
                   key={item}
                   whileHover={{ y: -2, scale: 1.03 }}
                   transition={{ duration: 0.25 }}
-                  className="border border-white/10 px-3 py-1.5 font-mono text-xs text-white/70 transition-colors hover:border-cyber-yellow/30 hover:text-cyber-yellow"
+                  className="border border-white/10 px-3 py-1.5 font-mono text-xs text-cyber-fg/70 transition-colors hover:border-cyber-yellow/30 hover:text-cyber-yellow"
                 >
                   {item}
                 </motion.span>

@@ -86,7 +86,7 @@ export default function ImageFragmentTransition({
       <motion.div
         ref={containerRef}
         className={cn(
-          'gallery-image relative aspect-square overflow-hidden bg-cyber-card',
+          'gallery-image relative aspect-square overflow-hidden bg-cyber-bg-card',
           !isTouch && 'cursor-pointer select-none',
           isInteractive && 'gallery-image--active',
           isLocked && 'gallery-image--locked',
@@ -136,13 +136,13 @@ export default function ImageFragmentTransition({
           />
         )}
 
-        <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-cyber-black/55 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-cyber-bg/55 via-transparent to-transparent" />
       </motion.div>
 
       {badgeLabels && (
         <div
           className={cn(
-            'pointer-events-none absolute -bottom-3 -right-3 z-30 border bg-cyber-black px-4 py-2 transition-all duration-300',
+            'pointer-events-none absolute -bottom-3 -right-3 z-30 border bg-cyber-bg px-4 py-2 transition-all duration-300',
             isLocked
               ? 'border-cyber-yellow/60 shadow-glow-yellow'
               : 'border-cyber-yellow/35',
@@ -153,7 +153,7 @@ export default function ImageFragmentTransition({
       )}
 
       {hint && (
-        <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-widest text-white/30 lg:text-left">
+        <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-widest text-cyber-fg/30 lg:text-left">
           {isTouch ? 'Tap to explore' : hint}
         </p>
       )}

@@ -25,9 +25,9 @@ export default function PremiumCTA({
         inView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
         className,
       )}
-      innerClassName="bg-cyber-surface/80 p-8 text-center backdrop-blur-sm sm:p-10"
+      innerClassName="bg-cyber-bg-surface/80 p-8 text-center backdrop-blur-sm sm:p-10"
     >
-      <p className="mb-6 text-lg font-semibold text-white sm:text-xl">{title}</p>
+      <p className="mb-6 text-lg font-semibold text-cyber-fg sm:text-xl">{title}</p>
 
       <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Magnetic strength={0.22}>
@@ -82,7 +82,7 @@ export function PremiumLinkCTA({ href, children, onClick, className }: PremiumLi
         href={href}
         onClick={onClick}
         className={cn(
-          'group relative inline-flex items-center gap-2 font-semibold text-white transition-colors hover:text-cyber-blue',
+          'group relative inline-flex items-center gap-2 font-semibold text-cyber-fg transition-colors hover:text-cyber-blue',
           className,
         )}
       >

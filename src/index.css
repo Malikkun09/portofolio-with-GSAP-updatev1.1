@@ -5,6 +5,28 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --cyber-bg: 5 5 5;
+    --cyber-fg: 255 255 255;
+    --cyber-fg-muted: 138 138 150;
+    --cyber-bg-surface: 12 12 12;
+    --cyber-bg-card: 17 17 17;
+    --cyber-theme-border: rgba(255, 255, 255, 0.08);
+    --cyber-card-shadow-rgb: 0, 0, 0;
+    --cyber-bg-node: 5, 5, 5;
+  }
+
+  html.light {
+    --cyber-bg: 255 255 255;
+    --cyber-fg: 5 5 5;
+    --cyber-fg-muted: 82 82 91;
+    --cyber-bg-surface: 244 244 245;
+    --cyber-bg-card: 255 255 255;
+    --cyber-theme-border: rgba(0, 0, 0, 0.08);
+    --cyber-card-shadow-rgb: 82, 82, 91;
+    --cyber-bg-node: 255, 255, 255;
+  }
+
   * {
     @apply border-cyber-border;
   }
@@ -24,11 +46,19 @@
   }
 
   body {
-    @apply bg-cyber-black text-white antialiased;
+    background-color: rgb(var(--cyber-bg));
+    color: rgb(var(--cyber-fg));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Space Grotesk', sans-serif;
     width: 100%;
     max-width: 100%;
     overflow-x: clip;
+  }
+
+  html.light ::selection {
+    background: rgba(0, 184, 255, 0.2);
+    color: #050505;
   }
 
   #root {
@@ -770,11 +800,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: rgb(var(--cyber-bg));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: rgb(var(--cyber-bg-surface));
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -826,7 +856,7 @@
   z-index: -1;
   width: 100vw;
   transform: translateX(-50%);
-  background-color: #050505;
+  background-color: rgb(var(--cyber-bg));
   pointer-events: none;
 }
 
@@ -882,4 +912,85 @@
   50% {
     opacity: 0.45;
   }
+}
+
+/* Light mode overrides for hardcoded dark utility classes */
+html.light .text-white {
+  color: rgb(var(--cyber-fg));
+}
+
+html.light [class*='hover\:text-white']:hover {
+  color: rgb(var(--cyber-fg));
+}
+
+html.light .bg-cyber-black {
+  background-color: rgb(var(--cyber-bg));
+}
+
+html.light .bg-cyber-surface {
+  background-color: rgb(var(--cyber-bg-surface));
+}
+
+html.light .bg-cyber-card,
+html.light .hover\:bg-cyber-card:hover {
+  background-color: rgb(var(--cyber-bg-card));
+}
+
+html.light .text-cyber-muted {
+  color: rgb(var(--cyber-fg-muted));
+}
+
+html.light .border-white\/5,
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/20,
+html.light .border-white\/30 {
+  border-color: var(--cyber-theme-border);
+}
+
+html.light [class*='border-white/']:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+html.light .from-cyber-black\/80,
+html.light .from-cyber-black\/70,
+html.light .from-cyber-black {
+  --tw-gradient-from: rgb(var(--cyber-bg)) var(--tw-gradient-from-position);
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+html.light .to-cyber-black {
+  --tw-gradient-to: rgb(var(--cyber-bg)) var(--tw-gradient-to-position);
+}
+
+html.light .cyber-card {
+  background-color: rgb(var(--cyber-bg-card));
+  border-color: var(--cyber-theme-border);
+}
+
+html.light .cyber-card:hover {
+  border-color: rgba(0, 184, 255, 0.2);
+}
+
+html.light .btn-outline {
+  color: rgb(var(--cyber-fg));
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+html.light .btn-outline:hover {
+  color: rgb(var(--cyber-fg));
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f4f4f5;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #00b8ff;
 }

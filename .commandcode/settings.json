@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(npm:*)",
+      "Shell(cd:*)",
+      "Shell(npx tsc --noEmit 2 >& 1)",
+      "Shell(cat:*)",
+      "Shell(git:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

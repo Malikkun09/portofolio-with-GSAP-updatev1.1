@@ -53,11 +53,11 @@ const MobileHorizontalMilestoneCard = forwardRef<
 
       <div
         data-milestone-card
-        className="relative z-[1] overflow-hidden rounded-lg border border-white/10 bg-cyber-card/90 backdrop-blur-md"
+        className="relative z-[1] overflow-hidden rounded-lg border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
         style={{
           boxShadow: staticVisible
             ? '0 0 0 1px rgba(0,184,255,0.4), 0 0 20px rgba(0,184,255,0.25), 0 0 40px rgba(0,184,255,0.12)'
-            : '0 0 0 1px rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.4)',
+            : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 6px 20px rgba(var(--cyber-card-shadow-rgb),0.2)',
         }}
       >
         <div className="relative p-2.5">
@@ -71,13 +71,13 @@ const MobileHorizontalMilestoneCard = forwardRef<
             >
               {milestone.year}
             </span>
-            <span className="font-mono text-[8px] text-white/30">0{index + 1}</span>
+            <span className="font-mono text-[8px] text-cyber-fg/30">0{index + 1}</span>
           </div>
 
           <h3
             data-milestone-title
             className={cn(
-              'text-[11px] font-bold leading-tight text-white',
+              'text-[11px] font-bold leading-tight text-cyber-fg',
               staticVisible ? 'opacity-100' : 'opacity-70',
             )}
           >
@@ -87,7 +87,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
           <p
             data-milestone-company
             className={cn(
-              'mt-1 text-[9px] leading-tight text-cyber-muted',
+              'mt-1 text-[9px] leading-tight text-cyber-fg-muted',
               staticVisible ? 'opacity-80' : 'opacity-50',
             )}
           >
@@ -97,7 +97,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
           <p
             data-milestone-desc
             className={cn(
-              'mt-2 text-[9px] leading-snug text-cyber-muted/90',
+              'mt-2 text-[9px] leading-snug text-cyber-fg-muted/90',
               staticVisible ? 'opacity-90' : 'opacity-40',
             )}
             style={{

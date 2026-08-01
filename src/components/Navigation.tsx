@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { navLinks } from '@/data/portfolio'
+import ThemeToggle from '@/components/ThemeToggle'
 import { cn, scrollToSection, scrollToTop } from '@/lib/utils'
 
 const SECTION_IDS = navLinks.map((link) => link.href.slice(1))
@@ -64,8 +65,8 @@ export default function Navigation() {
         className={cn(
           'sticky top-0 z-[100] transition-all duration-500',
           isScrolled
-            ? 'border-b border-cyber-blue/15 bg-cyber-black/90 shadow-glow-blue backdrop-blur-md'
-            : 'border-b border-transparent bg-cyber-black/40 backdrop-blur-sm',
+            ? 'border-b border-cyber-blue/15 bg-cyber-bg/90 shadow-glow-blue backdrop-blur-md'
+            : 'border-b border-transparent bg-cyber-bg/40 backdrop-blur-sm',
         )}
       >
         <nav
@@ -81,9 +82,11 @@ export default function Navigation() {
             className="group flex items-center gap-2"
             aria-label="Malik Fajar home"
           >
-            <span className="glow-box-blue flex h-9 w-9 items-center justify-center border border-cyber-blue/50 bg-cyber-blue/10 font-mono text-sm font-bold text-cyber-blue transition-all duration-300 group-hover:border-cyber-yellow group-hover:text-cyber-yellow group-hover:shadow-glow-yellow">
-              MF
-            </span>
+            <img
+              src="/images/logo-mf.png"
+              alt="MF Logo"
+              className="h-12 w-12 object-contain transition-all duration-300 drop-shadow-[0_0_10px_rgba(0,184,255,0.7)] group-hover:drop-shadow-[0_0_16px_rgba(255,212,0,0.9)] group-hover:scale-105"
+            />
           </a>
 
           <div className="hidden items-center gap-8 lg:flex">
@@ -100,7 +103,7 @@ export default function Navigation() {
                     'relative text-sm font-medium transition-all duration-300',
                     isActive
                       ? 'text-cyber-blue glow-text-blue'
-                      : 'text-white/60 hover:text-white hover:glow-text-blue-soft',
+                      : 'text-cyber-fg/60 hover:text-cyber-fg hover:glow-text-blue-soft',
                   )}
                 >
                   {link.label}
@@ -123,10 +126,12 @@ export default function Navigation() {
             Contact Me
           </a>
 
+          <ThemeToggle className="hidden lg:flex" />
+
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="glow-box-blue rounded-sm p-2 text-white transition-colors hover:text-cyber-blue lg:hidden"
+            className="glow-box-blue rounded-sm p-2 text-cyber-fg transition-colors hover:text-cyber-blue lg:hidden"
             aria-expanded={isMobileMenuOpen}
             aria-label="Toggle menu"
           >
@@ -137,7 +142,7 @@ export default function Navigation() {
 
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[90] bg-cyber-black/95 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-[90] bg-cyber-bg/95 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
           role="presentation"
         >
@@ -150,7 +155,7 @@ export default function Navigation() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="glow-text-blue text-2xl font-semibold text-white transition-colors hover:text-cyber-blue"
+                className="glow-text-blue text-2xl font-semibold text-cyber-fg transition-colors hover:text-cyber-blue"
                 style={{ animation: `fade-up 0.45s ease ${index * 0.08}s both` }}
               >
                 {link.label}
@@ -166,6 +171,15 @@ export default function Navigation() {
             >
               Contact Me
             </a>
+
+            <div
+              className="mt-4"
+              style={{
+                animation: `fade-up 0.45s ease ${navLinks.length * 0.08 + 0.2}s both`,
+              }}
+            >
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}

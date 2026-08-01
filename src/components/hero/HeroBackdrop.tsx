@@ -30,8 +30,8 @@ export default function HeroBackdrop({ bgX, bgY }: HeroBackdropProps) {
         transition={{ duration: 1.2, ease: HERO_EASE }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-cyber-black via-transparent to-cyber-black/80" />
-      <div className="absolute inset-0 bg-gradient-to-t from-cyber-black via-transparent to-cyber-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-cyber-bg via-transparent to-cyber-bg/80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-cyber-bg via-transparent to-cyber-bg/40" />
 
       <motion.div
         className="glow-line-blue absolute left-6 top-28 h-px w-32 bg-gradient-to-r from-cyber-blue/60 to-transparent lg:left-10 lg:w-48"
