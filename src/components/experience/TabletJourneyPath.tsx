@@ -1,11 +1,16 @@
 import { forwardRef } from 'react'
-import { buildJourneyPath, JOURNEY_PATH_POINTS_TABLET, JOURNEY_MILESTONES } from './journey-config'
+import {
+  buildJourneyPath,
+  JOURNEY_PATH_POINTS_TABLET,
+  JOURNEY_MILESTONES,
+  JOURNEY_STROKE,
+  JOURNEY_NODE,
+} from './journey-config'
 
 interface TabletJourneyPathProps {
   staticVisible?: boolean
 }
 
-/** Tablet journey path — horizontal SVG with tablet anchors */
 const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
   function TabletJourneyPath({ staticVisible = false }, ref) {
     const pathD = buildJourneyPath(JOURNEY_PATH_POINTS_TABLET)
@@ -19,21 +24,21 @@ const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
         aria-hidden
       >
         <defs>
-          <linearGradient id="tablet-journey-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="tablet-journey-gradient" x1="100%" y1="90%" x2="0%" y2="10%">
             <stop offset="0%" stopColor="#67e8f9" />
             <stop offset="40%" stopColor="#00B8FF" />
             <stop offset="75%" stopColor="#818cf8" />
             <stop offset="100%" stopColor="#f472b6" />
           </linearGradient>
-          <filter id="tablet-journey-glow" x="-10%" y="-50%" width="120%" height="200%">
-            <feGaussianBlur stdDeviation="0.45" result="blur" />
+          <filter id="tablet-journey-glow" x="-20%" y="-80%" width="140%" height="260%">
+            <feGaussianBlur stdDeviation="0.7" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="tablet-node-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.4" result="blur" />
+          <filter id="tablet-node-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="0.55" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -45,8 +50,8 @@ const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
           data-journey-path-bg
           d={pathD}
           fill="none"
-          stroke="rgba(0, 184, 255, 0.1)"
-          strokeWidth="0.35"
+          stroke="rgba(0, 184, 255, 0.16)"
+          strokeWidth={JOURNEY_STROKE.bg}
           strokeLinecap="round"
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
@@ -56,7 +61,7 @@ const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
           d={pathD}
           fill="none"
           stroke="url(#tablet-journey-gradient)"
-          strokeWidth="0.5"
+          strokeWidth={JOURNEY_STROKE.active}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#tablet-journey-glow)"
@@ -72,10 +77,10 @@ const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
                 data-journey-node={i}
                 cx={wp.x}
                 cy={wp.y}
-                r="0.9"
-                fill="var(--cyber-bg-node, rgb(5, 5, 5))"
-                stroke="rgba(0, 184, 255, 0.3)"
-                strokeWidth="0.2"
+                r={JOURNEY_NODE.ring}
+                fill="rgb(var(--cyber-bg-node))"
+                stroke="rgba(0, 184, 255, 0.45)"
+                strokeWidth={JOURNEY_NODE.stroke}
                 filter="url(#tablet-node-glow)"
                 style={{ opacity: staticVisible ? 1 : 0.5 }}
               />
@@ -83,8 +88,8 @@ const TabletJourneyPath = forwardRef<SVGSVGElement, TabletJourneyPathProps>(
                 data-journey-node-dot={i}
                 cx={wp.x}
                 cy={wp.y}
-                r="0.35"
-                fill="rgba(0, 184, 255, 0.5)"
+                r={JOURNEY_NODE.dot}
+                fill="rgba(0, 184, 255, 0.7)"
                 style={{ opacity: staticVisible ? 1 : 0 }}
               />
             </g>

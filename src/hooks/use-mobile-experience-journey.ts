@@ -150,8 +150,7 @@ export function useMobileExperienceJourney(
             card,
             {
               filter: 'blur(0px)',
-              boxShadow:
-                '0 0 0 1px rgba(0,184,255,0.4), 0 0 20px rgba(0,184,255,0.28), 0 0 40px rgba(0,184,255,0.12)',
+              boxShadow: 'var(--milestone-active-shadow)',
               duration: animSlot,
             },
             preActivate,

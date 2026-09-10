@@ -40,9 +40,10 @@ const themes: TechGroupTheme[] = [
     chipBorder: 'rgba(34, 211, 238, 0.22)',
     chipBg: 'rgba(34, 211, 238, 0.06)',
     labelColor: '#67e8f9',
-    gradient: 'linear-gradient(145deg, rgba(12,12,12,0.92) 0%, rgba(8,16,20,0.95) 100%)',
+    gradient:
+      'linear-gradient(145deg, rgb(var(--cyber-bg-card) / 0.94) 0%, rgb(var(--cyber-bg-surface) / 0.96) 100%)',
     activeGradient:
-      'linear-gradient(145deg, rgba(34,211,238,0.14) 0%, rgba(0,184,255,0.06) 50%, rgba(12,12,12,0.9) 100%)',
+      'linear-gradient(145deg, rgba(34,211,238,0.14) 0%, rgba(0,184,255,0.06) 50%, rgb(var(--cyber-bg-card) / 0.92) 100%)',
   },
   {
     accent: 'blue',
@@ -53,9 +54,10 @@ const themes: TechGroupTheme[] = [
     chipBorder: 'rgba(129, 140, 248, 0.24)',
     chipBg: 'rgba(99, 102, 241, 0.07)',
     labelColor: '#a5b4fc',
-    gradient: 'linear-gradient(145deg, rgba(12,12,12,0.92) 0%, rgba(10,10,18,0.95) 100%)',
+    gradient:
+      'linear-gradient(145deg, rgb(var(--cyber-bg-card) / 0.94) 0%, rgb(var(--cyber-bg-surface) / 0.96) 100%)',
     activeGradient:
-      'linear-gradient(145deg, rgba(99,102,241,0.14) 0%, rgba(129,140,248,0.06) 50%, rgba(12,12,12,0.9) 100%)',
+      'linear-gradient(145deg, rgba(99,102,241,0.14) 0%, rgba(129,140,248,0.06) 50%, rgb(var(--cyber-bg-card) / 0.92) 100%)',
   },
   {
     accent: 'pink',
@@ -66,9 +68,10 @@ const themes: TechGroupTheme[] = [
     chipBorder: 'rgba(244, 114, 182, 0.22)',
     chipBg: 'rgba(236, 72, 153, 0.06)',
     labelColor: '#f9a8d4',
-    gradient: 'linear-gradient(145deg, rgba(12,12,12,0.92) 0%, rgba(16,10,14,0.95) 100%)',
+    gradient:
+      'linear-gradient(145deg, rgb(var(--cyber-bg-card) / 0.94) 0%, rgb(var(--cyber-bg-surface) / 0.96) 100%)',
     activeGradient:
-      'linear-gradient(145deg, rgba(236,72,153,0.12) 0%, rgba(168,85,247,0.05) 50%, rgba(12,12,12,0.9) 100%)',
+      'linear-gradient(145deg, rgba(236,72,153,0.12) 0%, rgba(168,85,247,0.05) 50%, rgb(var(--cyber-bg-card) / 0.92) 100%)',
   },
   {
     accent: 'yellow',
@@ -79,9 +82,10 @@ const themes: TechGroupTheme[] = [
     chipBorder: 'rgba(250, 204, 21, 0.2)',
     chipBg: 'rgba(250, 204, 21, 0.05)',
     labelColor: '#fde047',
-    gradient: 'linear-gradient(145deg, rgba(12,12,12,0.92) 0%, rgba(14,13,8,0.95) 100%)',
+    gradient:
+      'linear-gradient(145deg, rgb(var(--cyber-bg-card) / 0.94) 0%, rgb(var(--cyber-bg-surface) / 0.96) 100%)',
     activeGradient:
-      'linear-gradient(145deg, rgba(250,204,21,0.1) 0%, rgba(134,239,172,0.05) 50%, rgba(12,12,12,0.9) 100%)',
+      'linear-gradient(145deg, rgba(250,204,21,0.1) 0%, rgba(134,239,172,0.05) 50%, rgb(var(--cyber-bg-card) / 0.92) 100%)',
   },
 ]
 

@@ -11,15 +11,18 @@ export default {
         cyber: {
           blue: '#00B8FF',
           'blue-dim': '#0090CC',
+          cyan: '#67e8f9',
           yellow: '#FFD400',
           'yellow-dim': '#C9A800',
           purple: '#A855F7',
           'purple-dim': '#8B45D9',
+          // Brand ink for text on bright buttons — stays dark in both themes
           black: '#050505',
-          surface: '#0C0C0C',
-          card: '#111111',
-          border: 'rgba(255,255,255,0.08)',
-          muted: '#8A8A96',
+          // Theme-aware surfaces / type (follow html.light tokens)
+          surface: 'rgb(var(--cyber-bg-surface) / <alpha-value>)',
+          card: 'rgb(var(--cyber-bg-card) / <alpha-value>)',
+          border: 'var(--cyber-theme-border)',
+          muted: 'rgb(var(--cyber-fg-muted) / <alpha-value>)',
           bg: 'rgb(var(--cyber-bg) / <alpha-value>)',
           fg: 'rgb(var(--cyber-fg) / <alpha-value>)',
           'fg-muted': 'rgb(var(--cyber-fg-muted) / <alpha-value>)',

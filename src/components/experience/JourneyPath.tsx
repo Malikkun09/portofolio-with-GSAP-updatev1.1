@@ -1,6 +1,12 @@
 import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
-import { buildJourneyPath, JOURNEY_PATH_POINTS, JOURNEY_MILESTONES } from './journey-config'
+import {
+  buildJourneyPath,
+  JOURNEY_PATH_POINTS,
+  JOURNEY_MILESTONES,
+  JOURNEY_STROKE,
+  JOURNEY_NODE,
+} from './journey-config'
 
 interface JourneyPathProps {
   staticVisible?: boolean
@@ -20,23 +26,23 @@ const JourneyPath = forwardRef<SVGSVGElement, JourneyPathProps>(
         aria-hidden
       >
         <defs>
-          <linearGradient id="journey-path-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="journey-path-gradient" x1="100%" y1="90%" x2="0%" y2="10%">
             <stop offset="0%" stopColor="#67e8f9" />
             <stop offset="40%" stopColor="#00B8FF" />
             <stop offset="75%" stopColor="#818cf8" />
             <stop offset="100%" stopColor="#f472b6" />
           </linearGradient>
 
-          <filter id="journey-path-glow" x="-10%" y="-50%" width="120%" height="200%">
-            <feGaussianBlur stdDeviation="0.45" result="blur" />
+          <filter id="journey-path-glow" x="-20%" y="-80%" width="140%" height="260%">
+            <feGaussianBlur stdDeviation="0.7" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
 
-          <filter id="journey-node-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.4" result="blur" />
+          <filter id="journey-node-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="0.55" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -44,25 +50,23 @@ const JourneyPath = forwardRef<SVGSVGElement, JourneyPathProps>(
           </filter>
         </defs>
 
-        {/* Idle track */}
         <path
           data-journey-path-bg
           d={pathD}
           fill="none"
-          stroke="rgba(0, 184, 255, 0.1)"
-          strokeWidth="0.35"
+          stroke="rgba(0, 184, 255, 0.16)"
+          strokeWidth={JOURNEY_STROKE.bg}
           strokeLinecap="round"
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
         />
 
-        {/* Active drawn path */}
         <path
           data-journey-path
           d={pathD}
           fill="none"
           stroke="url(#journey-path-gradient)"
-          strokeWidth="0.5"
+          strokeWidth={JOURNEY_STROKE.active}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#journey-path-glow)"
@@ -73,17 +77,16 @@ const JourneyPath = forwardRef<SVGSVGElement, JourneyPathProps>(
           }}
         />
 
-        {/* Milestone nodes */}
         {JOURNEY_MILESTONES.map((milestone, i) => (
           <g key={`journey-node-${i}`}>
             <circle
               data-journey-node={i}
               cx={milestone.x}
               cy={milestone.y}
-              r="0.9"
-              fill="var(--cyber-bg-node, rgb(5, 5, 5))"
-              stroke="rgba(0, 184, 255, 0.3)"
-              strokeWidth="0.2"
+              r={JOURNEY_NODE.ring}
+              fill="rgb(var(--cyber-bg-node))"
+              stroke="rgba(0, 184, 255, 0.45)"
+              strokeWidth={JOURNEY_NODE.stroke}
               filter="url(#journey-node-glow)"
               style={{ opacity: staticVisible ? 1 : 0.5 }}
             />
@@ -91,8 +94,8 @@ const JourneyPath = forwardRef<SVGSVGElement, JourneyPathProps>(
               data-journey-node-dot={i}
               cx={milestone.x}
               cy={milestone.y}
-              r="0.35"
-              fill="rgba(0, 184, 255, 0.5)"
+              r={JOURNEY_NODE.dot}
+              fill="rgba(0, 184, 255, 0.7)"
               style={{ opacity: staticVisible ? 1 : 0 }}
             />
           </g>

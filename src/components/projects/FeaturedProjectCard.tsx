@@ -30,7 +30,7 @@ export default function FeaturedProjectCard({
       innerClassName={cn(
         'overflow-hidden rounded-3xl border border-cyber-fg/[0.08]',
         'bg-gradient-to-br from-cyber-bg-surface via-cyber-bg-surface to-cyber-bg-card/90',
-        'shadow-[inset_0_1px_0_rgba(var(--cyber-fg),0.06)]',
+        'shadow-[inset_0_1px_0_rgb(var(--cyber-fg)_/_0.06)]',
         'grid lg:grid-cols-2',
       )}
     >

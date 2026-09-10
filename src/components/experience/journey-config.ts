@@ -9,7 +9,7 @@ export interface JourneyMilestone {
   tags: readonly string[]
   /** Horizontal anchor in viewBox 0–100 */
   x: number
-  /** Vertical anchor (top row = 22, bottom row = 78) */
+  /** Vertical anchor */
   y: number
   /** Card sits above (true) or below (false) the path */
   row: 'top' | 'bottom'
@@ -21,31 +21,34 @@ export interface JourneyMilestone {
  */
 const chronological = [...experiences].reverse()
 
-/** Alternating top/bottom row positions for desktop editorial layout */
+/**
+ * Desktop anchors — right-to-left rising career path.
+ * Learning starts bottom-right; Full Stack lands top-left.
+ */
 const desktopAnchors = [
-  { x: 10, y: 22, row: 'top' as const },
-  { x: 37, y: 78, row: 'bottom' as const },
-  { x: 64, y: 22, row: 'top' as const },
-  { x: 90, y: 78, row: 'bottom' as const },
+  { x: 84, y: 76, row: 'bottom' as const },
+  { x: 61, y: 24, row: 'top' as const },
+  { x: 39, y: 76, row: 'bottom' as const },
+  { x: 16, y: 24, row: 'top' as const },
 ]
 
-/** Tablet anchors — tighter, single row top with shorter vertical variance */
+/** Tablet anchors — same R→L ascent, slightly tighter */
 const tabletAnchors = [
-  { x: 12, y: 28, row: 'top' as const },
-  { x: 38, y: 72, row: 'bottom' as const },
-  { x: 64, y: 28, row: 'top' as const },
-  { x: 88, y: 72, row: 'bottom' as const },
+  { x: 82, y: 72, row: 'bottom' as const },
+  { x: 60, y: 28, row: 'top' as const },
+  { x: 40, y: 72, row: 'bottom' as const },
+  { x: 18, y: 28, row: 'top' as const },
 ]
 
 /**
- * Mobile anchors — horizontal alternating zig-zag.
- * Tighter spacing so all 4 cards fit within viewport width.
+ * Mobile anchors — horizontal R→L zig-zag with room for larger cards.
+ * Centers stay inside 22–78% so 40%-wide cards do not clip the viewport.
  */
 const mobileAnchors = [
-  { x: 18, y: 28, row: 'top' as const },
-  { x: 40, y: 72, row: 'bottom' as const },
-  { x: 60, y: 28, row: 'top' as const },
-  { x: 82, y: 72, row: 'bottom' as const },
+  { x: 76, y: 70, row: 'bottom' as const },
+  { x: 58, y: 28, row: 'top' as const },
+  { x: 40, y: 70, row: 'bottom' as const },
+  { x: 22, y: 28, row: 'top' as const },
 ]
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, index) => {
@@ -65,31 +68,44 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, in
 
 export const JOURNEY_STEP_COUNT = JOURNEY_MILESTONES.length
 
+/** Pixel stroke weights (paths use non-scaling-stroke) */
+export const JOURNEY_STROKE = {
+  bg: 2.6,
+  active: 3.6,
+} as const
+
+/** Node radii in viewBox units */
+export const JOURNEY_NODE = {
+  ring: 1.85,
+  dot: 0.72,
+  stroke: 0.38,
+} as const
+
 /**
- * Desktop path waypoints: start (off-screen left) → each milestone anchor → end (off-screen right)
+ * Desktop path waypoints: enter bottom-right → each milestone → exit top-left
  */
 export const JOURNEY_PATH_POINTS = [
-  { x: -4, y: 50 },
+  { x: 106, y: 90 },
   ...JOURNEY_MILESTONES.map((m) => ({ x: m.x, y: m.y })),
-  { x: 104, y: 50 },
+  { x: -6, y: 12 },
 ]
 
 /**
- * Tablet path waypoints — gentler zig-zag
+ * Tablet path waypoints — gentler R→L ascent
  */
 export const JOURNEY_PATH_POINTS_TABLET = [
-  { x: -4, y: 50 },
+  { x: 106, y: 88 },
   ...JOURNEY_MILESTONES.map((m, i) => ({ x: tabletAnchors[i]?.x ?? m.x, y: tabletAnchors[i]?.y ?? m.y })),
-  { x: 104, y: 50 },
+  { x: -6, y: 14 },
 ]
 
 /**
- * Mobile path waypoints — horizontal zig-zag, tighter spacing
+ * Mobile path waypoints — R→L zig-zag
  */
 export const JOURNEY_PATH_POINTS_MOBILE = [
-  { x: -6, y: 50 },
+  { x: 108, y: 86 },
   ...JOURNEY_MILESTONES.map((m, i) => ({ x: mobileAnchors[i]?.x ?? m.x, y: mobileAnchors[i]?.y ?? m.y })),
-  { x: 106, y: 50 },
+  { x: -8, y: 16 },
 ]
 
 /** Build a smooth path through waypoints using quadratic curves */
@@ -109,29 +125,29 @@ export function buildJourneyPath(points: { x: number; y: number }[]): string {
 /** Desktop card positions (in % of container) */
 export const MILESTONE_CARD_POSITIONS_DESKTOP = JOURNEY_MILESTONES.map((m) => ({
   left: `${m.x}%`,
-  top: m.row === 'top' ? '4%' : 'auto',
-  bottom: m.row === 'bottom' ? '4%' : 'auto',
+  top: m.row === 'top' ? '2%' : 'auto',
+  bottom: m.row === 'bottom' ? '2%' : 'auto',
   translateX: '-50%',
 }))
 
-/** Tablet card positions — slightly tighter */
+/** Tablet card positions */
 export const MILESTONE_CARD_POSITIONS_TABLET = JOURNEY_MILESTONES.map((_m, i) => {
   const anchor = tabletAnchors[i] ?? tabletAnchors[tabletAnchors.length - 1]
   return {
     left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '2%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '2%' : 'auto',
+    top: anchor.row === 'top' ? '1%' : 'auto',
+    bottom: anchor.row === 'bottom' ? '1%' : 'auto',
     translateX: '-50%',
   }
 })
 
-/** Mobile card positions — horizontal alternating, all 4 fit in viewport */
+/** Mobile card positions */
 export const MILESTONE_CARD_POSITIONS_MOBILE = JOURNEY_MILESTONES.map((_m, i) => {
   const anchor = mobileAnchors[i] ?? mobileAnchors[mobileAnchors.length - 1]
   return {
     left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '6%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '6%' : 'auto',
+    top: anchor.row === 'top' ? '3%' : 'auto',
+    bottom: anchor.row === 'bottom' ? '3%' : 'auto',
     translateX: '-50%',
   }
 })

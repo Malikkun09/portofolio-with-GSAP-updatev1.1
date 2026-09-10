@@ -42,7 +42,7 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
       >
         <div
           data-marker-glow
-          className="absolute -inset-2 rounded-full"
+          className="absolute -inset-3 rounded-full"
           style={{
             background:
               'radial-gradient(circle, rgba(0,184,255,0.35) 0%, rgba(0,184,255,0.08) 55%, transparent 75%)',
@@ -56,7 +56,7 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
         />
         <div
           data-marker-body
-          className="relative flex h-8 w-8 items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-bg/90 backdrop-blur-sm"
+          className="relative flex h-11 w-11 items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-bg/90 backdrop-blur-sm"
           style={{
             boxShadow:
               '0 0 0 1px rgba(0,184,255,0.25), 0 0 18px rgba(0,184,255,0.4), 0 0 36px rgba(0,184,255,0.15)',
@@ -65,19 +65,19 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
           <img
             src="/images/logo-mf.png"
             alt=""
-            className="h-4.5 w-4.5 select-none rounded-full object-cover"
+            className="h-6 w-6 select-none rounded-full object-cover"
             draggable={false}
             decoding="async"
-            style={{ width: '1.125rem', height: '1.125rem' }}
+            style={{ width: '1.5rem', height: '1.5rem' }}
           />
         </div>
         <div
           data-marker-compass
           className={cn(
-            'absolute h-1.5 w-1.5 rounded-full bg-cyber-cyan',
+            'absolute h-2 w-2 rounded-full bg-cyber-cyan',
             mode === 'rail'
               ? '-bottom-1 left-1/2 -translate-x-1/2'
-              : '-right-1 top-1/2 -translate-y-1/2',
+              : '-left-1 top-1/2 -translate-y-1/2',
           )}
           style={{
             boxShadow: '0 0 6px rgba(103,232,249,0.9)',

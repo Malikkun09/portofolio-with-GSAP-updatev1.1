@@ -52,7 +52,7 @@ export default function About() {
                   key={item}
                   whileHover={{ y: -2, scale: 1.03 }}
                   transition={{ duration: 0.25 }}
-                  className="border border-white/10 px-3 py-1.5 font-mono text-xs text-cyber-fg/70 transition-colors hover:border-cyber-yellow/30 hover:text-cyber-yellow"
+                  className="border border-cyber-fg/10 px-3 py-1.5 font-mono text-xs text-cyber-fg/70 transition-colors hover:border-cyber-yellow/30 hover:text-cyber-yellow"
                 >
                   {item}
                 </motion.span>

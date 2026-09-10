@@ -110,7 +110,7 @@ export default function LoadingScreen({
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] overflow-hidden bg-cyber-black"
+      className="fixed inset-0 z-[9999] overflow-hidden bg-cyber-bg"
       aria-label="Loading portfolio"
       aria-valuenow={progress}
       aria-valuemin={0}
