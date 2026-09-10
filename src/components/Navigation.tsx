@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import { Menu, X } from 'lucide-react'
 import { navLinks } from '@/data/portfolio'
 import ThemeToggle from '@/components/ThemeToggle'
+import { useScrollLock } from '@/providers/SmoothScrollProvider'
 import { cn, scrollToSection, scrollToTop } from '@/lib/utils'
 
 const SECTION_IDS = navLinks.map((link) => link.href.slice(1))
+const MOBILE_NAV_ID = 'mobile-navigation'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+
+  useScrollLock(isMobileMenuOpen)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,21 +50,33 @@ export default function Navigation() {
     return () => observer.disconnect()
   }, [])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     scrollToSection(href.slice(1))
     setIsMobileMenuOpen(false)
   }
 
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
+    if (!isMobileMenuOpen) return undefined
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false)
     }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [isMobileMenuOpen])
 
   return (
     <>
+      <a
+        href="#hero"
+        onClick={(e) => {
+          e.preventDefault()
+          scrollToTop()
+        }}
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-cyber-bg focus:px-4 focus:py-2 focus:text-sm focus:text-cyber-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber-blue/50"
+      >
+        Skip to content
+      </a>
       <header
         className={cn(
           'sticky top-0 z-[100] transition-all duration-500',
@@ -99,6 +115,7 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
+                  aria-current={isActive ? 'page' : undefined}
                   className={cn(
                     'relative text-sm font-medium transition-all duration-300',
                     isActive
@@ -133,6 +150,7 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="glow-box-blue rounded-sm p-2 text-cyber-fg transition-colors hover:text-cyber-blue lg:hidden"
             aria-expanded={isMobileMenuOpen}
+            aria-controls={MOBILE_NAV_ID}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -142,9 +160,12 @@ export default function Navigation() {
 
       {isMobileMenuOpen && (
         <div
+          id={MOBILE_NAV_ID}
           className="fixed inset-0 z-[90] bg-cyber-bg/95 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
-          role="presentation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
         >
           <div
             className="flex h-full flex-col items-center justify-center gap-8"

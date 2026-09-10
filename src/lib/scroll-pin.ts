@@ -1,5 +1,4 @@
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 /** Keep pinned scenes full-bleed — GSAP fixed pin can shrink on mobile. */
 export function patchPinnedSceneWidth(pinEl: HTMLElement) {
@@ -34,5 +33,31 @@ export function withFullWidthPin(
     onToggle: syncWidth,
     onRefresh: syncWidth,
     ...config,
+  }
+}
+
+/**
+ * Resize + post-paint ScrollTrigger refresh used by every pinned scene.
+ * Double rAF waits for the newly-mounted layout to finish painting.
+ */
+export function bindPinnedLayoutSync(
+  pinEl: HTMLElement,
+  options: { patchWidth?: boolean } = {},
+) {
+  const sync = () => {
+    ScrollTrigger.refresh()
+    if (options.patchWidth) patchPinnedSceneWidth(pinEl)
+  }
+
+  window.addEventListener('resize', sync)
+  let rafId2 = 0
+  const rafId1 = window.requestAnimationFrame(() => {
+    rafId2 = window.requestAnimationFrame(sync)
+  })
+
+  return () => {
+    window.cancelAnimationFrame(rafId1)
+    window.cancelAnimationFrame(rafId2)
+    window.removeEventListener('resize', sync)
   }
 }

@@ -1,14 +1,12 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   getRouteForLayout,
   TECH_STACK_GROUPS,
   TECH_STACK_STEP_COUNT,
 } from '@/components/skills/tech-stack-config'
 import { getPointOnPath, measureSegmentMilestones } from '@/components/skills/tech-stack-path'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { bindPinnedLayoutSync } from '@/lib/scroll-pin'
 
 export function useTechStackScroll(
   pinRef: RefObject<HTMLElement | null>,
@@ -200,23 +198,10 @@ export function useTechStackScroll(
       })
     }, pinEl)
 
-    const onResize = () => ScrollTrigger.refresh()
-    window.addEventListener('resize', onResize)
-    // Defer the first refresh until after the browser has painted the
-    // newly-mounted layout. A double rAF guarantees we run after the
-    // next commit + paint cycle, so ScrollTrigger measures the final
-    // post-mount dimensions rather than a transient pre-paint state.
-    let rafId2 = 0
-    const rafId1 = window.requestAnimationFrame(() => {
-      rafId2 = window.requestAnimationFrame(() => {
-        ScrollTrigger.refresh()
-      })
-    })
+    const unbindLayout = bindPinnedLayoutSync(pinEl)
 
     return () => {
-      window.cancelAnimationFrame(rafId1)
-      window.cancelAnimationFrame(rafId2)
-      window.removeEventListener('resize', onResize)
+      unbindLayout()
       scrollTriggerRef.current?.kill()
       scrollTriggerRef.current = null
       ctx.revert()

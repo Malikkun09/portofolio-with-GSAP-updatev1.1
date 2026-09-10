@@ -13,4 +13,3 @@ export {
   EASE_IN_OUT,
 } from './variants'
 export type { RevealVariant } from './variants'
-export { useGsapReveal, animateStaggerChildren } from './gsap-reveal'

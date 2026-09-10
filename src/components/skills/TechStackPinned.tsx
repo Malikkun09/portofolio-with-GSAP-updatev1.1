@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import SectionHeading from '@/components/SectionHeading'
 import TechStackConnector from '@/components/skills/TechStackConnector'
 import TechStackGroup from '@/components/skills/TechStackGroup'
@@ -10,38 +10,15 @@ import { TECH_STACK_GROUPS } from '@/components/skills/tech-stack-config'
 import { useTechStackScroll } from '@/hooks/use-tech-stack-scroll'
 import { useMobileTechStackScroll } from '@/hooks/use-mobile-tech-stack-scroll'
 import { useTabletTechStackScroll } from '@/hooks/use-tablet-tech-stack-scroll'
+import { useDeviceKind } from '@/hooks/use-device-kind'
 import { useAppReady } from '@/contexts/AppReadyContext'
-
-type DeviceKind = 'mobile' | 'tablet' | 'desktop'
-
-function resolveDevice(width: number): DeviceKind {
-  if (width < 768) return 'mobile'
-  if (width < 1024) return 'tablet'
-  return 'desktop'
-}
 
 export default function TechStackPinned() {
   const desktopPinRef = useRef<HTMLDivElement>(null)
   const tabletPinRef = useRef<HTMLDivElement>(null)
   const mobilePinRef = useRef<HTMLDivElement>(null)
-  const [device, setDevice] = useState<DeviceKind | null>(null)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const { device, reducedMotion } = useDeviceKind()
   const appReady = useAppReady()
-
-  useEffect(() => {
-    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => {
-      setDevice(resolveDevice(window.innerWidth))
-      setReducedMotion(motionMq.matches)
-    }
-    update()
-    window.addEventListener('resize', update)
-    motionMq.addEventListener('change', update)
-    return () => {
-      window.removeEventListener('resize', update)
-      motionMq.removeEventListener('change', update)
-    }
-  }, [])
 
   const scrollEnabled = !reducedMotion && appReady
 

@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from 'react'
-import { useMotionValue, useSpring } from 'framer-motion'
+import { useMotionValue, useSpring } from 'motion/react'
 
 const MAX_X = 14
 const MAX_Y = 10

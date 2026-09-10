@@ -1,56 +1,15 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   JOURNEY_MILESTONES,
   JOURNEY_PATH_POINTS,
 } from '@/components/experience/journey-config'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { resolveClosestPathProgresses } from '@/lib/path-progress'
+import { bindPinnedLayoutSync } from '@/lib/scroll-pin'
 
 /** Timeline window used for path draw + marker motion */
 const MOTION_START = 0.04
 const MOTION_DURATION = 0.92
-
-/**
- * Sample the SVG path and find each milestone waypoint's normalized
- * position (0..1) along the actual rendered path length.
- * This lets us trigger card activation exactly when the marker
- * physically reaches each node.
- */
-function resolveMilestoneProgresses(
-  pathEl: SVGPathElement,
-  totalLength: number,
-): number[] {
-  if (totalLength <= 0) return JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
-
-  const samples = 240
-  const sampledPoints: { x: number; y: number; t: number }[] = []
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples
-    const p = pathEl.getPointAtLength(totalLength * t)
-    sampledPoints.push({ x: p.x, y: p.y, t })
-  }
-
-  // Skip first waypoint (path start at off-screen left) — that's the entry
-  // Skip last waypoint (path end at off-screen right) — that's the exit
-  const waypoints = JOURNEY_PATH_POINTS.slice(1, -1)
-
-  return waypoints.map((wp) => {
-    let bestT = 0
-    let bestDist = Infinity
-    for (const s of sampledPoints) {
-      const dx = s.x - wp.x
-      const dy = s.y - wp.y
-      const d = dx * dx + dy * dy
-      if (d < bestDist) {
-        bestDist = d
-        bestT = s.t
-      }
-    }
-    return bestT
-  })
-}
 
 export function useExperienceJourney(
   pinRef: RefObject<HTMLElement | null>,
@@ -106,10 +65,15 @@ export function useExperienceJourney(
       })
     }
 
-    // Resolve exact normalized positions of each milestone along the rendered path
-    const milestoneProgresses = pathEl
-      ? resolveMilestoneProgresses(pathEl, pathLength)
-      : JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
+    // Resolve exact normalized positions of each milestone along the rendered path.
+    // Skip first/last waypoints (off-screen entry/exit).
+    const milestoneProgresses = resolveClosestPathProgresses(
+      pathEl,
+      pathLength,
+      JOURNEY_PATH_POINTS.slice(1, -1),
+      JOURNEY_MILESTONES.length,
+      240,
+    )
 
     if (markerEl) {
       const startPoint = JOURNEY_PATH_POINTS[0]
@@ -278,23 +242,10 @@ export function useExperienceJourney(
     })
   }, pinEl)
 
-  const onResize = () => ScrollTrigger.refresh()
-  window.addEventListener('resize', onResize)
-  // Defer the first refresh until after the browser has painted the
-  // newly-mounted layout. A double rAF guarantees we run after the
-  // next commit + paint cycle, so ScrollTrigger measures the final
-  // post-mount dimensions rather than a transient pre-paint state.
-  let rafId2 = 0
-  const rafId1 = window.requestAnimationFrame(() => {
-    rafId2 = window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh()
-    })
-  })
+  const unbindLayout = bindPinnedLayoutSync(pinEl)
 
   return () => {
-    window.cancelAnimationFrame(rafId1)
-    window.cancelAnimationFrame(rafId2)
-    window.removeEventListener('resize', onResize)
+    unbindLayout()
     scrollTriggerRef.current?.kill()
     scrollTriggerRef.current = null
     ctx.revert()

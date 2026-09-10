@@ -9,6 +9,7 @@ import SectionHeading from '@/components/SectionHeading'
 import { useInView } from '@/hooks/use-in-view'
 import { requestImageLoadSlot } from '@/hooks/use-image-load-queue'
 import { Skeleton } from '@/components/Skeleton'
+import { useScrollLock } from '@/providers/SmoothScrollProvider'
 import { cn } from '@/lib/utils'
 
 interface CertificateCardProps {
@@ -249,13 +250,7 @@ export default function Certificates() {
   })
   const [selectedCert, setSelectedCert] = useState<number | null>(null)
   const [currentPage, setCurrentPage] = useState(0)
-
-  useEffect(() => {
-    document.body.style.overflow = selectedCert !== null ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [selectedCert])
+  useScrollLock(selectedCert !== null)
 
   const openModal = useCallback((index: number) => {
     setSelectedCert(index)
