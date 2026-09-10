@@ -22,7 +22,7 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
   function MobileBrandedMarker({ staticVisible = false, className, mode = 'path' }, ref) {
     const positionClass =
       mode === 'rail'
-        ? 'absolute left-[14px] top-0'
+        ? 'absolute left-1/2 top-0'
         : 'absolute left-0 top-0'
 
     return (

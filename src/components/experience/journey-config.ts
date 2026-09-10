@@ -41,8 +41,8 @@ const tabletAnchors = [
 ]
 
 /**
- * Mobile anchors — horizontal R→L zig-zag with room for larger cards.
- * Centers stay inside 22–78% so 40%-wide cards do not clip the viewport.
+ * Legacy mobile path anchors (unused by the one-active-card rail).
+ * Kept so MobileJourneyPath can still render if referenced.
  */
 const mobileAnchors = [
   { x: 76, y: 70, row: 'bottom' as const },

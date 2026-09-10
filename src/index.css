@@ -877,6 +877,10 @@
   will-change: transform;
 }
 
+.experience-card-mobile {
+  max-width: 100%;
+}
+
 .tech-stack-field {
   isolation: isolate;
 }

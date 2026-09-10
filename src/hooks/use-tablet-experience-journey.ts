@@ -3,13 +3,18 @@ import {
   JOURNEY_MILESTONES,
   JOURNEY_PATH_POINTS_TABLET,
 } from '@/components/experience/journey-config'
+import { addMilestoneReveal, hideMilestoneCard } from '@/lib/experience-reveal'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { resolveClosestPathProgresses } from '@/lib/path-progress'
 import { withFullWidthPin, bindPinnedLayoutSync, patchPinnedSceneWidth } from '@/lib/scroll-pin'
 
+const MOTION_START = 0.04
+const MOTION_DURATION = 0.92
+const PATH_X_PERCENT = -50
+
 /**
- * Tablet experience journey — compact horizontal path with tighter zig-zag.
- * Uses the same SVG path/marker mechanism as desktop but with tablet anchors.
+ * Tablet experience journey — same left → fade → timestamp cascade as desktop,
+ * timed to the compact tablet path.
  */
 export function useTabletExperienceJourney(
   pinRef: RefObject<HTMLElement | null>,
@@ -26,31 +31,19 @@ export function useTabletExperienceJourney(
     const markerGlow = pinEl.querySelector<HTMLElement>('[data-marker-glow]')
     const markerOrbit = pinEl.querySelector<HTMLElement>('[data-marker-orbit]')
     const markerCompass = pinEl.querySelector<HTMLElement>('[data-marker-compass]')
-    const cards = gsap.utils.toArray<HTMLElement>('[data-milestone]', pinEl)
+    const cards = gsap.utils
+      .toArray<HTMLElement>('[data-milestone]', pinEl)
+      .sort(
+        (a, b) =>
+          Number(a.dataset.milestoneIndex ?? 0) - Number(b.dataset.milestoneIndex ?? 0),
+      )
     const nodes = gsap.utils.toArray<SVGCircleElement>('[data-journey-node]', pinEl)
     const nodeDots = gsap.utils.toArray<SVGCircleElement>('[data-journey-node-dot]', pinEl)
 
-    const scrollLength = `${JOURNEY_MILESTONES.length * 80}%`
+    const scrollLength = `${JOURNEY_MILESTONES.length * 100}%`
 
     const ctx = gsap.context(() => {
-      cards.forEach((cardEl) => {
-        gsap.set(cardEl, { autoAlpha: 0.32, y: 12 })
-        const glow = cardEl.querySelector('[data-milestone-glow]')
-        const card = cardEl.querySelector('[data-milestone-card]')
-        const year = cardEl.querySelector('[data-milestone-year]')
-        const title = cardEl.querySelector('[data-milestone-title]')
-        const company = cardEl.querySelector('[data-milestone-company]')
-        const desc = cardEl.querySelector('[data-milestone-desc]')
-        const tags = cardEl.querySelectorAll<HTMLElement>('[data-milestone-tag]')
-
-        if (glow) gsap.set(glow, { autoAlpha: 0 })
-        if (card) gsap.set(card, { filter: 'blur(4px)' })
-        if (year) gsap.set(year, { opacity: 0.45 })
-        if (title) gsap.set(title, { opacity: 0.45 })
-        if (company) gsap.set(company, { opacity: 0.35 })
-        if (desc) gsap.set(desc, { opacity: 0.28 })
-        gsap.set(tags, { autoAlpha: 0.2, y: 8 })
-      })
+      cards.forEach((cardEl) => hideMilestoneCard(cardEl, { xPercent: PATH_X_PERCENT, fromX: -56 }))
 
       let pathLength = 0
       if (pathEl) {
@@ -82,11 +75,6 @@ export function useTabletExperienceJourney(
       nodes.forEach((node) => gsap.set(node, { opacity: 0.4, scale: 0.85 }))
       nodeDots.forEach((dot) => gsap.set(dot, { opacity: 0, scale: 0 }))
 
-      const MOTION_START = 0.04
-      const MOTION_DURATION = 0.92
-
-      // `paused: true` prevents the timeline from playing before
-      // ScrollTrigger attaches and takes control via `scrub`.
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power2.out' },
@@ -125,40 +113,18 @@ export function useTabletExperienceJourney(
       JOURNEY_MILESTONES.forEach((_m, index) => {
         const nodeProgress = milestoneProgresses[index] ?? 0
         const activateAt = MOTION_START + nodeProgress * MOTION_DURATION
-        const animSlot = 0.06
-
         const cardEl = cards[index]
         if (!cardEl) return
 
-        const glow = cardEl.querySelector('[data-milestone-glow]')
-        const card = cardEl.querySelector('[data-milestone-card]')
-        const year = cardEl.querySelector('[data-milestone-year]')
-        const title = cardEl.querySelector('[data-milestone-title]')
-        const company = cardEl.querySelector('[data-milestone-company]')
-        const desc = cardEl.querySelector('[data-milestone-desc]')
-        const tags = cardEl.querySelectorAll<HTMLElement>('[data-milestone-tag]')
         const node = nodes[index]
         const nodeDot = nodeDots[index]
+        const revealAt = Math.max(MOTION_START, activateAt - 0.02)
 
-        const preActivate = Math.max(MOTION_START, activateAt - 0.015)
+        addMilestoneReveal(tl, cardEl, revealAt, {
+          xPercent: PATH_X_PERCENT,
+          slot: 0.12,
+        })
 
-        tl.to(cardEl, { autoAlpha: 1, y: 0, duration: animSlot, ease: 'power3.out' }, preActivate)
-        if (glow) tl.to(glow, { autoAlpha: 0.7, duration: animSlot * 0.9 }, preActivate)
-        if (card) {
-          tl.to(
-            card,
-            {
-              filter: 'blur(0px)',
-              boxShadow: 'var(--milestone-active-shadow)',
-              duration: animSlot,
-            },
-            preActivate,
-          )
-        }
-        if (year) tl.to(year, { opacity: 1, duration: animSlot * 0.7 }, preActivate)
-        if (title) tl.to(title, { opacity: 1, duration: animSlot * 0.8 }, preActivate + 0.005)
-        if (company) tl.to(company, { opacity: 0.85, duration: animSlot * 0.8 }, preActivate + 0.01)
-        if (desc) tl.to(desc, { opacity: 0.9, duration: animSlot }, preActivate + 0.015)
         if (node) {
           tl.to(
             node,
@@ -166,30 +132,18 @@ export function useTabletExperienceJourney(
               opacity: 1,
               scale: 1.2,
               attr: { stroke: 'rgba(103,232,249,0.7)' },
-              duration: animSlot * 0.6,
+              duration: 0.04,
               ease: 'back.out(2)',
             },
             activateAt,
           )
         }
+
         if (nodeDot) {
           tl.to(
             nodeDot,
-            { opacity: 1, scale: 1, duration: animSlot * 0.5, ease: 'back.out(2)' },
+            { opacity: 1, scale: 1, duration: 0.03, ease: 'back.out(2)' },
             activateAt,
-          )
-        }
-        if (tags.length > 0) {
-          tl.to(
-            tags,
-            {
-              autoAlpha: 0.95,
-              y: 0,
-              duration: animSlot * 0.55,
-              stagger: 0.012,
-              ease: 'power2.out',
-            },
-            preActivate + animSlot * 0.15,
           )
         }
       })
