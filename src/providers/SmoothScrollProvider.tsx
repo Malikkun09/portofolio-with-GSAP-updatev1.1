@@ -42,10 +42,10 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
     }
 
     const lenisInstance = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+      duration: 0.78,
+      easing: (t) => 1 - (1 - t) ** 3,
       smoothWheel: true,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.15,
     })
 
     lenisRef.current = lenisInstance
@@ -90,7 +90,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
     inst.scrollTo(target, {
       offset: options.offset ?? -80,
       immediate: options.immediate ?? false,
-      duration: options.duration ?? 1.4,
+      duration: options.duration ?? 0.9,
     })
   }
 

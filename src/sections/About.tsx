@@ -25,7 +25,9 @@ export default function About() {
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal variant="slide-left" className="order-2 lg:order-1">
             <SectionHeading label="About" title="Who I Am?" className="mb-6" />
-            <h3 className="mb-6 text-2xl font-bold text-cyber-fg sm:text-3xl lg:mb-8">{about.headline}</h3>
+            <h3 className="mb-6 font-display text-2xl font-semibold tracking-tight text-cyber-fg sm:text-3xl lg:mb-8">
+              {about.headline}
+            </h3>
 
             <StaggerChildren className="mb-8 grid gap-4 sm:grid-cols-2">
               {aboutCards.map((card) => (

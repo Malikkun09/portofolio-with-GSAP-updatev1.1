@@ -67,7 +67,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
             <h3
               data-milestone-title
               className={cn(
-                'text-xs font-bold leading-snug text-cyber-fg',
+                'font-display text-xs font-semibold leading-snug tracking-tight text-cyber-fg',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >

@@ -1,6 +1,6 @@
 import { forwardRef, type CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
-import type { TechGroupLayout } from './tech-stack-config'
+import { AI_GRADIENT_BORDERS, type TechGroupLayout } from './tech-stack-config'
 
 interface TabletTechStackGroupProps {
   group: TechGroupLayout
@@ -8,13 +8,6 @@ interface TabletTechStackGroupProps {
   style?: CSSProperties
   staticVisible?: boolean
 }
-
-const AI_GRADIENT_BORDERS = [
-  'conic-gradient(from 180deg, #67e8f9, #00B8FF, #818cf8, #c084fc, #67e8f9)',
-  'conic-gradient(from 200deg, #818cf8, #6366f1, #00B8FF, #a78bfa, #818cf8)',
-  'conic-gradient(from 160deg, #f472b6, #ec4899, #a855f7, #818cf8, #f472b6)',
-  'conic-gradient(from 220deg, #fde047, #86efac, #00B8FF, #fbbf24, #fde047)',
-]
 
 /** Maps group index → grid cell (TL, TR, BL, BR) */
 const GRID_CELLS = [
@@ -50,13 +43,13 @@ const TabletTechStackGroup = forwardRef<HTMLDivElement, TabletTechStackGroupProp
             'pointer-events-none absolute inset-2 rounded-xl',
             staticVisible ? 'opacity-70' : 'opacity-0',
           )}
-          style={{ background: gradientBorder, filter: 'blur(0.5px)' }}
+            style={{ background: gradientBorder }}
           aria-hidden
         />
 
         <div
           data-group-card
-          className="tech-stack-group__card relative z-[1] h-[210px] w-full max-w-[340px] overflow-hidden rounded-xl border backdrop-blur-md"
+          className="tech-stack-group__card relative z-[1] h-[210px] w-full max-w-[340px] overflow-hidden rounded-xl border"
           style={{
             borderColor: theme.borderColor,
             background: staticVisible ? theme.activeGradient : theme.gradient,
@@ -67,7 +60,7 @@ const TabletTechStackGroup = forwardRef<HTMLDivElement, TabletTechStackGroupProp
         >
           <div className="relative flex h-full flex-col p-5">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <h3 className="text-lg font-bold text-cyber-fg">{group.title}</h3>
+              <h3 className="font-display text-xl font-semibold tracking-tight text-cyber-fg">{group.title}</h3>
               <span
                 data-group-label
                 className={cn(

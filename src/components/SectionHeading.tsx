@@ -28,13 +28,13 @@ export default function SectionHeading({
         <span className="section-label">{label}</span>
         <span className="glow-line-yellow h-px w-8 bg-cyber-yellow" aria-hidden />
       </div>
-      <h2 className="glow-text-blue-soft text-3xl font-bold tracking-tight text-cyber-fg sm:text-4xl lg:text-5xl">
+      <h2 className="glow-text-blue-soft font-display text-3xl font-semibold tracking-tight text-cyber-fg sm:text-4xl lg:text-[3.25rem] lg:leading-[1.08]">
         {title}
       </h2>
       {description && (
         <p
           className={cn(
-            'mt-4 max-w-2xl text-base leading-relaxed text-cyber-fg-muted',
+            'mt-4 max-w-2xl text-[0.98rem] font-light leading-relaxed text-cyber-fg-muted',
             align === 'center' && 'mx-auto',
           )}
         >

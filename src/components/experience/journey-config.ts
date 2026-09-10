@@ -21,31 +21,30 @@ export interface JourneyMilestone {
  */
 const chronological = [...experiences].reverse()
 
-/** Alternating top/bottom row positions for desktop editorial layout */
+/** Centered sine around the midline so the GSAP path sits in the middle of the scene. */
 const desktopAnchors = [
-  { x: 10, y: 22, row: 'top' as const },
-  { x: 37, y: 78, row: 'bottom' as const },
-  { x: 64, y: 22, row: 'top' as const },
-  { x: 90, y: 78, row: 'bottom' as const },
+  { x: 13, y: 38, row: 'top' as const },
+  { x: 38, y: 62, row: 'bottom' as const },
+  { x: 62, y: 38, row: 'top' as const },
+  { x: 87, y: 62, row: 'bottom' as const },
 ]
 
-/** Tablet anchors — tighter, single row top with shorter vertical variance */
+/** Tablet anchors — same centered wave, slightly tighter */
 const tabletAnchors = [
-  { x: 12, y: 28, row: 'top' as const },
-  { x: 38, y: 72, row: 'bottom' as const },
-  { x: 64, y: 28, row: 'top' as const },
-  { x: 88, y: 72, row: 'bottom' as const },
+  { x: 14, y: 40, row: 'top' as const },
+  { x: 38, y: 60, row: 'bottom' as const },
+  { x: 62, y: 40, row: 'top' as const },
+  { x: 86, y: 60, row: 'bottom' as const },
 ]
 
 /**
- * Mobile anchors — horizontal alternating zig-zag.
- * Tighter spacing so all 4 cards fit within viewport width.
+ * Mobile anchors — horizontal wave around center, all 4 cards in viewport.
  */
 const mobileAnchors = [
-  { x: 18, y: 28, row: 'top' as const },
-  { x: 40, y: 72, row: 'bottom' as const },
-  { x: 60, y: 28, row: 'top' as const },
-  { x: 82, y: 72, row: 'bottom' as const },
+  { x: 16, y: 40, row: 'top' as const },
+  { x: 39, y: 60, row: 'bottom' as const },
+  { x: 61, y: 40, row: 'top' as const },
+  { x: 84, y: 60, row: 'bottom' as const },
 ]
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, index) => {
@@ -109,8 +108,8 @@ export function buildJourneyPath(points: { x: number; y: number }[]): string {
 /** Desktop card positions (in % of container) */
 export const MILESTONE_CARD_POSITIONS_DESKTOP = JOURNEY_MILESTONES.map((m) => ({
   left: `${m.x}%`,
-  top: m.row === 'top' ? '4%' : 'auto',
-  bottom: m.row === 'bottom' ? '4%' : 'auto',
+  top: m.row === 'top' ? '6%' : 'auto',
+  bottom: m.row === 'bottom' ? '6%' : 'auto',
   translateX: '-50%',
 }))
 
@@ -119,8 +118,8 @@ export const MILESTONE_CARD_POSITIONS_TABLET = JOURNEY_MILESTONES.map((_m, i) =>
   const anchor = tabletAnchors[i] ?? tabletAnchors[tabletAnchors.length - 1]
   return {
     left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '2%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '2%' : 'auto',
+    top: anchor.row === 'top' ? '4%' : 'auto',
+    bottom: anchor.row === 'bottom' ? '4%' : 'auto',
     translateX: '-50%',
   }
 })
@@ -130,8 +129,8 @@ export const MILESTONE_CARD_POSITIONS_MOBILE = JOURNEY_MILESTONES.map((_m, i) =>
   const anchor = mobileAnchors[i] ?? mobileAnchors[mobileAnchors.length - 1]
   return {
     left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '6%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '6%' : 'auto',
+    top: anchor.row === 'top' ? '8%' : 'auto',
+    bottom: anchor.row === 'bottom' ? '8%' : 'auto',
     translateX: '-50%',
   }
 })

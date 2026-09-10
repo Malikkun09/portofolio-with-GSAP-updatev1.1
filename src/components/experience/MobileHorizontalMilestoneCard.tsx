@@ -77,7 +77,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
           <h3
             data-milestone-title
             className={cn(
-              'text-[11px] font-bold leading-tight text-cyber-fg',
+              'font-display text-[11px] font-semibold leading-tight tracking-tight text-cyber-fg',
               staticVisible ? 'opacity-100' : 'opacity-70',
             )}
           >

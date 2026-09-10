@@ -74,7 +74,7 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
         <div
           data-marker-compass
           className={cn(
-            'absolute h-1.5 w-1.5 rounded-full bg-cyber-cyan',
+            'absolute h-1.5 w-1.5 rounded-full bg-cyber-blue',
             mode === 'rail'
               ? '-bottom-1 left-1/2 -translate-x-1/2'
               : '-right-1 top-1/2 -translate-y-1/2',

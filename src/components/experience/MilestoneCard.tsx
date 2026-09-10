@@ -92,7 +92,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <h3
               data-milestone-title
               className={cn(
-                'text-sm font-bold leading-snug text-cyber-fg sm:text-base',
+                'font-display text-sm font-semibold leading-snug tracking-tight text-cyber-fg sm:text-base',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >
