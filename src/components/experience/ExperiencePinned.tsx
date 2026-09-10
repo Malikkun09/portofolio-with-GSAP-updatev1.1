@@ -39,7 +39,7 @@ export default function ExperiencePinned() {
       {device === null ? (
         <div className="min-h-[100dvh] bg-cyber-bg" aria-hidden />
       ) : device === 'mobile' ? (
-        <div ref={mobilePinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+        <div ref={mobilePinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-5 pb-2 pt-20">
             <SectionHeading
               label="Experience"
@@ -69,7 +69,7 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : device === 'tablet' ? (
-        <div ref={tabletPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+        <div ref={tabletPinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-8 pb-2 pt-24">
             <SectionHeading
               label="Experience"
@@ -99,7 +99,7 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : (
-        <div ref={desktopPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+        <div ref={desktopPinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
           <div className="relative z-30 shrink-0 px-4 pb-2 pt-24 lg:px-12">
             <SectionHeading
               label="Experience"
@@ -111,7 +111,7 @@ export default function ExperiencePinned() {
           </div>
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl min-h-0 flex-1 items-center justify-center px-4 pb-8 lg:px-12">
-            <div className="relative mx-auto aspect-[2/1] w-full max-w-6xl">
+            <div className="relative mx-auto aspect-[2/1] w-full max-w-6xl max-h-[calc(100dvh-11rem)]">
               <JourneyPath staticVisible={!scrollEnabled} />
 
               {JOURNEY_MILESTONES.map((milestone, index) => (

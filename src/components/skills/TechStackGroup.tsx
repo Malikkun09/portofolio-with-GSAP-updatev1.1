@@ -19,7 +19,7 @@ const TechStackGroup = forwardRef<HTMLDivElement, TechStackGroupProps>(
     return (
       <div
         className={cn(
-          'pointer-events-none absolute z-20 w-[min(42vw,248px)] sm:w-[min(34vw,260px)]',
+          'pointer-events-none absolute z-20 w-[min(38vw,220px)] sm:w-[min(30vw,232px)]',
           className,
         )}
         style={{

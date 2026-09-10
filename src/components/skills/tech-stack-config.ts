@@ -89,10 +89,10 @@ const themes: TechGroupTheme[] = [
 export const TECH_ROUTE_DESKTOP = {
   hub: { x: 50, y: 50 } satisfies RouteNode,
   nodes: [
-    { x: 50, y: 18 },
-    { x: 82, y: 50 },
-    { x: 50, y: 82 },
-    { x: 18, y: 50 },
+    { x: 50, y: 20 },
+    { x: 80, y: 50 },
+    { x: 50, y: 80 },
+    { x: 20, y: 50 },
   ] satisfies RouteNode[],
 }
 
@@ -121,10 +121,10 @@ export const TECH_ROUTE_TABLET = {
 }
 
 const desktopLayouts = [
-  { top: '18%', left: '50%', translate: '-50%, -50%' },
-  { top: '50%', left: '82%', translate: '-50%, -50%' },
-  { top: '82%', left: '50%', translate: '-50%, -50%' },
-  { top: '50%', left: '18%', translate: '-50%, -50%' },
+  { top: '20%', left: '50%', translate: '-50%, -50%' },
+  { top: '50%', left: '80%', translate: '-50%, -50%' },
+  { top: '80%', left: '50%', translate: '-50%, -50%' },
+  { top: '50%', left: '20%', translate: '-50%, -50%' },
 ]
 
 const mobileLayouts = [
