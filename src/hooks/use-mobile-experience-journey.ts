@@ -43,7 +43,7 @@ export function useMobileExperienceJourney(
       )
 
     const count = JOURNEY_MILESTONES.length
-    const scrollLength = `${count * 100}%`
+    const scrollLength = `${count * 120}%`
 
     const ctx = gsap.context(() => {
       cards.forEach((cardEl) => hideMilestoneCard(cardEl, { fromX: -64 }))

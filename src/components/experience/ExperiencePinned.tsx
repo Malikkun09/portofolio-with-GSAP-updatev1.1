@@ -63,9 +63,9 @@ export default function ExperiencePinned() {
               <ExperienceHeading />
             </div>
 
-            <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-[520px] flex-1 px-4 pb-8">
-              <div className="relative w-11 shrink-0">
-                <div className="absolute inset-y-4 left-1/2 w-px">
+            <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-[520px] flex-1 px-3 pb-8">
+              <div className="relative w-14 shrink-0">
+                <div className="absolute inset-y-6 left-1/2 w-px">
                   <MobileJourneyRail />
                   <MobileBrandedMarker mode="rail" />
                 </div>

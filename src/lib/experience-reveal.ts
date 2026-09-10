@@ -79,10 +79,10 @@ export function addMilestoneReveal(
   const { xPercent, slot = 0.14 } = options
   const parts = queryMilestoneParts(cardEl)
 
-  const enterDur = slot * 0.42
-  const stampAt = startAt + enterDur * 0.72
-  const stampDur = slot * 0.28
-  const copyAt = stampAt + stampDur * 0.55
+  const enterDur = slot * 0.36
+  const stampAt = startAt + enterDur
+  const stampDur = slot * 0.22
+  const copyAt = stampAt + stampDur * 0.85
 
   tl.to(
     cardEl,

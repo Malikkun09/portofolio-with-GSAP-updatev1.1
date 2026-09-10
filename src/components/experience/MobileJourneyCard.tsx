@@ -22,27 +22,27 @@ const MobileJourneyCard = forwardRef<HTMLDivElement, MobileJourneyCardProps>(
     return (
       <article
         ref={ref}
-        className={cn('experience-card-mobile relative w-full', className)}
+        className={cn('experience-card-mobile relative isolate w-full', className)}
         data-milestone={milestone.id}
         data-milestone-index={index}
       >
         <div
           data-milestone-glow
           className={cn(
-            'pointer-events-none absolute -inset-px rounded-2xl',
-            staticVisible ? 'opacity-70' : 'opacity-0',
+            'pointer-events-none absolute -inset-[2px] -z-10 rounded-[1.15rem]',
+            staticVisible ? 'opacity-80' : 'opacity-0',
           )}
           style={{
             background:
               'conic-gradient(from 180deg, #67e8f9, #00B8FF, #818cf8, #c084fc, #67e8f9)',
-            filter: 'blur(0.6px)',
+            filter: 'blur(1px)',
           }}
           aria-hidden
         />
 
         <div
           data-milestone-card
-          className="relative z-[1] overflow-hidden rounded-2xl border border-cyber-fg/10 bg-cyber-bg-card/92 backdrop-blur-md"
+          className="relative z-[1] overflow-hidden rounded-2xl border border-cyber-fg/10 bg-cyber-bg-card"
           style={{
             boxShadow: staticVisible
               ? 'var(--milestone-active-shadow)'
@@ -53,10 +53,7 @@ const MobileJourneyCard = forwardRef<HTMLDivElement, MobileJourneyCardProps>(
             <div className="mb-3 flex items-center justify-between gap-3">
               <span
                 data-milestone-year
-                className={cn(
-                  'font-mono text-[13px] font-semibold tracking-[0.16em]',
-                  staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/60',
-                )}
+                className="font-mono text-[13px] font-semibold tracking-[0.16em] text-cyber-blue"
               >
                 {milestone.year}
               </span>

@@ -56,7 +56,10 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
         />
         <div
           data-marker-body
-          className="relative flex h-11 w-11 items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-bg/90 backdrop-blur-sm"
+          className={cn(
+            'relative flex items-center justify-center rounded-full border border-cyber-blue/50 bg-cyber-bg backdrop-blur-sm',
+            mode === 'rail' ? 'h-8 w-8' : 'h-11 w-11',
+          )}
           style={{
             boxShadow:
               '0 0 0 1px rgba(0,184,255,0.25), 0 0 18px rgba(0,184,255,0.4), 0 0 36px rgba(0,184,255,0.15)',
@@ -65,10 +68,13 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
           <img
             src="/images/logo-mf.png"
             alt=""
-            className="h-6 w-6 select-none rounded-full object-cover"
+            className="select-none rounded-full object-cover"
             draggable={false}
             decoding="async"
-            style={{ width: '1.5rem', height: '1.5rem' }}
+            style={{
+              width: mode === 'rail' ? '1.05rem' : '1.5rem',
+              height: mode === 'rail' ? '1.05rem' : '1.5rem',
+            }}
           />
         </div>
         <div
