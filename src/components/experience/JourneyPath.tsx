@@ -13,10 +13,8 @@ interface JourneyRailPathProps {
 export const JourneyRailPath = forwardRef<SVGSVGElement, JourneyRailPathProps>(
   function JourneyRailPath({ points, idPrefix, staticVisible = false, className }, ref) {
     const pathD = buildJourneyPath(points)
-    const nodes = points.slice(1, -1)
     const gradientId = `${idPrefix}-gradient`
     const glowId = `${idPrefix}-glow`
-    const nodeGlowId = `${idPrefix}-node-glow`
 
     return (
       <svg
@@ -35,13 +33,6 @@ export const JourneyRailPath = forwardRef<SVGSVGElement, JourneyRailPathProps>(
           </linearGradient>
           <filter id={glowId} x="-80%" y="-8%" width="260%" height="116%">
             <feGaussianBlur stdDeviation="0.45" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id={nodeGlowId} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -75,30 +66,6 @@ export const JourneyRailPath = forwardRef<SVGSVGElement, JourneyRailPathProps>(
             strokeDashoffset: staticVisible ? 0 : undefined,
           }}
         />
-
-        {nodes.map((wp, i) => (
-          <g key={`${idPrefix}-node-${i}`}>
-            <circle
-              data-journey-node={i}
-              cx={wp.x}
-              cy={wp.y}
-              r="1.35"
-              fill="var(--cyber-bg-node, rgb(5, 5, 5))"
-              stroke="rgba(0, 184, 255, 0.3)"
-              strokeWidth="0.22"
-              filter={`url(#${nodeGlowId})`}
-              style={{ opacity: staticVisible ? 1 : 0.5 }}
-            />
-            <circle
-              data-journey-node-dot={i}
-              cx={wp.x}
-              cy={wp.y}
-              r="0.45"
-              fill="rgba(0, 184, 255, 0.5)"
-              style={{ opacity: staticVisible ? 1 : 0 }}
-            />
-          </g>
-        ))}
       </svg>
     )
   },

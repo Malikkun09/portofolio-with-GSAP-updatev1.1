@@ -71,8 +71,8 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
   const markerOrbit = pinEl.querySelector<HTMLElement>('[data-marker-orbit]')
   const markerCompass = pinEl.querySelector<HTMLElement>('[data-marker-compass]')
   const cards = gsap.utils.toArray<HTMLElement>('[data-milestone]', pinEl)
-  const nodes = gsap.utils.toArray<SVGCircleElement>('[data-journey-node]', pinEl)
-  const nodeDots = gsap.utils.toArray<SVGCircleElement>('[data-journey-node-dot]', pinEl)
+  const nodes = gsap.utils.toArray<HTMLElement>('[data-journey-node]', pinEl)
+  const nodeDots = gsap.utils.toArray<HTMLElement>('[data-journey-node-dot]', pinEl)
 
   const scrollLength = journeyScrollLength(JOURNEY_MILESTONES.length, vhPerStep)
 
@@ -122,7 +122,7 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
     if (markerOrbit) gsap.set(markerOrbit, { autoAlpha: 0 })
     if (markerCompass) gsap.set(markerCompass, { autoAlpha: 0 })
     if (pathBgEl) gsap.set(pathBgEl, { opacity: 0.45 })
-    nodes.forEach((node) => gsap.set(node, { opacity: 0.35, scale: 0.85 }))
+    nodes.forEach((node) => gsap.set(node, { opacity: 0.45, scale: 0.92, transformOrigin: '50% 50%' }))
     nodeDots.forEach((dot) => gsap.set(dot, { opacity: 0, scale: 0 }))
 
     const tl = gsap.timeline({
@@ -215,7 +215,7 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
           {
             opacity: 1,
             scale: 1.18,
-            attr: { stroke: 'rgba(103,232,249,0.75)' },
+            borderColor: 'rgba(103,232,249,0.85)',
             duration: animSlot * 0.55,
             ease: 'back.out(1.8)',
           },

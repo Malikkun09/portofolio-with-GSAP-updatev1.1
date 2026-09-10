@@ -22,9 +22,9 @@ const chronological = [...experiences].reverse()
 /** Equal quarters — matches four flex-1 stacked cards. */
 const NODE_YS = [12.5, 37.5, 62.5, 87.5] as const
 
-const DESKTOP_RAIL_X = 3.2
-const TABLET_RAIL_X = 4
-const MOBILE_RAIL_X = 7
+const DESKTOP_RAIL_X = 50
+const TABLET_RAIL_X = 50
+const MOBILE_RAIL_X = 50
 
 function railPoints(x: number) {
   return [

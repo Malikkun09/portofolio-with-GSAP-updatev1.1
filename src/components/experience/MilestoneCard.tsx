@@ -39,7 +39,7 @@ const sizeStyles: Record<
     pad: 'flex h-full min-h-0 flex-col px-5 py-3.5',
     year: 'text-xs sm:text-sm',
     index: 'text-xs',
-    title: 'text-lg leading-snug sm:text-xl',
+    title: 'text-lg leading-snug',
     company: 'text-sm',
     desc: 'mt-1.5 shrink-0 line-clamp-2 text-sm leading-relaxed',
     tags: 'mt-auto gap-1.5 pt-2.5',

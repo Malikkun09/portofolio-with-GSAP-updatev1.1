@@ -34,7 +34,7 @@ export default function SectionHeading({
         className={cn(
           'glow-text-blue-soft font-display font-semibold tracking-tight text-cyber-fg',
           compact
-            ? 'text-2xl leading-tight sm:text-3xl lg:text-[2.45rem] lg:leading-[1.12]'
+            ? 'text-2xl leading-tight lg:text-[2.45rem] lg:leading-[1.12]'
             : 'text-3xl sm:text-4xl lg:text-[3.25rem] lg:leading-[1.08]',
         )}
       >
