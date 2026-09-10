@@ -1,9 +1,10 @@
-import { motion } from 'framer-motion'
+import { type ReactNode } from 'react'
+import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { HERO_EASE } from '@/components/hero/hero-motion'
 
 interface HeroCtaButtonProps {
-  children: React.ReactNode
+  children: ReactNode
   onClick: () => void
   variant?: 'primary' | 'outline'
   className?: string

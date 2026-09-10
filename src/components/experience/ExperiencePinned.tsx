@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import SectionHeading from '@/components/SectionHeading'
 import BrandedMarker from '@/components/experience/BrandedMarker'
 import JourneyPath from '@/components/experience/JourneyPath'
@@ -17,38 +17,15 @@ import {
 import { useExperienceJourney } from '@/hooks/use-experience-journey'
 import { useMobileExperienceJourney } from '@/hooks/use-mobile-experience-journey'
 import { useTabletExperienceJourney } from '@/hooks/use-tablet-experience-journey'
+import { useDeviceKind } from '@/hooks/use-device-kind'
 import { useAppReady } from '@/contexts/AppReadyContext'
-
-type DeviceKind = 'mobile' | 'tablet' | 'desktop'
-
-function resolveDevice(width: number): DeviceKind {
-  if (width < 768) return 'mobile'
-  if (width < 1024) return 'tablet'
-  return 'desktop'
-}
 
 export default function ExperiencePinned() {
   const desktopPinRef = useRef<HTMLDivElement>(null)
   const tabletPinRef = useRef<HTMLDivElement>(null)
   const mobilePinRef = useRef<HTMLDivElement>(null)
-  const [device, setDevice] = useState<DeviceKind | null>(null)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const { device, reducedMotion } = useDeviceKind()
   const appReady = useAppReady()
-
-  useEffect(() => {
-    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => {
-      setDevice(resolveDevice(window.innerWidth))
-      setReducedMotion(motionMq.matches)
-    }
-    update()
-    window.addEventListener('resize', update)
-    motionMq.addEventListener('change', update)
-    return () => {
-      window.removeEventListener('resize', update)
-      motionMq.removeEventListener('change', update)
-    }
-  }, [])
 
   const scrollEnabled = !reducedMotion && appReady
 

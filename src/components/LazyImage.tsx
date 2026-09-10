@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type ImgHTMLAttributes } from 'react'
 import { motion, useInView } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { Skeleton } from './Skeleton'
 import { EASE_OUT_EXPO } from '@/lib/motion'
 
-interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface LazyImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   skeletonClassName?: string
   reveal?: boolean
 }

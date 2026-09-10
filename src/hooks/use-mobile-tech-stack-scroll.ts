@@ -1,10 +1,7 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { TECH_STACK_STEP_COUNT } from '@/components/skills/tech-stack-config'
-import { withFullWidthPin, patchPinnedSceneWidth } from '@/lib/scroll-pin'
-
-gsap.registerPlugin(ScrollTrigger)
+import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { withFullWidthPin, bindPinnedLayoutSync, patchPinnedSceneWidth } from '@/lib/scroll-pin'
 
 export function useMobileTechStackScroll(
   pinRef: RefObject<HTMLElement | null>,
@@ -155,23 +152,10 @@ export function useMobileTechStackScroll(
       patchPinnedSceneWidth(pinEl)
     }, pinEl)
 
-    const onResize = () => {
-      ScrollTrigger.refresh()
-      patchPinnedSceneWidth(pinEl)
-    }
-    window.addEventListener('resize', onResize)
-    let rafId2 = 0
-    const rafId1 = window.requestAnimationFrame(() => {
-      rafId2 = window.requestAnimationFrame(() => {
-        ScrollTrigger.refresh()
-        patchPinnedSceneWidth(pinEl)
-      })
-    })
+    const unbindLayout = bindPinnedLayoutSync(pinEl, { patchWidth: true })
 
     return () => {
-      window.cancelAnimationFrame(rafId1)
-      window.cancelAnimationFrame(rafId2)
-      window.removeEventListener('resize', onResize)
+      unbindLayout()
       scrollTriggerRef.current?.kill()
       scrollTriggerRef.current = null
       ctx.revert()

@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
+import { resolveDeviceKind, type DeviceKind } from '@/hooks/use-device-kind'
 
-export type HeroLayout = 'mobile' | 'tablet' | 'desktop'
-
-function resolveHeroLayout(width: number): HeroLayout {
-  if (width < 768) return 'mobile'
-  if (width < 1024) return 'tablet'
-  return 'desktop'
-}
+export type HeroLayout = DeviceKind
 
 export function useHeroLayout(): HeroLayout {
   const [layout, setLayout] = useState<HeroLayout>(() =>
-    typeof window !== 'undefined' ? resolveHeroLayout(window.innerWidth) : 'desktop',
+    typeof window !== 'undefined' ? resolveDeviceKind(window.innerWidth) : 'desktop',
   )
 
   useEffect(() => {
-    const update = () => setLayout(resolveHeroLayout(window.innerWidth))
+    const update = () => setLayout(resolveDeviceKind(window.innerWidth))
     update()
     window.addEventListener('resize', update)
     return () => window.removeEventListener('resize', update)

@@ -1,43 +1,11 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   JOURNEY_MILESTONES,
   JOURNEY_PATH_POINTS_TABLET,
 } from '@/components/experience/journey-config'
-import { withFullWidthPin, patchPinnedSceneWidth } from '@/lib/scroll-pin'
-
-gsap.registerPlugin(ScrollTrigger)
-
-/** Sample the SVG path to find each milestone node's normalized position */
-function resolveMilestoneProgresses(
-  pathEl: SVGPathElement,
-  totalLength: number,
-): number[] {
-  if (totalLength <= 0) return JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
-  const samples = 200
-  const sampled: { x: number; y: number; t: number }[] = []
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples
-    const p = pathEl.getPointAtLength(totalLength * t)
-    sampled.push({ x: p.x, y: p.y, t })
-  }
-  const waypoints = JOURNEY_PATH_POINTS_TABLET.slice(1, -1)
-  return waypoints.map((wp) => {
-    let bestT = 0
-    let bestDist = Infinity
-    for (const s of sampled) {
-      const dx = s.x - wp.x
-      const dy = s.y - wp.y
-      const d = dx * dx + dy * dy
-      if (d < bestDist) {
-        bestDist = d
-        bestT = s.t
-      }
-    }
-    return bestT
-  })
-}
+import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { resolveClosestPathProgresses } from '@/lib/path-progress'
+import { withFullWidthPin, bindPinnedLayoutSync, patchPinnedSceneWidth } from '@/lib/scroll-pin'
 
 /**
  * Tablet experience journey — compact horizontal path with tighter zig-zag.
@@ -93,9 +61,12 @@ export function useTabletExperienceJourney(
         })
       }
 
-      const milestoneProgresses = pathEl
-        ? resolveMilestoneProgresses(pathEl, pathLength)
-        : JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
+      const milestoneProgresses = resolveClosestPathProgresses(
+        pathEl,
+        pathLength,
+        JOURNEY_PATH_POINTS_TABLET.slice(1, -1),
+        JOURNEY_MILESTONES.length,
+      )
 
       if (markerEl) {
         const start = JOURNEY_PATH_POINTS_TABLET[0]
@@ -241,23 +212,10 @@ export function useTabletExperienceJourney(
       patchPinnedSceneWidth(pinEl)
     }, pinEl)
 
-    const onResize = () => {
-      ScrollTrigger.refresh()
-      patchPinnedSceneWidth(pinEl)
-    }
-    window.addEventListener('resize', onResize)
-    let rafId2 = 0
-    const rafId1 = window.requestAnimationFrame(() => {
-      rafId2 = window.requestAnimationFrame(() => {
-        ScrollTrigger.refresh()
-        patchPinnedSceneWidth(pinEl)
-      })
-    })
+    const unbindLayout = bindPinnedLayoutSync(pinEl, { patchWidth: true })
 
     return () => {
-      window.cancelAnimationFrame(rafId1)
-      window.cancelAnimationFrame(rafId2)
-      window.removeEventListener('resize', onResize)
+      unbindLayout()
       scrollTriggerRef.current?.kill()
       scrollTriggerRef.current = null
       ctx.revert()

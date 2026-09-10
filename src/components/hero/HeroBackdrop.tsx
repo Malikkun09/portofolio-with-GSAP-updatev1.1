@@ -1,4 +1,4 @@
-import { motion, type MotionValue } from 'framer-motion'
+import { motion, type MotionValue } from 'motion/react'
 import { HERO_EASE } from '@/components/hero/hero-motion'
 import { useAppReady } from '@/contexts/AppReadyContext'
 

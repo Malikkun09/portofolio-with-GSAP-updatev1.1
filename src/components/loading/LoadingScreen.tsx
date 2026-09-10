@@ -51,7 +51,9 @@ export default function LoadingScreen({
   onExitCompleteRef.current = onExitComplete
 
   useEffect(() => {
-    if (!isExiting || !containerRef.current) return
+    if (!isExiting || !containerRef.current) return undefined
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined
 
     const ctx = gsap.context(() => {
       const panels = panelsRef.current.filter(Boolean) as HTMLDivElement[]
@@ -59,8 +61,7 @@ export default function LoadingScreen({
       const tl = gsap.timeline({
         defaults: { ease: 'power3.inOut' },
         onComplete: () => {
-          // Brief pause before revealing dashboard
-          setTimeout(() => onExitCompleteRef.current?.(), 120)
+          timeoutId = window.setTimeout(() => onExitCompleteRef.current?.(), 120)
         },
       })
 
@@ -94,7 +95,10 @@ export default function LoadingScreen({
         )
     }, containerRef)
 
-    return () => ctx.revert()
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+      ctx.revert()
+    }
   }, [isExiting])
 
   const statusIndex = Math.min(
@@ -107,13 +111,15 @@ export default function LoadingScreen({
     <div
       ref={containerRef}
       className="fixed inset-0 z-[9999] overflow-hidden bg-cyber-black"
-      aria-hidden={isExiting}
       aria-label="Loading portfolio"
       aria-valuenow={progress}
       aria-valuemin={0}
       aria-valuemax={100}
       role="progressbar"
     >
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {status} {progress}%
+      </p>
       <div className="pointer-events-none absolute inset-0 cyber-grid-bg opacity-30" aria-hidden />
 
       <div
@@ -213,7 +219,7 @@ export default function LoadingScreen({
         <div
           key={index}
           ref={(el) => {
-            if (el) panelsRef.current[index] = el
+            panelsRef.current[index] = el
           }}
           className="pointer-events-none absolute left-0 z-20 w-full"
           style={{

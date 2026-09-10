@@ -1,5 +1,6 @@
 import { ArrowRight, Mail } from 'lucide-react'
 import { motion } from 'motion/react'
+import type { MouseEvent, ReactNode } from 'react'
 import AnimatedGlowBorder from '@/components/ui/AnimatedGlowBorder'
 import Magnetic from '@/components/ui/Magnetic'
 import { buildPersonalMailto, buildSchoolMailto } from '@/lib/secure-contact'
@@ -70,8 +71,8 @@ export default function PremiumCTA({
 
 interface PremiumLinkCTAProps {
   href: string
-  children: React.ReactNode
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  children: ReactNode
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void
   className?: string
 }
 
