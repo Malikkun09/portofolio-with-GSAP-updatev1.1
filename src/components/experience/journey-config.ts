@@ -28,9 +28,9 @@ const MOBILE_RAIL_X = 7
 
 function railPoints(x: number) {
   return [
-    { x, y: -6 },
+    { x, y: 6 },
     ...NODE_YS.map((y) => ({ x, y })),
-    { x, y: 106 },
+    { x, y: 94 },
   ]
 }
 

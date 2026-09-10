@@ -9,38 +9,48 @@ gsap.registerPlugin(ScrollTrigger)
 const MOTION_START = 0.03
 const MOTION_DURATION = 0.94
 
-function resolveMilestoneProgresses(
-  pathEl: SVGPathElement,
-  totalLength: number,
-  pathPoints: { x: number; y: number }[],
-): number[] {
-  if (totalLength <= 0) {
+function polylineLength(points: { x: number; y: number }[]) {
+  let total = 0
+  for (let i = 1; i < points.length; i++) {
+    total += Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y)
+  }
+  return total
+}
+
+function pointAlongPolyline(
+  points: { x: number; y: number }[],
+  t: number,
+): { x: number; y: number } {
+  if (points.length === 0) return { x: 0, y: 0 }
+  if (points.length === 1 || t <= 0) return points[0]
+  if (t >= 1) return points[points.length - 1]
+
+  let remaining = t * polylineLength(points)
+  for (let i = 1; i < points.length; i++) {
+    const dx = points[i].x - points[i - 1].x
+    const dy = points[i].y - points[i - 1].y
+    const len = Math.hypot(dx, dy)
+    if (len === 0) continue
+    if (remaining <= len || i === points.length - 1) {
+      const r = remaining / len
+      return { x: points[i - 1].x + dx * r, y: points[i - 1].y + dy * r }
+    }
+    remaining -= len
+  }
+
+  return points[points.length - 1]
+}
+
+function resolveMilestoneProgresses(pathPoints: { x: number; y: number }[]): number[] {
+  const total = polylineLength(pathPoints)
+  if (total <= 0) {
     return JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
   }
 
-  const samples = 240
-  const sampledPoints: { x: number; y: number; t: number }[] = []
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples
-    const p = pathEl.getPointAtLength(totalLength * t)
-    sampledPoints.push({ x: p.x, y: p.y, t })
-  }
-
   const waypoints = pathPoints.slice(1, -1)
-
-  return waypoints.map((wp) => {
-    let bestT = 0
-    let bestDist = Infinity
-    for (const sample of sampledPoints) {
-      const dx = sample.x - wp.x
-      const dy = sample.y - wp.y
-      const d = dx * dx + dy * dy
-      if (d < bestDist) {
-        bestDist = d
-        bestT = sample.t
-      }
-    }
-    return bestT
+  return waypoints.map((_wp, index) => {
+    const wpIndex = index + 1
+    return polylineLength(pathPoints.slice(0, wpIndex + 1)) / total
   })
 }
 
@@ -98,9 +108,7 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
       })
     }
 
-    const milestoneProgresses = pathEl
-      ? resolveMilestoneProgresses(pathEl, pathLength, pathPoints)
-      : JOURNEY_MILESTONES.map((_, i) => (i + 1) / (JOURNEY_MILESTONES.length + 1))
+    const milestoneProgresses = resolveMilestoneProgresses(pathPoints)
 
     if (markerEl) {
       const startPoint = pathPoints[0]
@@ -147,8 +155,8 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
         duration: MOTION_DURATION,
         ease: 'none',
         onUpdate: () => {
-          if (!pathEl || !markerEl || pathLength <= 0) return
-          const point = pathEl.getPointAtLength(pathLength * motionObj.progress)
+          if (!markerEl) return
+          const point = pointAlongPolyline(pathPoints, motionObj.progress)
           markerEl.style.left = `${point.x}%`
           markerEl.style.top = `${point.y}%`
         },

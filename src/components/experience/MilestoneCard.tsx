@@ -26,33 +26,33 @@ const sizeStyles: Record<
   }
 > = {
   desktop: {
-    pad: 'px-6 py-5 lg:px-8 lg:py-6',
+    pad: 'flex h-full min-h-0 flex-col px-6 py-4 lg:px-8 lg:py-5',
     year: 'text-sm sm:text-[0.95rem]',
     index: 'text-sm',
-    title: 'text-2xl leading-tight lg:text-[2rem]',
-    company: 'text-base',
-    desc: 'mt-3 line-clamp-3 text-base leading-relaxed lg:line-clamp-4',
-    tags: 'mt-4 gap-2',
+    title: 'text-xl leading-tight sm:text-2xl lg:text-[1.85rem]',
+    company: 'text-sm sm:text-base',
+    desc: 'mt-2 shrink-0 line-clamp-2 text-sm leading-relaxed sm:text-base lg:line-clamp-3',
+    tags: 'mt-auto gap-2 pt-3',
     tag: 'px-2.5 py-1 text-xs sm:text-[13px]',
   },
   tablet: {
-    pad: 'px-5 py-4',
+    pad: 'flex h-full min-h-0 flex-col px-5 py-3.5',
     year: 'text-xs sm:text-sm',
     index: 'text-xs',
-    title: 'text-xl leading-snug',
+    title: 'text-lg leading-snug sm:text-xl',
     company: 'text-sm',
-    desc: 'mt-2.5 line-clamp-3 text-sm leading-relaxed',
-    tags: 'mt-3 gap-1.5',
+    desc: 'mt-1.5 shrink-0 line-clamp-2 text-sm leading-relaxed',
+    tags: 'mt-auto gap-1.5 pt-2.5',
     tag: 'px-2 py-0.5 text-[11px]',
   },
   mobile: {
-    pad: 'flex h-full flex-col p-4',
+    pad: 'flex h-full min-h-0 flex-col p-3.5',
     year: 'text-xs',
     index: 'text-[11px]',
-    title: 'text-lg leading-snug',
-    company: 'text-sm',
-    desc: 'mt-2 line-clamp-3 text-sm leading-relaxed',
-    tags: 'mt-auto gap-1.5 pt-3',
+    title: 'text-[1.05rem] leading-snug',
+    company: 'text-[13px]',
+    desc: 'mt-1.5 shrink-0 line-clamp-2 text-[13px] leading-relaxed',
+    tags: 'mt-auto gap-1.5 pt-2',
     tag: 'px-2 py-0.5 text-[11px]',
   },
 }
@@ -93,7 +93,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
 
         <div
           data-milestone-card
-          className="relative z-[1] h-full overflow-hidden rounded-2xl border border-cyber-fg/10 bg-cyber-bg-card/95"
+          className="relative z-[1] flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-cyber-fg/10 bg-cyber-bg-card/95"
           style={{
             boxShadow: staticVisible
               ? '0 0 0 1px rgba(0,184,255,0.3), 0 0 28px rgba(0,184,255,0.18)'
@@ -101,7 +101,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
           }}
         >
           <div className={cn('relative', styles.pad)}>
-            <div className="mb-2 flex items-center justify-between gap-3 sm:mb-3">
+            <div className="mb-1.5 flex shrink-0 items-center justify-between gap-3 sm:mb-2">
               <span
                 data-milestone-year
                 className={cn(
@@ -123,7 +123,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <h3
               data-milestone-title
               className={cn(
-                'font-display font-semibold tracking-tight text-cyber-fg',
+                'shrink-0 font-display font-semibold tracking-tight text-cyber-fg',
                 styles.title,
                 staticVisible ? 'opacity-100' : 'opacity-90',
               )}
@@ -134,7 +134,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-company
               className={cn(
-                'mt-1.5 text-cyber-fg-muted',
+                'mt-1.5 shrink-0 text-cyber-fg-muted',
                 styles.company,
                 staticVisible ? 'opacity-80' : 'opacity-70',
               )}

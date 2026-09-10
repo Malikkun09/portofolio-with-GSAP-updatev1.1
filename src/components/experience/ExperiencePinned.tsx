@@ -14,6 +14,23 @@ import { useMobileExperienceJourney } from '@/hooks/use-mobile-experience-journe
 import { useTabletExperienceJourney } from '@/hooks/use-tablet-experience-journey'
 import { usePinnedScene } from '@/hooks/use-pinned-scene'
 
+function ExperienceHeading({ showDescription }: { showDescription: boolean }) {
+  return (
+    <SectionHeading
+      label="Experience"
+      title="Journey & Milestones"
+      description={
+        showDescription
+          ? 'A guided path through the milestones that shaped my craft.'
+          : undefined
+      }
+      align="center"
+      compact
+      className="mb-0"
+    />
+  )
+}
+
 export default function ExperiencePinned() {
   const desktopPinRef = useRef<HTMLDivElement>(null)
   const tabletPinRef = useRef<HTMLDivElement>(null)
@@ -35,21 +52,15 @@ export default function ExperiencePinned() {
         <div className="min-h-[100dvh] bg-cyber-bg" aria-hidden />
       ) : device === 'mobile' ? (
         <div ref={mobilePinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-5 pb-2 pt-20">
-            <SectionHeading
-              label="Experience"
-              title="Journey & Milestones"
-              description="A guided path through the milestones that shaped my craft."
-              align="center"
-              className="mb-0"
-            />
+          <div className="relative z-30 shrink-0 px-5 pb-1 pt-16">
+            <ExperienceHeading showDescription={false} />
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-lg flex-1 px-4 pb-6">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-lg flex-1 px-4 pb-5">
             <div className="relative h-full w-full">
               <MobileJourneyPath staticVisible={!scrollEnabled} />
 
-              <div className="relative z-20 flex h-full flex-col justify-between gap-3 py-1 pl-12">
+              <div className="relative z-20 flex h-full flex-col gap-2.5 py-1 pl-12">
                 {JOURNEY_MILESTONES.map((milestone, index) => (
                   <MobileMilestoneCard
                     key={milestone.id}
@@ -66,17 +77,11 @@ export default function ExperiencePinned() {
         </div>
       ) : device === 'tablet' ? (
         <div ref={tabletPinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-8 pb-2 pt-24">
-            <SectionHeading
-              label="Experience"
-              title="Journey & Milestones"
-              description="A guided path through the milestones that shaped my craft."
-              align="center"
-              className="mb-0"
-            />
+          <div className="relative z-30 shrink-0 px-8 pb-1 pt-16">
+            <ExperienceHeading showDescription={false} />
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-3xl flex-1 px-6 pb-8">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-3xl flex-1 px-6 pb-6">
             <div className="relative h-full w-full">
               <TabletJourneyPath staticVisible={!scrollEnabled} />
 
@@ -97,21 +102,15 @@ export default function ExperiencePinned() {
         </div>
       ) : (
         <div ref={desktopPinRef} className="experience-pin relative flex h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-4 pb-2 pt-24 lg:px-12">
-            <SectionHeading
-              label="Experience"
-              title="Journey & Milestones"
-              description="A guided path through the milestones that shaped my craft."
-              align="center"
-              className="mb-0"
-            />
+          <div className="relative z-30 shrink-0 px-4 pb-1 pt-20 lg:px-12">
+            <ExperienceHeading showDescription />
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-4xl flex-1 px-6 pb-8 lg:px-10">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-4xl flex-1 px-6 pb-6 lg:px-10">
             <div className="relative h-full w-full">
               <JourneyPath staticVisible={!scrollEnabled} />
 
-              <div className="relative z-20 flex h-full flex-col gap-4 py-1 pl-16 lg:gap-5 lg:pl-[4.75rem]">
+              <div className="relative z-20 flex h-full flex-col gap-3 py-1 pl-16 lg:gap-4 lg:pl-[4.75rem]">
                 {JOURNEY_MILESTONES.map((milestone, index) => (
                   <MilestoneCard
                     key={milestone.id}
