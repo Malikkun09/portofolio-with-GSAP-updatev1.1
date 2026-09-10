@@ -114,7 +114,7 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 px-4 pb-8 lg:px-12">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col px-4 pb-8 lg:px-12">
             <div className="relative mx-auto h-full min-h-0 w-full max-w-7xl">
               <JourneyPath staticVisible={!scrollEnabled} />
 
