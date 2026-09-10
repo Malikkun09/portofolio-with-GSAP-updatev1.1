@@ -3,17 +3,12 @@ import SectionHeading from '@/components/SectionHeading'
 import BrandedMarker from '@/components/experience/BrandedMarker'
 import JourneyPath from '@/components/experience/JourneyPath'
 import MilestoneCard from '@/components/experience/MilestoneCard'
+import MobileMilestoneCard from '@/components/experience/MobileHorizontalMilestoneCard'
 import MobileBrandedMarker from '@/components/experience/MobileBrandedMarker'
-import MobileHorizontalMilestoneCard from '@/components/experience/MobileHorizontalMilestoneCard'
 import MobileJourneyPath from '@/components/experience/MobileJourneyPath'
 import TabletJourneyPath from '@/components/experience/TabletJourneyPath'
 import TabletMilestoneCard from '@/components/experience/TabletMilestoneCard'
-import {
-  JOURNEY_MILESTONES,
-  MILESTONE_CARD_POSITIONS_DESKTOP,
-  MILESTONE_CARD_POSITIONS_MOBILE,
-  MILESTONE_CARD_POSITIONS_TABLET,
-} from '@/components/experience/journey-config'
+import { JOURNEY_MILESTONES } from '@/components/experience/journey-config'
 import { useExperienceJourney } from '@/hooks/use-experience-journey'
 import { useMobileExperienceJourney } from '@/hooks/use-mobile-experience-journey'
 import { useTabletExperienceJourney } from '@/hooks/use-tablet-experience-journey'
@@ -50,19 +45,20 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full min-h-0 flex-1 items-center justify-center px-3 pb-8">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[420px]">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-lg flex-1 px-4 pb-6">
+            <div className="relative h-full w-full">
               <MobileJourneyPath staticVisible={!scrollEnabled} />
 
-              {JOURNEY_MILESTONES.map((milestone, index) => (
-                <MobileHorizontalMilestoneCard
-                  key={milestone.id}
-                  milestone={milestone}
-                  position={MILESTONE_CARD_POSITIONS_MOBILE[index]}
-                  index={index}
-                  staticVisible={!scrollEnabled}
-                />
-              ))}
+              <div className="relative z-20 flex h-full flex-col justify-between gap-3 py-1 pl-12">
+                {JOURNEY_MILESTONES.map((milestone, index) => (
+                  <MobileMilestoneCard
+                    key={milestone.id}
+                    milestone={milestone}
+                    index={index}
+                    staticVisible={!scrollEnabled}
+                  />
+                ))}
+              </div>
 
               <MobileBrandedMarker mode="path" staticVisible={!scrollEnabled} />
             </div>
@@ -80,19 +76,20 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-5xl min-h-0 flex-1 items-center justify-center px-8 pb-10">
-            <div className="relative mx-auto aspect-[5/3] w-full max-w-[760px]">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-3xl flex-1 px-6 pb-8">
+            <div className="relative h-full w-full">
               <TabletJourneyPath staticVisible={!scrollEnabled} />
 
-              {JOURNEY_MILESTONES.map((milestone, index) => (
-                <TabletMilestoneCard
-                  key={milestone.id}
-                  milestone={milestone}
-                  position={MILESTONE_CARD_POSITIONS_TABLET[index]}
-                  index={index}
-                  staticVisible={!scrollEnabled}
-                />
-              ))}
+              <div className="relative z-20 flex h-full flex-col gap-3 py-1 pl-14">
+                {JOURNEY_MILESTONES.map((milestone, index) => (
+                  <TabletMilestoneCard
+                    key={milestone.id}
+                    milestone={milestone}
+                    index={index}
+                    staticVisible={!scrollEnabled}
+                  />
+                ))}
+              </div>
 
               <BrandedMarker staticVisible={!scrollEnabled} />
             </div>
@@ -110,19 +107,20 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl min-h-0 flex-1 items-center justify-center px-4 pb-8 lg:px-12">
-            <div className="relative mx-auto aspect-[2/1] w-full max-w-6xl max-h-[calc(100dvh-11rem)]">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-4xl flex-1 px-6 pb-8 lg:px-10">
+            <div className="relative h-full w-full">
               <JourneyPath staticVisible={!scrollEnabled} />
 
-              {JOURNEY_MILESTONES.map((milestone, index) => (
-                <MilestoneCard
-                  key={milestone.id}
-                  milestone={milestone}
-                  index={index}
-                  position={MILESTONE_CARD_POSITIONS_DESKTOP[index]}
-                  staticVisible={!scrollEnabled}
-                />
-              ))}
+              <div className="relative z-20 flex h-full flex-col gap-4 py-1 pl-16 lg:gap-5 lg:pl-[4.75rem]">
+                {JOURNEY_MILESTONES.map((milestone, index) => (
+                  <MilestoneCard
+                    key={milestone.id}
+                    milestone={milestone}
+                    index={index}
+                    staticVisible={!scrollEnabled}
+                  />
+                ))}
+              </div>
 
               <BrandedMarker staticVisible={!scrollEnabled} />
             </div>

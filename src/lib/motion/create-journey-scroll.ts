@@ -68,7 +68,7 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
 
   const ctx = gsap.context(() => {
     cards.forEach((cardEl) => {
-      gsap.set(cardEl, { autoAlpha: 0.18, y: 20, scale: 0.96, force3D: true })
+      gsap.set(cardEl, { autoAlpha: 0.86, y: 10, force3D: true })
 
       const glow = cardEl.querySelector('[data-milestone-glow]')
       const card = cardEl.querySelector('[data-milestone-card]')
@@ -80,12 +80,12 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
       const leg = cardEl.querySelector('[data-milestone-leg]')
 
       if (glow) gsap.set(glow, { autoAlpha: 0 })
-      if (year) gsap.set(year, { opacity: 0.4 })
-      if (title) gsap.set(title, { opacity: 0.4 })
-      if (company) gsap.set(company, { opacity: 0.32 })
-      if (desc) gsap.set(desc, { opacity: 0.24 })
-      if (leg) gsap.set(leg, { opacity: 0.16 })
-      gsap.set(tags, { autoAlpha: 0.15, y: 6 })
+      if (year) gsap.set(year, { opacity: 0.82 })
+      if (title) gsap.set(title, { opacity: 0.92 })
+      if (company) gsap.set(company, { opacity: 0.78 })
+      if (desc) gsap.set(desc, { opacity: 0.78 })
+      if (leg) gsap.set(leg, { opacity: 0.4 })
+      gsap.set(tags, { autoAlpha: 0.7, y: 0 })
       if (card) gsap.set(card, { clearProps: 'filter' })
     })
 
@@ -177,7 +177,7 @@ export function setupExperienceJourney(pinEl: HTMLElement, options: JourneyScrol
 
       tl.to(
         cardEl,
-        { autoAlpha: 1, y: 0, scale: 1, duration: animSlot, ease: 'power3.out' },
+        { autoAlpha: 1, y: 0, duration: animSlot, ease: 'power3.out' },
         preActivate,
       )
 

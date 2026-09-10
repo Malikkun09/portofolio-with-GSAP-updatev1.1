@@ -62,10 +62,10 @@ const BrandedMarker = forwardRef<HTMLDivElement, BrandedMarkerProps>(
           />
         </div>
 
-        {/* Forward-facing indicator (small chevron pointing right) */}
+        {/* Forward-facing indicator — points down along the vertical rail */}
         <div
           data-marker-compass
-            className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cyber-blue"
+          className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-cyber-blue"
           style={{
             boxShadow: '0 0 8px rgba(103,232,249,0.9)',
             opacity: staticVisible ? 1 : 0,
