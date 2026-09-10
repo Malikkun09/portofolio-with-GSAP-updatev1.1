@@ -17,9 +17,12 @@
           const stored = localStorage.getItem('mf-theme')
           const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
           const isLight = stored ? stored === 'light' : prefersLight
-          if (isLight) {
-            document.documentElement.classList.add('light')
-            document.documentElement.style.colorScheme = 'light'
+          const root = document.documentElement
+          root.classList.toggle('light', isLight)
+          root.style.colorScheme = isLight ? 'light' : 'dark'
+          const meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) {
+            meta.setAttribute('content', isLight ? '#f8f8fb' : '#050505')
           }
         } catch (e) {
           // Ignore storage errors.

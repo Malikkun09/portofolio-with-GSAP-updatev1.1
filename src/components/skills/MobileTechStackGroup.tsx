@@ -37,7 +37,7 @@ const MobileTechStackGroup = forwardRef<HTMLDivElement, MobileTechStackGroupProp
         <span
           data-mobile-node
           className={cn(
-            'absolute left-[18px] top-7 z-20 h-3 w-3 -translate-x-1/2 rounded-full border bg-cyber-black',
+            'absolute left-[18px] top-7 z-20 h-3 w-3 -translate-x-1/2 rounded-full border bg-cyber-bg',
             staticVisible ? 'border-cyber-blue/60 bg-cyber-blue/20' : 'border-cyber-blue/30',
           )}
           aria-hidden
@@ -62,7 +62,7 @@ const MobileTechStackGroup = forwardRef<HTMLDivElement, MobileTechStackGroupProp
             background: staticVisible ? theme.activeGradient : theme.gradient,
             boxShadow: staticVisible
               ? theme.activeGlow
-              : `0 0 0 1px rgba(255,255,255,0.02), 0 8px 28px rgba(0,0,0,0.4)`,
+              : 'var(--tech-card-idle-shadow)',
           }}
         >
           <div className="relative p-4">

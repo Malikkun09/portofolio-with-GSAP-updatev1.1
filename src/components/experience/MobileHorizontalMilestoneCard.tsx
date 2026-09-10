@@ -25,7 +25,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
   return (
     <div
       ref={ref}
-      className="experience-card-mobile-h absolute z-20 w-[34%] min-w-[118px] max-w-[150px]"
+      className="experience-card-mobile-h absolute z-20 w-[40%] min-w-[138px] max-w-[176px]"
       style={{
         left: position.left,
         top: position.top !== 'auto' ? position.top : undefined,
@@ -56,28 +56,28 @@ const MobileHorizontalMilestoneCard = forwardRef<
         className="relative z-[1] overflow-hidden rounded-lg border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
         style={{
           boxShadow: staticVisible
-            ? '0 0 0 1px rgba(0,184,255,0.4), 0 0 20px rgba(0,184,255,0.25), 0 0 40px rgba(0,184,255,0.12)'
-            : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 6px 20px rgba(var(--cyber-card-shadow-rgb),0.2)',
+            ? 'var(--milestone-active-shadow)'
+            : '0 0 0 1px rgb(var(--cyber-fg) / 0.04), 0 8px 24px rgb(var(--cyber-card-shadow-rgb) / 0.2)',
         }}
       >
-        <div className="relative p-2.5">
+        <div className="relative p-3">
           <div className="mb-1.5 flex items-center justify-between gap-2">
             <span
               data-milestone-year
               className={cn(
-                'font-mono text-[9px] font-semibold tracking-wider',
+                'font-mono text-[10px] font-semibold tracking-wider',
                 staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/60',
               )}
             >
               {milestone.year}
             </span>
-            <span className="font-mono text-[8px] text-cyber-fg/30">0{index + 1}</span>
+            <span className="font-mono text-[9px] text-cyber-fg/30">0{index + 1}</span>
           </div>
 
           <h3
             data-milestone-title
             className={cn(
-              'text-[11px] font-bold leading-tight text-cyber-fg',
+              'text-xs font-bold leading-tight text-cyber-fg',
               staticVisible ? 'opacity-100' : 'opacity-70',
             )}
           >
@@ -87,7 +87,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
           <p
             data-milestone-company
             className={cn(
-              'mt-1 text-[9px] leading-tight text-cyber-fg-muted',
+              'mt-1 text-[10px] leading-tight text-cyber-fg-muted',
               staticVisible ? 'opacity-80' : 'opacity-50',
             )}
           >
@@ -97,7 +97,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
           <p
             data-milestone-desc
             className={cn(
-              'mt-2 text-[9px] leading-snug text-cyber-fg-muted/90',
+              'mt-2 text-[10px] leading-snug text-cyber-fg-muted/90',
               staticVisible ? 'opacity-90' : 'opacity-40',
             )}
             style={{
@@ -116,7 +116,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
                 key={tag}
                 data-milestone-tag
                 className={cn(
-                  'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1 py-0.5 font-mono text-[8px] text-cyber-blue',
+                  'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1 py-0.5 font-mono text-[9px] text-cyber-blue',
                   staticVisible ? 'opacity-90' : 'opacity-30',
                 )}
               >
@@ -136,7 +136,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
             ? 'bottom-0 top-full bg-gradient-to-b from-cyber-blue/30 to-transparent'
             : 'bottom-full top-0 bg-gradient-to-t from-transparent to-cyber-blue/30',
         )}
-        style={{ height: '14px', opacity: staticVisible ? 0.7 : 0.3 }}
+        style={{ height: '18px', opacity: staticVisible ? 0.7 : 0.3 }}
         aria-hidden
       />
     </div>

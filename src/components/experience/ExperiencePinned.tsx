@@ -41,10 +41,10 @@ export default function ExperiencePinned() {
       />
 
       {device === null ? (
-        <div className="min-h-[100dvh] bg-cyber-bg" aria-hidden />
+        <div className="h-[100dvh] bg-cyber-bg" aria-hidden />
       ) : device === 'mobile' ? (
-        <div ref={mobilePinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-5 pb-2 pt-20">
+        <div ref={mobilePinRef} className="experience-pin relative flex h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+          <div className="relative z-30 shrink-0 px-5 pb-1 pt-16">
             <SectionHeading
               label="Experience"
               title="Journey & Milestones"
@@ -54,8 +54,8 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center px-3 pb-8">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[420px]">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full flex-1 flex-col items-center px-3 pb-6">
+            <div className="relative mx-auto h-full min-h-0 w-full max-w-[480px]">
               <MobileJourneyPath staticVisible={!scrollEnabled} />
 
               {JOURNEY_MILESTONES.map((milestone, index) => (
@@ -73,8 +73,8 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : device === 'tablet' ? (
-        <div ref={tabletPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-8 pb-4 pt-24">
+        <div ref={tabletPinRef} className="experience-pin relative flex h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+          <div className="relative z-30 shrink-0 px-8 pb-2 pt-20">
             <SectionHeading
               label="Experience"
               title="Journey & Milestones"
@@ -84,8 +84,8 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center px-8 pb-12">
-            <div className="relative mx-auto aspect-[5/3] w-full max-w-[760px]">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col items-center px-6 pb-8">
+            <div className="relative mx-auto h-full min-h-0 w-full max-w-[920px]">
               <TabletJourneyPath staticVisible={!scrollEnabled} />
 
               {JOURNEY_MILESTONES.map((milestone, index) => (
@@ -103,8 +103,8 @@ export default function ExperiencePinned() {
           </div>
         </div>
       ) : (
-        <div ref={desktopPinRef} className="experience-pin relative flex min-h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
-          <div className="relative z-30 shrink-0 px-4 pb-4 pt-24 lg:px-12">
+        <div ref={desktopPinRef} className="experience-pin relative flex h-[100dvh] w-full max-w-[100vw] flex-col overflow-hidden bg-cyber-bg">
+          <div className="relative z-30 shrink-0 px-4 pb-2 pt-20 lg:px-12">
             <SectionHeading
               label="Experience"
               title="Journey & Milestones"
@@ -114,8 +114,8 @@ export default function ExperiencePinned() {
             />
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 pb-10 lg:px-12">
-            <div className="relative mx-auto aspect-[2/1] w-full max-w-6xl">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 px-4 pb-8 lg:px-12">
+            <div className="relative mx-auto h-full min-h-0 w-full max-w-7xl">
               <JourneyPath staticVisible={!scrollEnabled} />
 
               {JOURNEY_MILESTONES.map((milestone, index) => (

@@ -12,6 +12,8 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 const STORAGE_KEY = 'mf-theme'
+const LIGHT_THEME_COLOR = '#f8f8fb'
+const DARK_THEME_COLOR = '#050505'
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'
@@ -24,26 +26,27 @@ function getInitialTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
 
+function applyThemeClass(theme: Theme) {
+  if (typeof document === 'undefined') return
+  const root = document.documentElement
+  const isLight = theme === 'light'
+  root.classList.toggle('light', isLight)
+  root.style.colorScheme = isLight ? 'light' : 'dark'
+  const meta = document.querySelector('meta[name="theme-color"]')
+  if (meta) {
+    meta.setAttribute('content', isLight ? LIGHT_THEME_COLOR : DARK_THEME_COLOR)
+  }
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme())
-  const [resolvedTheme, setResolvedTheme] = useState<Theme>(theme)
-  const [mounted, setMounted] = useState(false)
+  const [theme, setThemeState] = useState<Theme>(() => {
+    const initial = getInitialTheme()
+    applyThemeClass(initial)
+    return initial
+  })
 
   useEffect(() => {
-    setMounted(true)
-    const root = document.documentElement
-    const isLight = theme === 'light'
-
-    root.classList.toggle('light', isLight)
-    root.style.colorScheme = isLight ? 'light' : 'dark'
-
-    const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) {
-      meta.setAttribute('content', isLight ? '#ffffff' : '#050505')
-    }
-
-    setResolvedTheme(theme)
-
+    applyThemeClass(theme)
     try {
       window.localStorage.setItem(STORAGE_KEY, theme)
     } catch {
@@ -70,8 +73,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <ThemeContext.Provider
       value={{
-        theme: mounted ? theme : 'dark',
-        resolvedTheme: mounted ? resolvedTheme : 'dark',
+        theme,
+        resolvedTheme: theme,
         toggleTheme,
         setTheme,
       }}

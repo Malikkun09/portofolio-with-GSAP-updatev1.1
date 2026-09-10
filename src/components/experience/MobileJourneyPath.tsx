@@ -3,17 +3,14 @@ import {
   buildJourneyPath,
   JOURNEY_PATH_POINTS_MOBILE,
   JOURNEY_MILESTONES,
+  JOURNEY_STROKE,
+  JOURNEY_NODE,
 } from './journey-config'
 
 interface MobileJourneyPathProps {
   staticVisible?: boolean
 }
 
-/**
- * Mobile journey path — horizontal SVG with tighter zig-zag anchors.
- * All 4 nodes fit within 0..100 viewBox so cards can sit on top/bottom
- * rows and still be visible together in the viewport.
- */
 const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
   function MobileJourneyPath({ staticVisible = false }, ref) {
     const pathD = buildJourneyPath(JOURNEY_PATH_POINTS_MOBILE)
@@ -27,21 +24,21 @@ const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
         aria-hidden
       >
         <defs>
-          <linearGradient id="mobile-journey-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="mobile-journey-gradient" x1="100%" y1="90%" x2="0%" y2="10%">
             <stop offset="0%" stopColor="#67e8f9" />
             <stop offset="40%" stopColor="#00B8FF" />
             <stop offset="75%" stopColor="#818cf8" />
             <stop offset="100%" stopColor="#f472b6" />
           </linearGradient>
-          <filter id="mobile-journey-glow" x="-10%" y="-50%" width="120%" height="200%">
-            <feGaussianBlur stdDeviation="0.4" result="blur" />
+          <filter id="mobile-journey-glow" x="-20%" y="-80%" width="140%" height="260%">
+            <feGaussianBlur stdDeviation="0.65" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="mobile-node-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.35" result="blur" />
+          <filter id="mobile-node-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="0.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -49,25 +46,23 @@ const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
           </filter>
         </defs>
 
-        {/* Idle track */}
         <path
           data-journey-path-bg
           d={pathD}
           fill="none"
-          stroke="rgba(0, 184, 255, 0.1)"
-          strokeWidth="0.4"
+          stroke="rgba(0, 184, 255, 0.16)"
+          strokeWidth={JOURNEY_STROKE.bg}
           strokeLinecap="round"
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
         />
 
-        {/* Active drawn path */}
         <path
           data-journey-path
           d={pathD}
           fill="none"
           stroke="url(#mobile-journey-gradient)"
-          strokeWidth="0.55"
+          strokeWidth={JOURNEY_STROKE.active}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#mobile-journey-glow)"
@@ -75,7 +70,6 @@ const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
           style={{ opacity: staticVisible ? 0.9 : 1 }}
         />
 
-        {/* Milestone nodes */}
         {JOURNEY_MILESTONES.map((_milestone, i) => {
           const wp = JOURNEY_PATH_POINTS_MOBILE[i + 1]
           return (
@@ -84,10 +78,10 @@ const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
                 data-journey-node={i}
                 cx={wp.x}
                 cy={wp.y}
-                r="1"
-                fill="var(--cyber-bg-node, rgb(5, 5, 5))"
-                stroke="rgba(0, 184, 255, 0.3)"
-                strokeWidth="0.22"
+                r={JOURNEY_NODE.ring}
+                fill="rgb(var(--cyber-bg-node))"
+                stroke="rgba(0, 184, 255, 0.45)"
+                strokeWidth={JOURNEY_NODE.stroke}
                 filter="url(#mobile-node-glow)"
                 style={{ opacity: staticVisible ? 1 : 0.5 }}
               />
@@ -95,8 +89,8 @@ const MobileJourneyPath = forwardRef<SVGSVGElement, MobileJourneyPathProps>(
                 data-journey-node-dot={i}
                 cx={wp.x}
                 cy={wp.y}
-                r="0.4"
-                fill="rgba(0, 184, 255, 0.5)"
+                r={JOURNEY_NODE.dot}
+                fill="rgba(0, 184, 255, 0.7)"
                 style={{ opacity: staticVisible ? 1 : 0 }}
               />
             </g>

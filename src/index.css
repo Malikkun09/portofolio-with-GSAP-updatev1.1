@@ -11,24 +11,30 @@
     --cyber-fg-muted: 138 138 150;
     --cyber-bg-surface: 12 12 12;
     --cyber-bg-card: 17 17 17;
-    --cyber-theme-border: rgba(255, 255, 255, 0.08);
-    --cyber-card-shadow-rgb: 0, 0, 0;
-    --cyber-bg-node: 5, 5, 5;
+    --cyber-theme-border: rgb(255 255 255 / 0.08);
+    --cyber-card-shadow-rgb: 0 0 0;
+    --cyber-bg-node: 5 5 5;
+    --milestone-active-shadow: 0 0 0 1px rgb(0 184 255 / 0.4), 0 0 28px rgb(0 184 255 / 0.28),
+      0 0 56px rgb(0 184 255 / 0.12);
+    --tech-card-idle-shadow: 0 0 0 1px rgb(255 255 255 / 0.04), 0 8px 32px rgb(0 0 0 / 0.4);
   }
 
   html.light {
-    --cyber-bg: 255 255 255;
-    --cyber-fg: 5 5 5;
+    --cyber-bg: 248 248 251;
+    --cyber-fg: 12 12 16;
     --cyber-fg-muted: 82 82 91;
-    --cyber-bg-surface: 244 244 245;
+    --cyber-bg-surface: 237 238 243;
     --cyber-bg-card: 255 255 255;
-    --cyber-theme-border: rgba(0, 0, 0, 0.08);
-    --cyber-card-shadow-rgb: 82, 82, 91;
-    --cyber-bg-node: 255, 255, 255;
+    --cyber-theme-border: rgb(15 23 42 / 0.1);
+    --cyber-card-shadow-rgb: 15 23 42;
+    --cyber-bg-node: 248 248 251;
+    --milestone-active-shadow: 0 0 0 1px rgb(0 184 255 / 0.45), 0 0 22px rgb(0 184 255 / 0.18),
+      0 14px 36px rgb(15 23 42 / 0.1);
+    --tech-card-idle-shadow: 0 0 0 1px rgb(15 23 42 / 0.06), 0 10px 28px rgb(15 23 42 / 0.08);
   }
 
   * {
-    @apply border-cyber-border;
+    @apply border-cyber-theme-border;
   }
 
   html {
@@ -54,6 +60,9 @@
     width: 100%;
     max-width: 100%;
     overflow-x: clip;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease;
   }
 
   html.light ::selection {
@@ -84,8 +93,8 @@
   }
 
   .cyber-card {
-    @apply border border-cyber-border bg-cyber-card transition-all duration-300;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+    @apply border border-cyber-theme-border bg-cyber-bg-card transition-all duration-300;
+    box-shadow: 0 0 0 1px rgb(var(--cyber-fg) / 0.04);
   }
 
   .cyber-card:hover {
@@ -170,7 +179,7 @@
   }
 
   .hero-marquee-bullet {
-    color: rgba(255, 255, 255, 0.18);
+    color: rgb(var(--cyber-fg) / 0.22);
     padding: 0 0.15rem;
   }
 
@@ -181,8 +190,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(10, 10, 10, 0.92);
+    border: 1px solid rgb(var(--cyber-fg) / 0.12);
+    background: rgb(var(--cyber-bg) / 0.92);
     box-shadow:
       0 0 0 1px rgba(0, 184, 255, 0.12),
       0 0 18px rgba(0, 184, 255, 0.08),
@@ -226,7 +235,7 @@
   }
 
   .glow-surface {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px rgb(var(--cyber-fg) / 0.05);
   }
 
   .glow-surface:hover {
@@ -250,7 +259,7 @@
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-cyber-yellow hover:text-cyber-yellow;
+    @apply inline-flex items-center justify-center gap-2 border border-cyber-fg/20 px-6 py-3 text-sm font-semibold text-cyber-fg transition-all duration-300 hover:border-cyber-yellow hover:text-cyber-yellow;
   }
 
   .btn-outline:hover {
@@ -526,8 +535,8 @@
   /* Featured projects showcase */
   .projects-showcase-bg {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(rgb(var(--cyber-fg) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--cyber-fg) / 0.04) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
   }
@@ -609,7 +618,7 @@
   @media (hover: hover) {
     .project-card-static:hover {
       border-color: rgba(0, 184, 255, 0.35);
-      background-color: rgba(17, 17, 17, 0.95);
+      background-color: rgb(var(--cyber-bg-card) / 0.96);
       box-shadow:
         0 0 0 1px rgba(0, 184, 255, 0.2),
         0 0 28px rgba(0, 184, 255, 0.18),
@@ -683,12 +692,12 @@
       rgba(251, 188, 5, 0.1) 100%
     );
     box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 0 0 1px rgb(var(--cyber-fg) / 0.1),
       0 0 10px rgba(66, 133, 244, 0.12);
   }
 
   .featured-project-tag {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgb(var(--cyber-fg) / 0.06);
     transition:
       border-color 0.2s ease,
       background-color 0.2s ease;
@@ -914,32 +923,13 @@
   }
 }
 
-/* Light mode overrides for hardcoded dark utility classes */
-html.light .text-white {
-  color: rgb(var(--cyber-fg));
+html.light .cyber-grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 184, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 184, 255, 0.08) 1px, transparent 1px);
 }
 
-html.light [class*='hover\:text-white']:hover {
-  color: rgb(var(--cyber-fg));
-}
-
-html.light .bg-cyber-black {
-  background-color: rgb(var(--cyber-bg));
-}
-
-html.light .bg-cyber-surface {
-  background-color: rgb(var(--cyber-bg-surface));
-}
-
-html.light .bg-cyber-card,
-html.light .hover\:bg-cyber-card:hover {
-  background-color: rgb(var(--cyber-bg-card));
-}
-
-html.light .text-cyber-muted {
-  color: rgb(var(--cyber-fg-muted));
-}
-
+/* Safety net: leftover white-border utilities used as hairlines */
 html.light .border-white\/5,
 html.light .border-white\/10,
 html.light .border-white\/15,
@@ -949,48 +939,9 @@ html.light .border-white\/30 {
 }
 
 html.light [class*='border-white/']:hover {
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: rgb(15 23 42 / 0.2);
 }
 
-html.light .from-cyber-black\/80,
-html.light .from-cyber-black\/70,
-html.light .from-cyber-black {
-  --tw-gradient-from: rgb(var(--cyber-bg)) var(--tw-gradient-from-position);
-  --tw-gradient-to: transparent var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-html.light .to-cyber-black {
-  --tw-gradient-to: rgb(var(--cyber-bg)) var(--tw-gradient-to-position);
-}
-
-html.light .cyber-card {
-  background-color: rgb(var(--cyber-bg-card));
-  border-color: var(--cyber-theme-border);
-}
-
-html.light .cyber-card:hover {
-  border-color: rgba(0, 184, 255, 0.2);
-}
-
-html.light .btn-outline {
-  color: rgb(var(--cyber-fg));
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-html.light .btn-outline:hover {
-  color: rgb(var(--cyber-fg));
-  border-color: rgba(0, 0, 0, 0.35);
-}
-
-html.light ::-webkit-scrollbar-track {
-  background: #f4f4f5;
-}
-
-html.light ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-}
-
-html.light ::-webkit-scrollbar-thumb:hover {
-  background: #00b8ff;
+html.light .bg-white\/\[0\.04\] {
+  background-color: rgb(var(--cyber-fg) / 0.06);
 }

@@ -149,8 +149,7 @@ export function useTabletExperienceJourney(
             card,
             {
               filter: 'blur(0px)',
-              boxShadow:
-                '0 0 0 1px rgba(0,184,255,0.4), 0 0 28px rgba(0,184,255,0.28), 0 0 56px rgba(0,184,255,0.12)',
+              boxShadow: 'var(--milestone-active-shadow)',
               duration: animSlot,
             },
             preActivate,

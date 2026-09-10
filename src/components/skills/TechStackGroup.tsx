@@ -67,7 +67,7 @@ const TechStackGroup = forwardRef<HTMLDivElement, TechStackGroupProps>(
             background: staticVisible ? theme.activeGradient : theme.gradient,
             boxShadow: staticVisible
               ? theme.activeGlow
-              : `0 0 0 1px rgba(255,255,255,0.02), 0 8px 32px rgba(0,0,0,0.4)`,
+              : 'var(--tech-card-idle-shadow)',
           }}
         >
           <div

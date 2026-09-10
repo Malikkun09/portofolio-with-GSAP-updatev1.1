@@ -47,7 +47,7 @@ const CertificateCard = memo(function CertificateCard({
       style={{ '--cert-i': index } as CSSProperties}
       className="cert-card-reveal cyber-card group cursor-pointer overflow-hidden transition-[border-color] duration-300 ease-out hover:border-cyber-blue/40"
     >
-      <div className="relative isolate aspect-[3/2] overflow-hidden bg-cyber-black">
+      <div className="relative isolate aspect-[3/2] overflow-hidden bg-cyber-bg-surface">
         <CertificateThumbnail
           index={index}
           src={thumbnail}

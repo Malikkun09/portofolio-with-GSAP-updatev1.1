@@ -17,7 +17,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
     return (
       <div
         ref={ref}
-        className={cn('experience-card-tablet absolute z-20 w-[28vw] max-w-[220px]')}
+        className={cn('experience-card-tablet absolute z-20 w-[34vw] max-w-[280px]')}
         style={{
           left: position.left,
           top: position.top !== 'auto' ? position.top : undefined,
@@ -47,27 +47,27 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
           className="relative z-[1] overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
           style={{
             boxShadow: staticVisible
-              ? '0 0 0 1px rgba(0,184,255,0.4), 0 0 28px rgba(0,184,255,0.25), 0 0 56px rgba(0,184,255,0.12)'
-              : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 8px 28px rgba(var(--cyber-card-shadow-rgb),0.2)',
+              ? 'var(--milestone-active-shadow)'
+              : '0 0 0 1px rgb(var(--cyber-fg) / 0.04), 0 12px 36px rgb(var(--cyber-card-shadow-rgb) / 0.22)',
           }}
         >
-          <div className="relative p-3.5">
-            <div className="mb-2 flex items-center justify-between gap-2">
+          <div className="relative p-4 sm:p-5">
+            <div className="mb-2.5 flex items-center justify-between gap-2">
               <span
                 data-milestone-year
                 className={cn(
-                  'font-mono text-[10px] font-semibold tracking-widest',
+                  'font-mono text-[11px] font-semibold tracking-widest',
                   staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/60',
                 )}
               >
                 {milestone.year}
               </span>
-              <span className="font-mono text-[9px] text-cyber-fg/30">0{index + 1}</span>
+              <span className="font-mono text-[10px] text-cyber-fg/30">0{index + 1}</span>
             </div>
             <h3
               data-milestone-title
               className={cn(
-                'text-xs font-bold leading-snug text-cyber-fg',
+                'text-sm font-bold leading-snug text-cyber-fg',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >
@@ -76,7 +76,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
             <p
               data-milestone-company
               className={cn(
-                'mt-1 text-[10px] text-cyber-fg-muted',
+                'mt-1 text-[11px] text-cyber-fg-muted',
                 staticVisible ? 'opacity-80' : 'opacity-50',
               )}
             >
@@ -85,19 +85,19 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
             <p
               data-milestone-desc
               className={cn(
-                'mt-2.5 text-[10px] leading-relaxed text-cyber-fg-muted/90',
+                'mt-3 text-[11px] leading-relaxed text-cyber-fg-muted/90',
                 staticVisible ? 'opacity-90' : 'opacity-40',
               )}
             >
               {milestone.description}
             </p>
-            <div data-milestone-tags className="mt-2.5 flex flex-wrap gap-1">
+            <div data-milestone-tags className="mt-3 flex flex-wrap gap-1.5">
               {milestone.tags.map((tag) => (
                 <span
                   key={tag}
                   data-milestone-tag
                   className={cn(
-                    'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1.5 py-0.5 font-mono text-[9px] text-cyber-blue',
+                    'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1.5 py-0.5 font-mono text-[10px] text-cyber-blue',
                     staticVisible ? 'opacity-90' : 'opacity-30',
                   )}
                 >
@@ -116,7 +116,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
               ? 'bottom-0 top-full bg-gradient-to-b from-cyber-blue/30 to-transparent'
               : 'bottom-full top-0 bg-gradient-to-t from-transparent to-cyber-blue/30',
           )}
-          style={{ height: '18px', opacity: staticVisible ? 0.7 : 0.3 }}
+          style={{ height: '22px', opacity: staticVisible ? 0.7 : 0.3 }}
           aria-hidden
         />
       </div>

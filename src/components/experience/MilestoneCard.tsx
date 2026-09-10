@@ -19,7 +19,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
       <div
         ref={ref}
         className={cn(
-          'experience-card absolute z-20 w-[min(22vw,260px)]',
+          'experience-card absolute z-20 w-[min(30vw,360px)]',
           className,
         )}
         style={{
@@ -42,7 +42,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
               ? 'bottom-0 top-full bg-gradient-to-b from-cyber-blue/30 to-transparent'
               : 'bottom-full top-0 bg-gradient-to-t from-transparent to-cyber-blue/30',
           )}
-          style={{ height: '24px', opacity: staticVisible ? 0.7 : 0.3 }}
+          style={{ height: '32px', opacity: staticVisible ? 0.7 : 0.3 }}
           aria-hidden
         />
 
@@ -66,16 +66,16 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
           className="relative z-[1] overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
           style={{
             boxShadow: staticVisible
-              ? '0 0 0 1px rgba(0,184,255,0.3), 0 0 28px rgba(0,184,255,0.18)'
-              : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 8px 28px rgba(var(--cyber-card-shadow-rgb),0.2)',
+              ? 'var(--milestone-active-shadow)'
+              : '0 0 0 1px rgb(var(--cyber-fg) / 0.04), 0 12px 36px rgb(var(--cyber-card-shadow-rgb) / 0.22)',
           }}
         >
-          <div className="relative p-4 sm:p-5">
-            <div className="mb-2 flex items-center justify-between gap-3">
+          <div className="relative p-5 sm:p-6">
+            <div className="mb-3 flex items-center justify-between gap-3">
               <span
                 data-milestone-year
                 className={cn(
-                  'font-mono text-[11px] font-semibold tracking-widest',
+                  'font-mono text-xs font-semibold tracking-widest',
                   staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/60',
                 )}
               >
@@ -83,7 +83,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
               </span>
               <span
                 data-milestone-index-label
-                className="font-mono text-[10px] text-cyber-fg/30"
+                className="font-mono text-[11px] text-cyber-fg/30"
               >
                 0{index + 1}
               </span>
@@ -92,7 +92,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <h3
               data-milestone-title
               className={cn(
-                'text-sm font-bold leading-snug text-cyber-fg sm:text-base',
+                'text-base font-bold leading-snug text-cyber-fg sm:text-lg',
                 staticVisible ? 'opacity-100' : 'opacity-70',
               )}
             >
@@ -102,7 +102,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-company
               className={cn(
-                'mt-1 text-[11px] text-cyber-fg-muted sm:text-xs',
+                'mt-1.5 text-xs text-cyber-fg-muted sm:text-sm',
                 staticVisible ? 'opacity-80' : 'opacity-50',
               )}
             >
@@ -112,20 +112,20 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-desc
               className={cn(
-                'mt-3 text-[11px] leading-relaxed text-cyber-fg-muted/90 sm:text-xs',
+                'mt-3.5 text-xs leading-relaxed text-cyber-fg-muted/90 sm:text-sm',
                 staticVisible ? 'opacity-90' : 'opacity-40',
               )}
             >
               {milestone.description}
             </p>
 
-            <div data-milestone-tags className="mt-3 flex flex-wrap gap-1.5">
+            <div data-milestone-tags className="mt-4 flex flex-wrap gap-1.5">
               {milestone.tags.map((tag) => (
                 <span
                   key={tag}
                   data-milestone-tag
                   className={cn(
-                    'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1.5 py-0.5 font-mono text-[10px] text-cyber-blue',
+                    'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-2 py-0.5 font-mono text-[11px] text-cyber-blue',
                     staticVisible ? 'opacity-90' : 'opacity-30',
                   )}
                 >
