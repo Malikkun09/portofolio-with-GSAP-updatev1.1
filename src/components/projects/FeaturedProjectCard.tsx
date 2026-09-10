@@ -76,7 +76,7 @@ export default function FeaturedProjectCard({
           )}
         </div>
 
-        <h3 className="featured-project-title mb-4 text-2xl font-bold tracking-tight text-cyber-fg sm:text-3xl lg:text-[2rem] lg:leading-tight">
+        <h3 className="featured-project-title mb-4 font-display text-2xl font-semibold tracking-tight text-cyber-fg sm:text-3xl lg:text-[2.05rem] lg:leading-tight">
           {project.title}
         </h3>
 

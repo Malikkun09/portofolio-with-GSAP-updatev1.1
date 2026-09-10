@@ -45,7 +45,7 @@ function ProjectContent({
   return (
     <>
       <span className="section-label mb-2 block">Project</span>
-      <h3 className={cn('font-bold text-cyber-fg', compact ? 'mb-2 text-lg' : 'mb-3 text-2xl sm:text-3xl')}>
+      <h3 className={cn('font-display font-semibold tracking-tight text-cyber-fg', compact ? 'mb-2 text-lg' : 'mb-3 text-2xl sm:text-3xl')}>
         {project.title}
       </h3>
       <p

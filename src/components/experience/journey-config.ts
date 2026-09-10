@@ -7,12 +7,10 @@ export interface JourneyMilestone {
   company: string
   description: string
   tags: readonly string[]
-  /** Horizontal anchor in viewBox 0–100 */
+  /** Horizontal rail position in viewBox 0–100 */
   x: number
-  /** Vertical anchor (top row = 22, bottom row = 78) */
+  /** Vertical node position in viewBox 0–100 (one per stacked card) */
   y: number
-  /** Card sits above (true) or below (false) the path */
-  row: 'top' | 'bottom'
 }
 
 /**
@@ -21,35 +19,23 @@ export interface JourneyMilestone {
  */
 const chronological = [...experiences].reverse()
 
-/** Alternating top/bottom row positions for desktop editorial layout */
-const desktopAnchors = [
-  { x: 10, y: 22, row: 'top' as const },
-  { x: 37, y: 78, row: 'bottom' as const },
-  { x: 64, y: 22, row: 'top' as const },
-  { x: 90, y: 78, row: 'bottom' as const },
-]
+/** Equal quarters — matches four flex-1 stacked cards. */
+const NODE_YS = [12.5, 37.5, 62.5, 87.5] as const
 
-/** Tablet anchors — tighter, single row top with shorter vertical variance */
-const tabletAnchors = [
-  { x: 12, y: 28, row: 'top' as const },
-  { x: 38, y: 72, row: 'bottom' as const },
-  { x: 64, y: 28, row: 'top' as const },
-  { x: 88, y: 72, row: 'bottom' as const },
-]
+const DESKTOP_RAIL_X = 50
+const TABLET_RAIL_X = 50
+const MOBILE_RAIL_X = 50
 
-/**
- * Mobile anchors — horizontal alternating zig-zag.
- * Tighter spacing so all 4 cards fit within viewport width.
- */
-const mobileAnchors = [
-  { x: 18, y: 28, row: 'top' as const },
-  { x: 40, y: 72, row: 'bottom' as const },
-  { x: 60, y: 28, row: 'top' as const },
-  { x: 82, y: 72, row: 'bottom' as const },
-]
+function railPoints(x: number) {
+  return [
+    { x, y: 6 },
+    ...NODE_YS.map((y) => ({ x, y })),
+    { x, y: 94 },
+  ]
+}
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, index) => {
-  const anchor = desktopAnchors[index] ?? desktopAnchors[desktopAnchors.length - 1]
+  const y = NODE_YS[index] ?? NODE_YS[NODE_YS.length - 1]
   return {
     id: `${exp.year}-${exp.title}`.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
     year: exp.year,
@@ -57,40 +43,21 @@ export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, in
     company: exp.company,
     description: exp.description,
     tags: exp.tags,
-    x: anchor.x,
-    y: anchor.y,
-    row: anchor.row,
+    x: DESKTOP_RAIL_X,
+    y,
   }
 })
 
 export const JOURNEY_STEP_COUNT = JOURNEY_MILESTONES.length
 
-/**
- * Desktop path waypoints: start (off-screen left) → each milestone anchor → end (off-screen right)
- */
-export const JOURNEY_PATH_POINTS = [
-  { x: -4, y: 50 },
-  ...JOURNEY_MILESTONES.map((m) => ({ x: m.x, y: m.y })),
-  { x: 104, y: 50 },
-]
+/** Desktop — vertical rail on the left of the stacked cards */
+export const JOURNEY_PATH_POINTS = railPoints(DESKTOP_RAIL_X)
 
-/**
- * Tablet path waypoints — gentler zig-zag
- */
-export const JOURNEY_PATH_POINTS_TABLET = [
-  { x: -4, y: 50 },
-  ...JOURNEY_MILESTONES.map((m, i) => ({ x: tabletAnchors[i]?.x ?? m.x, y: tabletAnchors[i]?.y ?? m.y })),
-  { x: 104, y: 50 },
-]
+/** Tablet — same vertical timeline, rail nudged for the narrower stage */
+export const JOURNEY_PATH_POINTS_TABLET = railPoints(TABLET_RAIL_X)
 
-/**
- * Mobile path waypoints — horizontal zig-zag, tighter spacing
- */
-export const JOURNEY_PATH_POINTS_MOBILE = [
-  { x: -6, y: 50 },
-  ...JOURNEY_MILESTONES.map((m, i) => ({ x: mobileAnchors[i]?.x ?? m.x, y: mobileAnchors[i]?.y ?? m.y })),
-  { x: 106, y: 50 },
-]
+/** Mobile — vertical rail beside full-width cards */
+export const JOURNEY_PATH_POINTS_MOBILE = railPoints(MOBILE_RAIL_X)
 
 /** Build a smooth path through waypoints using quadratic curves */
 export function buildJourneyPath(points: { x: number; y: number }[]): string {
@@ -105,39 +72,3 @@ export function buildJourneyPath(points: { x: number; y: number }[]): string {
     })
     .join(' ')
 }
-
-/** Desktop card positions (in % of container) */
-export const MILESTONE_CARD_POSITIONS_DESKTOP = JOURNEY_MILESTONES.map((m) => ({
-  left: `${m.x}%`,
-  top: m.row === 'top' ? '4%' : 'auto',
-  bottom: m.row === 'bottom' ? '4%' : 'auto',
-  translateX: '-50%',
-}))
-
-/** Tablet card positions — slightly tighter */
-export const MILESTONE_CARD_POSITIONS_TABLET = JOURNEY_MILESTONES.map((_m, i) => {
-  const anchor = tabletAnchors[i] ?? tabletAnchors[tabletAnchors.length - 1]
-  return {
-    left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '2%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '2%' : 'auto',
-    translateX: '-50%',
-  }
-})
-
-/** Mobile card positions — horizontal alternating, all 4 fit in viewport */
-export const MILESTONE_CARD_POSITIONS_MOBILE = JOURNEY_MILESTONES.map((_m, i) => {
-  const anchor = mobileAnchors[i] ?? mobileAnchors[mobileAnchors.length - 1]
-  return {
-    left: `${anchor.x}%`,
-    top: anchor.row === 'top' ? '6%' : 'auto',
-    bottom: anchor.row === 'bottom' ? '6%' : 'auto',
-    translateX: '-50%',
-  }
-})
-
-/** Mobile milestone anchors (row info for card rendering) */
-export const MOBILE_MILESTONE_ANCHORS = mobileAnchors
-
-// Legacy export for any consumer still importing it
-export const MILESTONE_CARD_POSITIONS = MILESTONE_CARD_POSITIONS_DESKTOP

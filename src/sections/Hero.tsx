@@ -107,13 +107,13 @@ export default function Hero() {
         style={{ y: compactScrollY }}
       >
         <motion.h1
-          className="w-full text-[clamp(3.25rem,15.5vw,5rem)] font-bold leading-[0.9] tracking-tight"
+          className="font-display w-full text-[clamp(3.35rem,16vw,5.15rem)] font-semibold leading-[0.92] tracking-tight"
           initial={{ opacity: 0 }}
           animate={appReady ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
           <motion.span
-            className="block text-cyber-fg"
+            className="block font-display italic font-medium text-cyber-fg"
             initial={{ opacity: 0, y: 22, filter: `blur(${motionConfig.titleBlur}px)` }}
             animate={
               appReady
@@ -125,7 +125,7 @@ export default function Hero() {
             Hey! I&apos;m
           </motion.span>
           <motion.span
-            className="hero-title-pulse block text-cyber-yellow glow-text-yellow"
+            className="hero-title-pulse block font-display font-semibold text-cyber-yellow glow-text-yellow"
             initial={{ opacity: 0, y: 26, filter: `blur(${motionConfig.titleBlur + 2}px)` }}
             animate={
               appReady
@@ -224,12 +224,12 @@ export default function Hero() {
               </motion.p>
 
               <motion.h1
-                className="mb-6 text-[clamp(3.25rem,7.8vw,6.75rem)] font-bold leading-[0.9] tracking-tight"
+                className="mb-6 font-display text-[clamp(3.4rem,7.8vw,6.85rem)] font-semibold leading-[0.92] tracking-tight"
                 initial={{ opacity: 0 }}
                 animate={appReady ? { opacity: 1 } : { opacity: 0 }}
               >
                 <motion.span
-                  className="block text-cyber-fg"
+                  className="block font-display italic font-medium text-cyber-fg"
                   initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
                   animate={
                     appReady
@@ -244,7 +244,7 @@ export default function Hero() {
                   Hey! I&apos;m
                 </motion.span>
                 <motion.span
-                  className="hero-title-pulse block bg-gradient-to-r from-cyber-blue to-cyber-blue bg-clip-text text-transparent glow-text-blue"
+                  className="hero-title-pulse block font-display font-semibold bg-gradient-to-r from-cyber-blue to-cyber-blue bg-clip-text text-transparent glow-text-blue"
                   initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
                   animate={
                     appReady

@@ -6,7 +6,7 @@ interface MobileBrandedMarkerProps {
   className?: string
   /**
    * When 'path' mode, marker uses left/top percentages driven by GSAP
-   * along the horizontal SVG path (matching desktop/tablet behavior).
+   * along the vertical SVG rail (matching desktop/tablet behavior).
    * When 'rail' mode, marker is pinned to the left rail and GSAP
    * animates its Y transform.
    */
@@ -15,7 +15,7 @@ interface MobileBrandedMarkerProps {
 
 /**
  * Mobile brand journey token.
- * - `path` mode: travels along horizontal SVG path (left/top animated)
+ * - `path` mode: travels along the vertical SVG rail (left/top animated)
  * - `rail` mode: pinned to left vertical rail (Y animated)
  */
 const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>(
@@ -73,12 +73,7 @@ const MobileBrandedMarker = forwardRef<HTMLDivElement, MobileBrandedMarkerProps>
         </div>
         <div
           data-marker-compass
-          className={cn(
-            'absolute h-1.5 w-1.5 rounded-full bg-cyber-cyan',
-            mode === 'rail'
-              ? '-bottom-1 left-1/2 -translate-x-1/2'
-              : '-right-1 top-1/2 -translate-y-1/2',
-          )}
+          className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-cyber-blue"
           style={{
             boxShadow: '0 0 6px rgba(103,232,249,0.9)',
             opacity: staticVisible ? 1 : 0,

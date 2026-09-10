@@ -1,89 +1,120 @@
-import { forwardRef, type CSSProperties } from 'react'
+import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 import type { JourneyMilestone } from './journey-config'
 
+export type MilestoneCardSize = 'desktop' | 'tablet' | 'mobile'
+
 interface MilestoneCardProps {
   milestone: JourneyMilestone
-  position: { left: string; top: string; bottom: string; translateX: string }
   index: number
   staticVisible?: boolean
   className?: string
-  style?: CSSProperties
+  size?: MilestoneCardSize
+}
+
+const sizeStyles: Record<
+  MilestoneCardSize,
+  {
+    pad: string
+    year: string
+    index: string
+    title: string
+    company: string
+    desc: string
+    tags: string
+    tag: string
+  }
+> = {
+  desktop: {
+    pad: 'flex h-full min-h-0 flex-col px-6 py-4 lg:px-8 lg:py-5',
+    year: 'text-sm sm:text-[0.95rem]',
+    index: 'text-sm',
+    title: 'text-xl leading-tight sm:text-2xl lg:text-[1.85rem]',
+    company: 'text-sm sm:text-base',
+    desc: 'mt-2 shrink-0 line-clamp-2 text-sm leading-relaxed sm:text-base',
+    tags: 'mt-3 shrink-0 gap-2',
+    tag: 'px-2.5 py-1 text-xs sm:text-[13px]',
+  },
+  tablet: {
+    pad: 'flex h-full min-h-0 flex-col px-5 py-3.5',
+    year: 'text-xs sm:text-sm',
+    index: 'text-xs',
+    title: 'text-lg leading-snug',
+    company: 'text-sm',
+    desc: 'mt-1.5 shrink-0 line-clamp-2 text-sm leading-relaxed',
+    tags: 'mt-2 shrink-0 gap-1.5',
+    tag: 'px-2 py-0.5 text-[11px]',
+  },
+  mobile: {
+    pad: 'flex h-full min-h-0 flex-col p-3.5',
+    year: 'text-xs',
+    index: 'text-[11px]',
+    title: 'text-[1.05rem] leading-snug',
+    company: 'text-[13px]',
+    desc: 'mt-1.5 shrink-0 line-clamp-2 text-[13px] leading-relaxed',
+    tags: 'mt-2 shrink-0 gap-1.5',
+    tag: 'px-2 py-0.5 text-[11px]',
+  },
 }
 
 const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
-  function MilestoneCard({ milestone, position, index, staticVisible = false, className, style }, ref) {
-    const isTop = milestone.row === 'top'
+  function MilestoneCard({
+    milestone,
+    index,
+    staticVisible = false,
+    className,
+    size = 'desktop',
+  }, ref) {
+    const styles = sizeStyles[size]
 
     return (
       <div
         ref={ref}
         className={cn(
-          'experience-card absolute z-20 w-[min(22vw,260px)]',
+          'experience-card relative z-20 min-h-0 w-full flex-1',
           className,
         )}
-        style={{
-          left: position.left,
-          top: position.top !== 'auto' ? position.top : undefined,
-          bottom: position.bottom !== 'auto' ? position.bottom : undefined,
-          transform: `translateX(${position.translateX})`,
-          ...(staticVisible ? { opacity: 1 } : {}),
-          ...style,
-        }}
+        style={staticVisible ? { opacity: 1 } : undefined}
         data-milestone={milestone.id}
         data-milestone-index={index}
       >
-        {/* Connector leg from card to path node */}
-        <div
-          data-milestone-leg
-          className={cn(
-            'absolute left-1/2 w-px -translate-x-1/2',
-            isTop
-              ? 'bottom-0 top-full bg-gradient-to-b from-cyber-blue/30 to-transparent'
-              : 'bottom-full top-0 bg-gradient-to-t from-transparent to-cyber-blue/30',
-          )}
-          style={{ height: '24px', opacity: staticVisible ? 0.7 : 0.3 }}
-          aria-hidden
-        />
-
-        {/* AI gradient glow ring */}
         <div
           data-milestone-glow
           className={cn(
-            'pointer-events-none absolute -inset-px rounded-xl',
+            'pointer-events-none absolute -inset-px rounded-2xl',
             staticVisible ? 'opacity-70' : 'opacity-0',
           )}
           style={{
             background:
               'conic-gradient(from 180deg, #67e8f9, #00B8FF, #818cf8, #c084fc, #67e8f9)',
-            filter: 'blur(1px)',
           }}
           aria-hidden
         />
 
         <div
           data-milestone-card
-          className="relative z-[1] overflow-hidden rounded-xl border border-cyber-fg/10 bg-cyber-bg-card/90 backdrop-blur-md"
+          className="relative z-[1] flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-cyber-fg/10 bg-cyber-bg-card/95"
           style={{
             boxShadow: staticVisible
               ? '0 0 0 1px rgba(0,184,255,0.3), 0 0 28px rgba(0,184,255,0.18)'
               : '0 0 0 1px rgba(var(--cyber-fg),0.02), 0 8px 28px rgba(var(--cyber-card-shadow-rgb),0.2)',
           }}
         >
-          <div className="relative p-4 sm:p-5">
-            <div className="mb-2 flex items-center justify-between gap-3">
+          <div className={cn('relative', styles.pad)}>
+            <div className="mb-1.5 flex shrink-0 items-center justify-between gap-3 sm:mb-2">
               <span
                 data-milestone-year
                 className={cn(
-                  'font-mono text-[11px] font-semibold tracking-widest',
-                  staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/60',
+                  'font-mono font-semibold tracking-[0.16em]',
+                  styles.year,
+                  staticVisible ? 'text-cyber-blue' : 'text-cyber-blue/70',
                 )}
               >
                 {milestone.year}
               </span>
               <span
                 data-milestone-index-label
-                className="font-mono text-[10px] text-cyber-fg/30"
+                className={cn('font-mono text-cyber-fg/40', styles.index)}
               >
                 0{index + 1}
               </span>
@@ -92,8 +123,9 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <h3
               data-milestone-title
               className={cn(
-                'text-sm font-bold leading-snug text-cyber-fg sm:text-base',
-                staticVisible ? 'opacity-100' : 'opacity-70',
+                'shrink-0 font-display font-semibold tracking-tight text-cyber-fg',
+                styles.title,
+                staticVisible ? 'opacity-100' : 'opacity-90',
               )}
             >
               {milestone.title}
@@ -102,8 +134,9 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-company
               className={cn(
-                'mt-1 text-[11px] text-cyber-fg-muted sm:text-xs',
-                staticVisible ? 'opacity-80' : 'opacity-50',
+                'mt-1.5 shrink-0 text-cyber-fg-muted',
+                styles.company,
+                staticVisible ? 'opacity-80' : 'opacity-70',
               )}
             >
               {milestone.company}
@@ -112,21 +145,23 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
             <p
               data-milestone-desc
               className={cn(
-                'mt-3 text-[11px] leading-relaxed text-cyber-fg-muted/90 sm:text-xs',
-                staticVisible ? 'opacity-90' : 'opacity-40',
+                'text-cyber-fg-muted/95',
+                styles.desc,
+                staticVisible ? 'opacity-90' : 'opacity-80',
               )}
             >
               {milestone.description}
             </p>
 
-            <div data-milestone-tags className="mt-3 flex flex-wrap gap-1.5">
+            <div data-milestone-tags className={cn('flex flex-wrap', styles.tags)}>
               {milestone.tags.map((tag) => (
                 <span
                   key={tag}
                   data-milestone-tag
                   className={cn(
-                    'rounded border border-cyber-blue/20 bg-cyber-blue/5 px-1.5 py-0.5 font-mono text-[10px] text-cyber-blue',
-                    staticVisible ? 'opacity-90' : 'opacity-30',
+                    'rounded-md border border-cyber-blue/25 bg-cyber-blue/10 font-mono text-cyber-blue',
+                    styles.tag,
+                    staticVisible ? 'opacity-90' : 'opacity-70',
                   )}
                 >
                   {tag}

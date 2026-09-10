@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -50,7 +50,7 @@
     color: rgb(var(--cyber-fg));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Outfit, sans-serif;
     width: 100%;
     max-width: 100%;
     overflow-x: clip;
@@ -153,7 +153,7 @@
     display: inline-flex;
     align-items: center;
     padding-right: 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.8125rem;
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -865,11 +865,23 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  will-change: transform;
 }
 
 .tech-stack-field {
   isolation: isolate;
+}
+
+.tech-stack-group {
+  will-change: transform, opacity;
+}
+
+.tech-stack-group--dim {
+  opacity: 0.82;
+  transition: opacity 0.25s ease;
+}
+
+.tech-stack-group--current {
+  z-index: 26;
 }
 
 .tech-stack-group-mobile {
