@@ -19,7 +19,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
       <div
         ref={ref}
         className={cn(
-          'experience-card absolute z-20 w-[min(30vw,360px)]',
+          'experience-card absolute z-20 w-[min(28vw,340px)]',
           className,
         )}
         style={{

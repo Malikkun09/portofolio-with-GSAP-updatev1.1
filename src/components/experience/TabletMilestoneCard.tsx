@@ -17,7 +17,7 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
     return (
       <div
         ref={ref}
-        className={cn('experience-card-tablet absolute z-20 w-[34vw] max-w-[280px]')}
+        className={cn('experience-card-tablet absolute z-20 w-[32vw] max-w-[260px]')}
         style={{
           left: position.left,
           top: position.top !== 'auto' ? position.top : undefined,

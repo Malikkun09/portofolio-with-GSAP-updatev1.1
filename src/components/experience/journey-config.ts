@@ -26,28 +26,29 @@ const chronological = [...experiences].reverse()
  * Learning starts bottom-right; Full Stack lands top-left.
  */
 const desktopAnchors = [
-  { x: 88, y: 76, row: 'bottom' as const },
-  { x: 63, y: 24, row: 'top' as const },
-  { x: 37, y: 76, row: 'bottom' as const },
-  { x: 12, y: 24, row: 'top' as const },
+  { x: 84, y: 76, row: 'bottom' as const },
+  { x: 61, y: 24, row: 'top' as const },
+  { x: 39, y: 76, row: 'bottom' as const },
+  { x: 16, y: 24, row: 'top' as const },
 ]
 
 /** Tablet anchors — same R→L ascent, slightly tighter */
 const tabletAnchors = [
-  { x: 86, y: 72, row: 'bottom' as const },
-  { x: 62, y: 28, row: 'top' as const },
-  { x: 38, y: 72, row: 'bottom' as const },
-  { x: 14, y: 28, row: 'top' as const },
+  { x: 82, y: 72, row: 'bottom' as const },
+  { x: 60, y: 28, row: 'top' as const },
+  { x: 40, y: 72, row: 'bottom' as const },
+  { x: 18, y: 28, row: 'top' as const },
 ]
 
 /**
  * Mobile anchors — horizontal R→L zig-zag with room for larger cards.
+ * Centers stay inside 22–78% so 40%-wide cards do not clip the viewport.
  */
 const mobileAnchors = [
-  { x: 82, y: 70, row: 'bottom' as const },
-  { x: 60, y: 28, row: 'top' as const },
-  { x: 38, y: 70, row: 'bottom' as const },
-  { x: 16, y: 28, row: 'top' as const },
+  { x: 76, y: 70, row: 'bottom' as const },
+  { x: 58, y: 28, row: 'top' as const },
+  { x: 40, y: 70, row: 'bottom' as const },
+  { x: 22, y: 28, row: 'top' as const },
 ]
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = chronological.map((exp, index) => {

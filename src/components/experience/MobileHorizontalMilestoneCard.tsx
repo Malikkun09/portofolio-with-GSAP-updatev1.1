@@ -25,7 +25,7 @@ const MobileHorizontalMilestoneCard = forwardRef<
   return (
     <div
       ref={ref}
-      className="experience-card-mobile-h absolute z-20 w-[40%] min-w-[138px] max-w-[176px]"
+      className="experience-card-mobile-h absolute z-20 w-[38%] min-w-[132px] max-w-[168px]"
       style={{
         left: position.left,
         top: position.top !== 'auto' ? position.top : undefined,
