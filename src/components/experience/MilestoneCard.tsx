@@ -31,8 +31,8 @@ const sizeStyles: Record<
     index: 'text-sm',
     title: 'text-xl leading-tight sm:text-2xl lg:text-[1.85rem]',
     company: 'text-sm sm:text-base',
-    desc: 'mt-2 shrink-0 line-clamp-2 text-sm leading-relaxed sm:text-base lg:line-clamp-3',
-    tags: 'mt-auto gap-2 pt-3',
+    desc: 'mt-2 shrink-0 line-clamp-2 text-sm leading-relaxed sm:text-base',
+    tags: 'mt-3 shrink-0 gap-2',
     tag: 'px-2.5 py-1 text-xs sm:text-[13px]',
   },
   tablet: {
@@ -42,7 +42,7 @@ const sizeStyles: Record<
     title: 'text-lg leading-snug',
     company: 'text-sm',
     desc: 'mt-1.5 shrink-0 line-clamp-2 text-sm leading-relaxed',
-    tags: 'mt-auto gap-1.5 pt-2.5',
+    tags: 'mt-2 shrink-0 gap-1.5',
     tag: 'px-2 py-0.5 text-[11px]',
   },
   mobile: {
@@ -52,7 +52,7 @@ const sizeStyles: Record<
     title: 'text-[1.05rem] leading-snug',
     company: 'text-[13px]',
     desc: 'mt-1.5 shrink-0 line-clamp-2 text-[13px] leading-relaxed',
-    tags: 'mt-auto gap-1.5 pt-2',
+    tags: 'mt-2 shrink-0 gap-1.5',
     tag: 'px-2 py-0.5 text-[11px]',
   },
 }
