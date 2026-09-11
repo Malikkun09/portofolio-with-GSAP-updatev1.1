@@ -62,7 +62,12 @@ const TabletMilestoneCard = forwardRef<HTMLDivElement, TabletMilestoneCardProps>
               >
                 {milestone.year}
               </span>
-              <span className="font-mono text-[10px] text-cyber-fg/30">0{index + 1}</span>
+              <span
+                data-milestone-index-label
+                className="font-mono text-[10px] text-cyber-fg/30"
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
             </div>
             <h3
               data-milestone-title

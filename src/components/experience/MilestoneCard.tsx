@@ -85,7 +85,7 @@ const MilestoneCard = forwardRef<HTMLDivElement, MilestoneCardProps>(
                 data-milestone-index-label
                 className="font-mono text-[11px] text-cyber-fg/30"
               >
-                0{index + 1}
+                {String(index + 1).padStart(2, '0')}
               </span>
             </div>
 
