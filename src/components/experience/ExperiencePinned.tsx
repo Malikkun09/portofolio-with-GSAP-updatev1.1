@@ -71,7 +71,7 @@ export default function ExperiencePinned() {
                 </div>
               </div>
 
-              <div className="relative min-h-0 min-w-0 flex-1 overflow-hidden">
+              <div className="relative min-h-0 min-w-0 flex-1 overflow-x-clip overflow-y-visible">
                 {JOURNEY_MILESTONES.map((milestone, index) => (
                   <div
                     key={milestone.id}

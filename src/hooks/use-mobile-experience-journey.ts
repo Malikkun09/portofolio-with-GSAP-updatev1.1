@@ -61,7 +61,7 @@ export function useMobileExperienceJourney(
       if (markerCompass) gsap.set(markerCompass, { autoAlpha: 0 })
 
       const MOTION_START = 0.03
-      const MOTION_DURATION = 0.94
+      const MOTION_DURATION = 0.86
       const slot = MOTION_DURATION / count
 
       const tl = gsap.timeline({
