@@ -3,9 +3,12 @@ import {
   JOURNEY_MILESTONES,
   JOURNEY_PATH_POINTS,
 } from '@/components/experience/journey-config'
-import { addMilestoneReveal, hideMilestoneCard } from '@/lib/experience-reveal'
+import {
+  addMilestoneReveal,
+  hideMilestoneCard,
+  planEqualWindows,
+} from '@/lib/experience-reveal'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
-import { resolveClosestPathProgresses } from '@/lib/path-progress'
 import { bindPinnedLayoutSync } from '@/lib/scroll-pin'
 
 const MOTION_START = 0.04
@@ -37,7 +40,12 @@ export function useExperienceJourney(
     const nodes = gsap.utils.toArray<SVGCircleElement>('[data-journey-node]', pinEl)
     const nodeDots = gsap.utils.toArray<SVGCircleElement>('[data-journey-node-dot]', pinEl)
 
-    const scrollLength = `${JOURNEY_MILESTONES.length * 110}%`
+    const windows = planEqualWindows(JOURNEY_MILESTONES.length, {
+      motionStart: MOTION_START,
+      motionDuration: MOTION_DURATION,
+      cascadeRatio: 0.9,
+    })
+    const scrollLength = `${JOURNEY_MILESTONES.length * 140}%`
 
     const ctx = gsap.context(() => {
       cards.forEach((cardEl) => hideMilestoneCard(cardEl, { xPercent: PATH_X_PERCENT, fromX: -72 }))
@@ -50,14 +58,6 @@ export function useExperienceJourney(
           strokeDashoffset: pathLength,
         })
       }
-
-      const milestoneProgresses = resolveClosestPathProgresses(
-        pathEl,
-        pathLength,
-        JOURNEY_PATH_POINTS.slice(1, -1),
-        JOURNEY_MILESTONES.length,
-        240,
-      )
 
       if (markerEl) {
         const startPoint = JOURNEY_PATH_POINTS[0]
@@ -79,10 +79,10 @@ export function useExperienceJourney(
         defaults: { ease: 'power2.out' },
       })
 
-      tl.to(markerEl, { autoAlpha: 1, duration: 0.05 }, 0)
-      tl.to(markerGlow, { autoAlpha: 1, duration: 0.05 }, 0)
-      tl.to(markerOrbit, { autoAlpha: 0.7, duration: 0.05 }, 0)
-      tl.to(markerCompass, { autoAlpha: 1, duration: 0.05 }, 0)
+      tl.to(markerEl, { autoAlpha: 1, duration: 0.04 }, 0)
+      tl.to(markerGlow, { autoAlpha: 1, duration: 0.04 }, 0)
+      tl.to(markerOrbit, { autoAlpha: 0.7, duration: 0.04 }, 0)
+      tl.to(markerCompass, { autoAlpha: 1, duration: 0.04 }, 0)
 
       if (pathEl && pathLength > 0) {
         tl.to(
@@ -113,20 +113,19 @@ export function useExperienceJourney(
         MOTION_START,
       )
 
-      JOURNEY_MILESTONES.forEach((_milestone, index) => {
-        const nodeProgress = milestoneProgresses[index] ?? 0
-        const activateAt = MOTION_START + nodeProgress * MOTION_DURATION
+      windows.forEach((window, index) => {
         const cardEl = cards[index]
         if (!cardEl) return
 
+        addMilestoneReveal(tl, cardEl, window.revealStart, {
+          xPercent: PATH_X_PERCENT,
+          slot: window.revealSlot,
+        })
+
+        const stampAt = window.revealStart + window.revealSlot * 0.36
         const node = nodes[index]
         const nodeDot = nodeDots[index]
-        const revealAt = Math.max(MOTION_START, activateAt - 0.02)
-
-        addMilestoneReveal(tl, cardEl, revealAt, {
-          xPercent: PATH_X_PERCENT,
-          slot: 0.13,
-        })
+        const nodeAt = stampAt
 
         if (node) {
           tl.to(
@@ -135,18 +134,18 @@ export function useExperienceJourney(
               opacity: 1,
               scale: 1.2,
               attr: { stroke: 'rgba(103,232,249,0.7)' },
-              duration: 0.045,
-              ease: 'back.out(2)',
+              duration: window.revealSlot * 0.1,
+              ease: 'power2.out',
             },
-            activateAt,
+            nodeAt,
           )
         }
 
         if (nodeDot) {
           tl.to(
             nodeDot,
-            { opacity: 1, scale: 1, duration: 0.035, ease: 'back.out(2)' },
-            activateAt,
+            { opacity: 1, scale: 1, duration: window.revealSlot * 0.08, ease: 'power2.out' },
+            nodeAt,
           )
         }
       })
@@ -157,7 +156,7 @@ export function useExperienceJourney(
         end: `+=${scrollLength}`,
         pin: true,
         pinSpacing: true,
-        scrub: 0.5,
+        scrub: 0.4,
         anticipatePin: 1,
         animation: tl,
         invalidateOnRefresh: true,

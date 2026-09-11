@@ -5,14 +5,18 @@ import {
   addMilestoneExit,
   addMilestoneReveal,
   hideMilestoneCard,
+  planEqualWindows,
 } from '@/lib/experience-reveal'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { withFullWidthPin, bindPinnedLayoutSync, patchPinnedSceneWidth } from '@/lib/scroll-pin'
 
+const MOTION_START = 0.03
+const MOTION_DURATION = 0.94
+
 /**
  * Mobile experience — pinned one-active-card journey.
- * Marker travels a vertical rail; each milestone (Learning → Full Stack)
- * enters from the left, then year / index, then the rest of the copy.
+ * Each milestone owns a non-overlapping scroll window:
+ * enter from left → year/index → copy, then the card exits before the next starts.
  */
 export function useMobileExperienceJourney(
   pinRef: RefObject<HTMLElement | null>,
@@ -43,7 +47,13 @@ export function useMobileExperienceJourney(
       )
 
     const count = JOURNEY_MILESTONES.length
-    const scrollLength = `${count * 120}%`
+    const windows = planEqualWindows(count, {
+      motionStart: MOTION_START,
+      motionDuration: MOTION_DURATION,
+      cascadeRatio: 0.74,
+      exitRatio: 0.14,
+    })
+    const scrollLength = `${count * 150}%`
 
     const ctx = gsap.context(() => {
       cards.forEach((cardEl) => hideMilestoneCard(cardEl, { fromX: -64 }))
@@ -60,19 +70,15 @@ export function useMobileExperienceJourney(
       if (markerOrbit) gsap.set(markerOrbit, { autoAlpha: 0 })
       if (markerCompass) gsap.set(markerCompass, { autoAlpha: 0 })
 
-      const MOTION_START = 0.03
-      const MOTION_DURATION = 0.86
-      const slot = MOTION_DURATION / count
-
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power2.out' },
       })
 
-      tl.to(markerEl, { autoAlpha: 1, duration: 0.04 }, 0)
-      tl.to(markerGlow, { autoAlpha: 1, duration: 0.04 }, 0)
-      tl.to(markerOrbit, { autoAlpha: 0.7, duration: 0.04 }, 0)
-      tl.to(markerCompass, { autoAlpha: 1, duration: 0.04 }, 0)
+      tl.to(markerEl, { autoAlpha: 1, duration: 0.03 }, 0)
+      tl.to(markerGlow, { autoAlpha: 1, duration: 0.03 }, 0)
+      tl.to(markerOrbit, { autoAlpha: 0.7, duration: 0.03 }, 0)
+      tl.to(markerCompass, { autoAlpha: 1, duration: 0.03 }, 0)
 
       if (trackActive) {
         tl.to(trackActive, { scaleY: 1, duration: MOTION_DURATION, ease: 'none' }, MOTION_START)
@@ -95,28 +101,28 @@ export function useMobileExperienceJourney(
         MOTION_START,
       )
 
-      cards.forEach((cardEl, index) => {
-        const activateAt = MOTION_START + index * slot
+      windows.forEach((window, index) => {
+        const cardEl = cards[index]
+        if (!cardEl) return
+
+        addMilestoneReveal(tl, cardEl, window.revealStart, { slot: window.revealSlot })
+
         const node = nodes[index]
-
-        if (index > 0) {
-          const prev = cards[index - 1]
-          if (prev) addMilestoneExit(tl, prev, activateAt - slot * 0.12, slot * 0.16)
-        }
-
-        addMilestoneReveal(tl, cardEl, activateAt + slot * 0.04, { slot: slot * 0.72 })
-
         if (node) {
           tl.to(
             node,
             {
               autoAlpha: 1,
               scale: 1,
-              duration: slot * 0.18,
-              ease: 'back.out(2)',
+              duration: window.revealSlot * 0.12,
+              ease: 'power2.out',
             },
-            activateAt + slot * 0.08,
+            window.revealStart + window.revealSlot * 0.36,
           )
+        }
+
+        if (index < windows.length - 1 && window.exitDuration > 0) {
+          addMilestoneExit(tl, cardEl, window.exitStart, window.exitDuration)
         }
       })
 
@@ -127,7 +133,7 @@ export function useMobileExperienceJourney(
           end: `+=${scrollLength}`,
           pin: true,
           pinSpacing: true,
-          scrub: 0.55,
+          scrub: 0.4,
           anticipatePin: 1,
           animation: tl,
           invalidateOnRefresh: true,
